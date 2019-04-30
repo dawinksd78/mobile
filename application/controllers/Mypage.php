@@ -943,17 +943,24 @@ class Mypage extends MY_Controller
         $data['step4'] = $goods_info;
         
         $this->load->model('goods_model');
+        $this->load->model('sellhome_model');
+        
         //$data['realtor']['data'] = $this->goods_model->nearEstate($goods_info['LAT'], $goods_info['LNG']);
         
         // 선택된 특정 중개사
         $this->load->helper('cookie');
-        if(get_cookie('brokerSelListMdf', true) != '' || get_cookie('brokerSelListMdfStart', true) == $goods_idx)
+        if(get_cookie('brokerSelListMdf', true) != '')
         {
-            $this->load->model('sellhome_model');
-            $data['realtor']['data'] = $this->sellhome_model->step4_selBrokerLists(get_cookie('brokerSelListMdf', true));
-            
             $selbrokers = explode(",", get_cookie('brokerSelListMdf', true));
             $selbrkcnt = count($selbrokers);
+            
+            if($selbrkcnt > 0) {
+                $data['realtor']['data'] = $this->sellhome_model->step4_selBrokerLists(get_cookie('brokerSelListMdf', true));
+            }
+            else {
+                $data['realtor']['data'] = array();
+            }
+            
             $ct = 0;
             for($i=0; $i<$selbrkcnt; $i++) {
                 if($selbrokers[$i] != '') {
@@ -974,7 +981,7 @@ class Mypage extends MY_Controller
                 WHERE gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX=bm.MBR_IDX AND gb.GOODS_IDX='".$goods_info['GOODS_IDX']."'";
             $qry = $this->db->query($sql);
             $data['brokerInfoCnt'] = $qry->num_rows();
-            if($data['brokerInfoCnt'] > 0)
+            if($data['brokerInfoCnt'] > 0 && get_cookie('brokerSelListMdfStart', true) != $goods_idx)
             {
                 $selBrokerArr = $qry->result_array();
                 
