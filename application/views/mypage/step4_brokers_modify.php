@@ -47,6 +47,36 @@ var selectOfficeNumbers = [<?php echo $selbrokers; ?>];	// 선택된 중개 사�
 var getSamrt = "<?php echo $getDevideCookie; ?>";
 var getDevice = "<?php echo $DEVICE; ?>";
 
+//------------------------------------------------------------------------//
+var selbrkico = '';
+var selBrkIocArr = [];
+<?php if($selbrokers != '') { ?>
+var selbrk = "<?php echo $selbrokers; ?>";
+var selbrkspl = selbrk.split(',');
+for(var i in selbrkspl)
+{
+	// 리스트 가져오기
+	$.ajax({
+    	type: "POST",
+    	dataType: "json",
+    	async: false,
+    	url: "/sellhome/step4_brokerinfo",
+    	data: "&brk_idx=" + selbrkspl[i],
+    	success: function(data) {
+        	var lat = data.LAT;
+        	var lng = data.LNG;
+        	var resPosition = lat.replace(".", "") + lng.replace(".", ""); 
+        	//changeclassposition2(resPosition);
+        	selBrkIocArr.push(resPosition);
+    	},
+    	error:function(data){
+     		swal('comment write ajax error');
+    	}
+   	});
+}
+<?php } ?>
+//------------------------------------------------------------------------//
+
 // 검색된 사무소 개수
 $('.count').html(searchitems);
 
@@ -195,9 +225,16 @@ function closebrokerlist() {
     $('#agent_lst').html('');
 }
 
-function ec_overlay_template_position(d) {
+function ec_overlay_template_position(d)
+{
 	var setPosition = d.LAT.replace(".", "") + d.LNG.replace(".", "");
-	var content = '<div class="loc_pointer off" data-officeidx="'+setPosition+'" style="position:absolute; top:-33px; left:-12px;" onClick="ec_overlay_info_delayPop(\'' + d.LAT + '\', \'' + d.LNG + '\')" onmouseenter="ec_overlay_info_delayPop(\'' + d.LAT + '\', \'' + d.LNG + '\')"> <span class="ico_position" id="iconview_'+setPosition+'"></span><input type="hidden" namd="setPositionVal_'+setPosition+'" id="setPositionVal_'+setPosition+'">';
+
+	var selbrkico = ''; 
+
+	var selindex = selBrkIocArr.indexOf(setPosition);
+	if (selindex !== -1) selbrkico = 'ico_position_selc';
+	
+	var content = '<div class="loc_pointer off" data-officeidx="'+setPosition+'" style="position:absolute; top:-33px; left:-12px;" onClick="ec_overlay_info_delayPop(\'' + d.LAT + '\', \'' + d.LNG + '\')" onmouseenter="ec_overlay_info_delayPop(\'' + d.LAT + '\', \'' + d.LNG + '\')"> <span class="ico_position ' + selbrkico + '" id="iconview_'+setPosition+'"></span><input type="hidden" namd="setPositionVal_'+setPosition+'" id="setPositionVal_'+setPosition+'">';
 	return content;
 }
 function ec_overlay_info_delayPop(lat, lng)
@@ -308,35 +345,5 @@ function brokerofficelist() {
 $("document").ready( function() {
 	// 지도 출력
     estatecompany_map();
-
-    <?php if($selbrokers != '') { ?>
-    //var selbrk = "<?php echo $selbrokers; ?>";
-    //var selbrkspl = selbrk.split(',');
-    //for(var i in selbrkspl) {
-    	//changeclass1(selbrkspl[i]);
-    //}
-    var selbrk = "<?php echo $selbrokers; ?>";
-    var selbrkspl = selbrk.split(',');
-    for(var i in selbrkspl)
-    {
-    	// 리스트 가져오기
-    	$.ajax({
-        	type: "POST",
-        	dataType: "json",
-        	async: false,
-        	url: "/sellhome/step4_brokerinfo",
-        	data: "&brk_idx=" + selbrkspl[i],
-        	success: function(data) {
-            	var lat = data.LAT;
-            	var lng = data.LNG;
-            	var setPositions = lat.replace(".", "") + lng.replace(".", ""); 
-            	changeclassposition2(setPositions);
-        	},
-        	error:function(data){
-         		swal('comment write ajax error');
-        	}
-       	});
-    }
-    <?php } ?>
 });
 </script>
