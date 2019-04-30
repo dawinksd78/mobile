@@ -70,7 +70,7 @@
                                     <a class="agent_info">
                                         <div class="broker_info">
                                             <p class="commtype"><?php echo $brokerInfo['OFFICE_TITLE']; ?> <i class="btn_loc" onclick="selmapview('<?php echo $brokerInfo['OFFICE_NAME']; ?>', '<?php echo $brokerInfo['LAT']; ?>', '<?php echo $brokerInfo['LNG']; ?>')"></i></p>
-                                            <p class="bk_name" onclick="goPagePop('/sellhome/step4_agentinfo/<?php echo $brokerInfo['MBR_IDX']; ?>');"><?php echo $brokerInfo['MBR_NAME']; ?></p>
+                                            <p class="bk_name" onclick="goPagePop('/sellhome/step4_agentinfo/<?php echo $brokerInfo['MBR_IDX']; ?>');"><?php echo $brokerInfo['OFFICE_NAME']; ?></p>
                                             <div class="star_score" onclick="goPagePop('/sellhome/step4_agentinfo/<?php echo $brokerInfo['MBR_IDX']; ?>');"> <span class="st_off"><span class="st_on" style="width:<?php echo $avgpercent; ?>%"><?php echo $brokerInfo['BROKER_POINT']; ?></span></span> <span href="" class="ct_review">(<?php echo $brokerInfo['BROKER_POINT_CNT']; ?>)</span> </div>
                                             <span class="p_num" onclick="goPagePop('/sellhome/step4_agentinfo/<?php echo $brokerInfo['MBR_IDX']; ?>');"><?php echo $brokerInfo['PHONE']; ?></span>
                                         </div>
