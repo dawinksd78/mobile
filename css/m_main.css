@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#container {width:100%;min-height:640px;height:100%;position:relative}
+.mainwrap header {background:none;}
+.mainwrap header .btn_alarm {position:relative;top:inherit;right:inherit}
+#main_section {min-height:640px;height:100%;position:relative}
+.slide_box {background:url(../images/img_slide01.png) no-repeat 50% center;min-height:640px;height:100%;background-size:cover;}
+.m_sch_wrap {width:80%;position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);z-index:11}
+#main_section .m_sch_wrap .m_text {margin-bottom:30px;width:100%;min-height:130px;text-indent:-9999px;background:url(../images/txt_main.png) no-repeat;background-size:contain;box-sizing:border-box}
+.m_sch_wrap .m_text p {font-size:20px;color:#fff;}
+.m_sch_wrap .m_text p.p01 {font-size:1.6em;line-height:1.4em}
+.m_tab {overflow:hidden;margin-bottom:10px}
+.m_tab li {display:inline-block;float:left;width:calc(100% / 3);}
+.m_tab li:last-child {margin-right:0;}
+.m_tab li a {display:block;text-align:center;padding:8px 0;color:#fff;font-size:15px;border-radius:50px}
+.m_tab li a.on {background:#b72600;}
+#main_section .tabcon .inpout .inp {padding-left:0}
+#main_section .tabcon .inpout .btn_del02 {right:10px;top:15px}
+.m_sch_wrap .inp {border:1px solid #fff}
+.m_sch_wrap .tabcon {position:relative}
+.m_sch_wrap .sch_result {padding-left:10px}
+.btn_sch {position:absolute;left:0;top:0}
+.btn_sch button {width:40px;height:45px;display:inline-block;}
+.btn_sch button span {width:16px;height:13.5px;background-image:url(../images/ico_search.png);background-repeat:no-repeat;background-size:contain;text-indent:-9999px;position:absolute;top:15px;left:13px}
+.sch_result {width:100%;max-height:180px;padding:10px;box-sizing:border-box;background:#fff;position:absolute;left:0;top:45px;overflow-y:auto;border:1px solid #fff}
+.sch_result .sch_word {display:block;width:100%;padding:5px 0;position:relative;font-size:14px}
+.sch_result .sch_word b {color:#7a1d05}
+.sch_result a:hover {text-decoration:underline}
+.sch_result a .address {display:block;color:#888;font-size:12px}
+.sch_ico {display:inline-block;width:19px;height:18px;margin-right:5px;vertical-align:middle}
+.schico01 {background:url(../images/ico_mark.png) no-repeat}
+.schico02 {background:url(../images/ico_apt.png) no-repeat}
+.schico03 {background:url(../images/ico_sub.png) no-repeat}
+.schico04 {background:url(../images/ico_sch.png) no-repeat}
+
+#sub_section {padding-bottom:30px}
+.sec_box {padding:35px 20px 0}
+.sec_box p {text-align:center;padding-bottom:5px}
+.sec_box .sc_tit {font-size:22px;font-weight:600;color:#333}
+.scdec_img {margin-top:15px}
+.scdec_img img {width:90%;height:auto}
+
+.alarm header {background:#7a1d05;opacity:1}
+.alarm header .title {color:#fff}
+.alarm header .btn_text button span {font-size:15px;color:#fff}
+.al_cont {}
+.al_cont .al_lst li {display:block;border-bottom:1px solid #efefef}
+.al_cont .al_lst li.unread a {background:#fafafa}
+.al_cont .al_lst li a {display:block;padding:20px}
+.al_cont .al_lst li.unread span.txt {display:inline-block;vertical-align:middle;}
+.al_cont .al_lst li.unread span.txt:before {display:inline-block;content:'';margin:0 10px 0 0;width:5px;height:5px;background:#e33f4b;border-radius:5px;vertical-align:middle;margin-top:-3px}
+.al_cont .al_lst li span.date {display:block;color:#ccc;font-size:13px;margin-top:5px}

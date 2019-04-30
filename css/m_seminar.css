@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#semWrap {width:100%;height:100vh;background:#f9f9f9;position:relative;color:#393d40}
+.sem_contwrap {width:100%;height:100%}
+.sem_contwrap .logo {position:absolute;left:20px;top:19px;display:inline-block}
+.sem_contwrap .logo a {display:inline-block;width:70px;height:19.193548387096774px;background:url(../images/img_logo.png) no-repeat;background-size:contain;text-indent:-9999px;}
+.box_infotemp {width:90%;background:#fff;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid #ddd;padding:30px;box-sizing:border-box}
+.box_infotemp .tit {font-size:32px;font-weight:300}
+.box_infotemp .tit b {font-weight:500}  
+.box_infotemp .sub_tit {font-size:16px;font-weight:300;margin-top:5px}
+.sem_inp {margin-top:30px}
+.sem_inp .inp {height:50px}
+.btn_view_detail {font-size:12px;padding:3px 5px 1px;color:#666;border:1px solid #bbb;margin-left:10px;font-weight:300}
+.sem_inp .check_box {margin-top:20px}
+.btn_type01.btn_apply {width:100%;font-size:16px;margin-top:40px;height:54px;border-radius:70px;margin-bottom:10px}
+.pop_term.pop_term_seminar {width:400px;height:420px}
+.txt_confirm {width:100%;margin-top:40px;margin-bottom:40px}
+.txt_confirm p {text-align:center;letter-spacing:-.9;font-size:14px}
+.txt_confirm p:first-child {font-size:1.8em;font-weight:400}
+.txt_confirm p:first-child b {color:#7a1d05;font-weight:400}
+.txt_confirm p:last-child {font-size:20px;margin-top:10px}
+
+.seminar_main_section {min-height:500px;/*max-height:500px;*/height:100%;position:relative}
+.seminar_main_section.sv {max-height:100%}
+.seminar_main_section .img_box {background:url(../images/bg_seminar01.png) no-repeat 50% center;min-height:500px;height:100%;background-size:cover;position:relative}
+.seminar_main_section.sv #m_section .img_box {background:url(../images/bg_sv.png) no-repeat no-repeat 50% center;min-height:500px;height:100%;background-size:cover;position:relative}
+.seminar_main_section .img_box .m_sch_wrap {width:85%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:11;}
+.seminar_main_section .img_box .m_sch_wrap .m_text {margin-bottom:0;padding-bottom:0}
+.seminar_main_section .img_box .m_sch_wrap .m_text .p01 {padding-bottom:20px;font-size:32px}
+.seminar_main_section .img_box .m_sch_wrap .m_text p {text-align:left;font-weight:300;font-size:20px}
+.seminar_main_section .bgseminar02 {background:url(../images/bg_seminar02.png) no-repeat 50% center;min-height:268px;height:100%;background-size:cover;position:relative}
+.seminar_main_section .smain_sub .m_sch_wrap .m_text p {color:#393d40;font-size:17px;}
+.seminar_main_section .smain_sub .m_text p.p02 {font-size:22px;font-weight:500;margin-bottom:10px}
+.seminar_main_section .bgseminar03 {background:#fff;min-height:800px;height:100%;background-size:cover;position:relative}
+.btn_apply_seminar {width:70%;border-radius:50px;padding:15px 0;font-size:18px;font-weight:100;background:#a42302;background: -webkit-linear-gradient(to right, #a42302, #7a1d05);background:linear-gradient(to right, #a42302, #7a1d05);color:#fff;margin-top:40px;}
+.seminar_main_section .smain_sub .m_text p img {width:100%;}
+.mgb01 {margin-bottom:20px}
+.mgb02 {margin-bottom:10px}
+.seminar_main_section .bgseminar04 {background:#fff;min-height:450px;height:100%;padding:30px 0;box-sizing:border-box;background-size:cover;position:relative}
+.seminar_main_section .bgseminar04 .m_sch_wrap .m_text p {font-size:16px;line-height:1.8;letter-spacing:-.6px}
+.seminar_main_section .bgseminar04 .m_sch_wrap .m_text .p03 {font-size:32px;line-height:1.2;margin-bottom:15px;letter-spacing:-1px}
+.seminar_main_section .bgseminar04 .m_sch_wrap .m_text .p03 b {font-size:40px}
+.seminar_main_section .bgseminar04 .m_sch_wrap .m_text b {font-weight:500}
+.seminar_main_section .bgseminar04 .m_sch_wrap .m_text p.addr {font-size:13px}
+.seminar_main_section .bgseminar04 .m_sch_wrap .m_text p.small {font-size:11px;margin-top:10px}
+.seminar_main_section.sv .bgseminar04 {padding:30px}
+.seminar_main_section.sv .bgseminar04 .m_text .p03 {font-size:18px;line-height:1.3;margin-bottom:15px;letter-spacing:-1px}
+.seminar_main_section.sv .bgseminar04 .m_text .p03 b {font-size:28px}
+.sv .inp {border:1px solid #ccc}
+.sv .sem_inp {margin-top:0}
+.sv .inpbn {margin-top:10px}
+.sv .inpbn .dcbtn {top:0}
+.sv .inpbn .dcbtn .btn_line02 {height:50px}
+.seminar_main_section.sv .bgseminar04 .m_text p.small {font-size:12px;margin-top:10px}
+
+#container.appdown {height:100vh;max-height:100%;font-size:14px}
+.appdown #m_section {height:100%}
+#container.appdown .m_sch_wrap {top:50%}
+.appdown .img_box {background:url(../images/bg_ad01.png) no-repeat 50% center;min-height:500px;height:100%;background-size:cover;position:relative}
+.appdown .img_box .m_sch_wrap .m_text p {text-align:left;padding-bottom:0}
+.appdown .img_box .m_sch_wrap .m_text p.p_img {display:block;width:auto;height:50px;background:url(../images/txt_ad01.png) no-repeat;background-size:contain;text-indent:-9999px;margin:6px 0 0}
+.appdown .img_box .m_sch_wrap .m_text p.p02 {font-size:1.8em}
+.btn_appdown {width:100%;border-radius:50px;padding:15px 0;font-size:18px;font-weight:400;background:#a42302;background: -webkit-linear-gradient(to right, #a42302, #7a1d05);background:linear-gradient(to right, #a42302, #7a1d05);color:#fff;margin-top:50px;}
+.appdown .img_box .m_sch_wrap .m_text p.p03 {margin-top:30px;font-size:16px;}
+.appdown .img_box .m_sch_wrap .m_text p.p04 {font-size:12px;font-weight:300;margin-top:5px}
