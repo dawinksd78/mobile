@@ -629,6 +629,7 @@ class Mypage extends MY_Controller
         
         $this->load->helper('cookie');
         $this->input->set_cookie('brokerSelListMdf', '', 0);
+        $this->input->set_cookie('brokerSelListMdfStart', '', 0);
         
         $this->load->view('sub_header');
         $this->load->view('mypage/step1_modify', $data);
@@ -766,6 +767,7 @@ class Mypage extends MY_Controller
         
         $this->load->helper('cookie');
         $this->input->set_cookie('brokerSelListMdf', '', 0);
+        $this->input->set_cookie('brokerSelListMdfStart', '', 0);
                 
         $this->load->view('sub_header');
         $this->load->view('mypage/step2_modify', $data);
@@ -921,6 +923,7 @@ class Mypage extends MY_Controller
         
         $this->load->helper('cookie');
         $this->input->set_cookie('brokerSelListMdf', '', 0);
+        $this->input->set_cookie('brokerSelListMdfStart', '', 0);
         
         $this->load->view('sub_header');
         $this->load->view('mypage/step3_modify', $data);
@@ -990,6 +993,9 @@ class Mypage extends MY_Controller
                     $s++;
                 }
                 
+                $this->load->model('sellhome_model');
+                $data['realtor']['data'] = $this->sellhome_model->step4_selBrokerLists($brokerDiv);
+                
                 $this->input->set_cookie('brokerSelListMdf', $brokerDiv, 0);
                 $this->input->set_cookie('brokerSelListMdfStart', $goods_idx, 0);
                 
@@ -998,6 +1004,8 @@ class Mypage extends MY_Controller
             }
             else
             {
+                $data['realtor']['data'] = array();
+                
                 $data['selbrokers'] = '';
                 $data['selbrokercnt'] = 0;
             }
@@ -1179,8 +1187,10 @@ class Mypage extends MY_Controller
     {
         $this->load->helper('cookie');
         $this->input->set_cookie('brokerSelListMdf', '', 0);
+        $this->input->set_cookie('brokerSelListMdfStart', '', 0);
         
         $setType = $this->uri->segment(3);
+        $goods_idx = $this->uri->segment(4);
         
         if($setType == 'p') {
             if($this->input->post('brk_check') == '') $selbrokers = '';
@@ -1205,6 +1215,7 @@ class Mypage extends MY_Controller
             $k++;
         }
         $this->input->set_cookie('brokerSelListMdf', $broker, 0);
+        $this->input->set_cookie('brokerSelListMdfStart', $goods_idx, 0);
         
         if($selbrokers == '') {
             echo json_encode(array("code"=>"FAIL"));

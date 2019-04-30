@@ -119,7 +119,7 @@ function brokerSelect()
 {
 	var param = $("#brokerform").serialize();
 	$.ajax({
-        url:"/mypage/step4_brokercookie/p",
+        url:"/mypage/step4_brokercookie/p/" + goods_idx,
         type:"post",
         data: param,
         dataType: "json",

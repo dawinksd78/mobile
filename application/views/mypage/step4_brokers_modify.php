@@ -286,7 +286,7 @@ function brokerSelect()
 	var selectOfficeNumbers2 = encodeURIComponent(selectOfficeNumbers1);
 	var param = "&brk_check=" + selectOfficeNumbers2;
 	$.ajax({
-        url:"/mypage/step4_brokercookie/j",
+        url:"/mypage/step4_brokercookie/j/" + goods_idx,
         type:"post",
         data: param,
         dataType: "json",
