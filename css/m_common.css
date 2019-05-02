@@ -51,6 +51,8 @@ header.maphd {opacity:1}
 header .logo {position:absolute;left:20px;top:18px;display:inline-block}
 header .logo a {display:inline-block;width:90px;height:19.193548387096774px;background:url(../images/logo.png) no-repeat;background-size:contain;text-indent:-9999px;}
 header .btnarea {position:absolute;right:0;top:0;overflow:hidden}
+header .btn_buyhome {display:inline-block;float:left}
+header .btn_buyhome button {padding:3px 10px 5px 5px;color:#fff;background:none;border-radius:50px;font-size:16px;margin-top:12px;}
 header .btn_sell {display:inline-block;float:left}
 header .btn_sell button {padding:3px 5px 5px;color:#fff;background:none;border-radius:50px;font-size:16px;margin-top:12px;}
 header .btn_login, header .btn_alarm {display:inline-block;float:left;position:relative}

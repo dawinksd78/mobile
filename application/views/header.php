@@ -72,6 +72,7 @@ else
   	<header id="header" class="header"> 
   	  <h1 class="logo"><a href="">다윈중개</a></h1>
   	  <div class="btnarea">
+      	<span class="btn_buyhome"><button onclick="goPage('/buyhome')">집구하기</button></span>
       	<span class="btn_sell"><button onclick="goPage('/sellhome/main')">집내놓기</button></span>
         <!-- 알람은 로그인 후에만 보여짐 -->
         <?php if(!empty($this->userinfo['MBR_ID'])) { ?><span class="btn_alarm"><button onclick="goPage('/mypage/alarm')"><span class="">알람</span></button><?php if($alarmCnt > 0) { ?><span class="new">N</span><?php } ?></span><?php } ?> 
