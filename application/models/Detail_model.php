@@ -180,6 +180,27 @@ class Detail_model extends CI_Model
         else return array();
     }
     
+    public function goodsGetImages($goods_idx, $filesep)
+    {
+        $sql = "SELECT * FROM TB_UM_GOODS_IMG WHERE GOODS_IDX = ? AND FILE_SEPARATE = ?";
+        $qry = $this->db->query($sql ,array($goods_idx, $filesep));
+        
+        $qry = $this->db->order_by('FILE_SEPARATE ASC, SORT_ORDER ASC')->get_where('TB_UM_GOODS_IMG', array('GOODS_IDX'=>$goods_idx, 'DISPLAY_FLAG'=>'Y'));
+        
+        if($qry->num_rows() > 0) {
+            return $qry->result_array();
+        }
+        else return array();
+    }
+    
+    // 매물사진수정 등록,삭제
+    function getGoodsImg($goods_idx, $filesep)
+    {
+        $qry = $this->db->order_by('FILE_SEPARATE ASC, SORT_ORDER ASC')->get_where('TB_UM_GOODS_IMG', array('GOODS_IDX'=>$goods_idx, 'DISPLAY_FLAG'=>'Y', 'FILE_SEPARATE'=>$filesep));
+        if($qry->num_rows() > 0 ) return $qry->result_array();
+        else return array();
+    }
+    
     public function getGoodsCount($complex_idx, $complex_type,$transtype) {
         ;
     }
