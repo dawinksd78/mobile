@@ -309,6 +309,7 @@ class Buyhome extends MY_Controller
         $this->load->model('goods_model');
         $this->load->model('detail_model');
         $this->load->model('sellhome_model');
+        $this->load->model('member_model');
         
         // 아파트 상세 매물 정보
         $res = $this->goods_model->goodsViewinfoAPT($goods_idx, $this->userinfo['MBR_IDX']);
@@ -370,6 +371,7 @@ class Buyhome extends MY_Controller
             else $res['data']['EXPENSE_ITEM'] = '';
         }
         $res['data']['DIRECTIONTEXT'] = $this->goods_model->getCodeName("ARR_DIRECTIONS", $res['data']['DIRECTION']);
+        $res['data']['outimg'] = $this->member_model->getGoodsImg($goods_idx);
         
         // 앱정보 저장
         $this->load->helper('cookie');

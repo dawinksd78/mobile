@@ -106,7 +106,8 @@ var tooltip_nowmonth;
 									
                                     if($imgState == 'O')
                                     {
-    									$images1 = explode(',',  $data['images']);
+    									//$images1 = explode(',',  $data['images']);
+                                        $images1 = $data['outimg'];
     									$images2 = explode(',',  $data['cpx_images']);
     									
                                         $totImgCnt1 = count($images1);
@@ -115,7 +116,7 @@ var tooltip_nowmonth;
                                             foreach($images1 as $imgrow)
                                             {
                                                 ?>
-                                            	<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
+                                            	<li class="swiper-slide"><img src="<?php echo $imgrow['SERVER_PATH'].$imgrow['FULL_PATH']; ?>" alt="단지사진"></li>
                                                 <?php
                                             }
                                         }
