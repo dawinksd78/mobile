@@ -27,13 +27,13 @@
                                 <div class="radio_box">
                                     <div class="radio">
                                         <label for="rept01">
-                                            <input type="radio" <?php if($change_avail == "able" || $this->config->item('SERVERSTATE') == 'test') { ?> name="AGENCY_OPEN_FLAG" id="relat01" value="N" <?php } else {?> onClick="return false"<?php } ?> <?php echo (!isset($step4['AGENCY_OPEN_FLAG']) || $step4['AGENCY_OPEN_FLAG']=='N' || $selbrokercnt == 0) ? 'checked=""' : ""; ?>>
+                                            <input type="radio" <?php if($change_avail == "able" || $this->config->item('SERVERSTATE') == 'test') { ?> name="AGENCY_OPEN_FLAG" id="relat01" value="N" <?php } else {?> onClick="return false"<?php } ?> <?php echo ((!isset($step4['AGENCY_OPEN_FLAG']) && $step4['AGENCY_OPEN_FLAG']=='N') || count($realtor['data']) < 1) ? 'checked=""' : ""; ?>>
                                             <i></i><strong>인근 모든 중개사 자동 선택</strong>
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label for="AGENCY_OPEN_FLAG_Y">
-                                            <input type="radio" id="AGENCY_OPEN_FLAG_Y" onClick="<?php echo( $change_avail == "able" || $this->config->item('SERVERSTATE') == 'test' ) ? 'fnRealtorSelecter()' : 'popalert()'; ?>" name="AGENCY_OPEN_FLAG" value="Y" <?php echo ((isset($step4['AGENCY_OPEN_FLAG']) && $step4['AGENCY_OPEN_FLAG']=='Y') && $selbrokercnt > 0) ? 'checked=""' : ""; ?>>
+                                            <input type="radio" id="AGENCY_OPEN_FLAG_Y" onClick="<?php echo( $change_avail == "able" || $this->config->item('SERVERSTATE') == 'test' ) ? 'fnRealtorSelecter()' : 'popalert()'; ?>" name="AGENCY_OPEN_FLAG" value="Y" <?php echo ((isset($step4['AGENCY_OPEN_FLAG']) && $step4['AGENCY_OPEN_FLAG']=='Y') || count($realtor['data']) > 0) ? 'checked=""' : ""; ?>>
                                             <i></i><strong>특정 중개사 선택</strong>
                                         </label>
                                     </div>
@@ -94,8 +94,7 @@
                         <span class="agent_lst add_agent">
                             <button type="button" onClick="<?php echo ($change_avail == "able" || $this->config->item('SERVERSTATE') == 'test') ? 'fnRealtorSelecter()' : 'popalert()'; ?>">+ 중개사추가하기</button>
                         </span>
-                        <br>
-                        <br>
+                        <br><br><br>
                         <?php } ?>
                     </div>
                 </div>
