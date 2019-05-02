@@ -333,26 +333,66 @@ function changeEtcArea(chk) {
 
 function saveStep2()
 {
-    var param = $("#step2form").serialize() + "&CATEGORY=" + category + "&step=step_2&";
-	$.ajax({ 
-    	type: "POST", 
-    	dataType: "json",
-    	async: false, 
-    	url:"/sellhome/saveStep2/", 
-    	data: param, 
-    	success: function(data) {
-    		if(data.code == 200) {
-    			datachanged = false;	// 경고창 제거
-        		location.href = "/sellhome/step3/" + category;
-      		}
-      		else {
-        		swal(data.msg);
-      		} 
-    	}, 
-    	error:function(data){ 
-     		swal('AJAX ERROR1');
-    	}
-   	});
+	if(datachanged)
+    {
+    	swal({
+    	    text: "변경하신 사항을 저장하시겠습니까?",
+    	    buttons: [
+    	        '아니요',
+    	        '네'
+    	    ],
+    	}).then(function(isConfirm) {
+			if(isConfirm)
+			{
+				var param = $("#step2form").serialize() + "&CATEGORY=" + category + "&step=step_2&";
+				$.ajax({ 
+			    	type: "POST", 
+			    	dataType: "json",
+			    	async: false, 
+			    	url:"/sellhome/saveStep2/", 
+			    	data: param, 
+			    	success: function(data) {
+			    		if(data.code == 200) {
+			    			datachanged = false;	// 경고창 제거
+			        		location.href = "/sellhome/step3/" + category;
+			      		}
+			      		else {
+			        		swal(data.msg);
+			      		} 
+			    	}, 
+			    	error:function(data){ 
+			     		swal('AJAX ERROR1');
+			    	}
+			   	});
+			}
+			else {
+				return false
+			}
+		});
+    }
+    else
+    {
+    	var param = $("#step2form").serialize() + "&CATEGORY=" + category + "&step=step_2&";
+    	$.ajax({ 
+        	type: "POST", 
+        	dataType: "json",
+        	async: false, 
+        	url:"/sellhome/saveStep2/", 
+        	data: param, 
+        	success: function(data) {
+        		if(data.code == 200) {
+        			datachanged = false;	// 경고창 제거
+            		location.href = "/sellhome/step3/" + category;
+          		}
+          		else {
+            		swal(data.msg);
+          		} 
+        	}, 
+        	error:function(data){ 
+         		swal('AJAX ERROR1');
+        	}
+       	});
+	}
 }
 
 $("document").ready( function(){

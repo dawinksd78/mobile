@@ -18,7 +18,7 @@
                 	<a href="/mypage/step1_modify/<?php echo $step2['GOODS_IDX']; ?>" class="bul_proc prev"></a><a href="/mypage/step2_modify/<?php echo $step2['GOODS_IDX']; ?>" class="bul_proc on"></a><a href="/mypage/step3_modify/<?php echo $step2['GOODS_IDX']; ?>" class="bul_proc"></a><a href="/mypage/step4_modify/<?php echo $step2['GOODS_IDX']; ?>" class="bul_proc"></a>
                 </div>
                 
-                <div class="cont">
+                <div class="cont" id="signforms">
                     <div class="inpbox rdinp">
                         <label for="itm_type01" class="lbl">입주희망일</label>
                         <div class="radio_box02">
@@ -328,34 +328,82 @@ function changeEtcArea(chk) {
 
 function saveMdfStep2()
 {
-    var param = $("#step2form").serialize();
-	$.ajax({ 
-    	type: "POST", 
-    	dataType: "json",
-    	async: false, 
-    	url:"/mypage/step2_modify_save", 
-    	data: param, 
-    	success: function(data) {
-    		if(data.code == 200)
-        	{
-    			swal({
-      			  	title: "변경완료!",
-      			  	text: "변경하신 내용을 저장 하였습니다!",
-      			  	icon: "success",
-      			  	button: "확 인",
-      			})
-      			.then(function () {
-      				location.href = "/mypage/myhousesale";
-      			});
-      		}
-      		else {
-        		swal(data.msg);
-      		} 
-    	}, 
-    	error:function(data){ 
-     		swal('AJAX ERROR1');
-    	}
-   	});
+	if(datachanged)
+    {
+    	swal({
+    	    text: "변경하신 사항을 저장하시겠습니까?",
+    	    buttons: [
+    	        '아니요',
+    	        '네'
+    	    ],
+    	}).then(function(isConfirm) {
+			if(isConfirm)
+			{
+				var param = $("#step2form").serialize();
+				$.ajax({ 
+			    	type: "POST", 
+			    	dataType: "json",
+			    	async: false, 
+			    	url:"/mypage/step2_modify_save", 
+			    	data: param, 
+			    	success: function(data) {
+			    		if(data.code == 200)
+			        	{
+			    			swal({
+			      			  	title: "변경완료!",
+			      			  	text: "변경하신 내용을 저장 하였습니다!",
+			      			  	icon: "success",
+			      			  	button: "확 인",
+			      			})
+			      			.then(function () {
+			      				location.href = "/mypage/myhousesale";
+			      			});
+			      		}
+			      		else {
+			        		swal(data.msg);
+			      		} 
+			    	}, 
+			    	error:function(data){ 
+			     		swal('AJAX ERROR1');
+			    	}
+			   	});
+			}
+			else {
+				return false
+			}
+		});
+    }
+    else
+    {
+    	var param = $("#step2form").serialize();
+    	$.ajax({ 
+        	type: "POST", 
+        	dataType: "json",
+        	async: false, 
+        	url:"/mypage/step2_modify_save", 
+        	data: param, 
+        	success: function(data) {
+        		if(data.code == 200)
+            	{
+        			swal({
+          			  	title: "변경완료!",
+          			  	text: "변경하신 내용을 저장 하였습니다!",
+          			  	icon: "success",
+          			  	button: "확 인",
+          			})
+          			.then(function () {
+          				location.href = "/mypage/myhousesale";
+          			});
+          		}
+          		else {
+            		swal(data.msg);
+          		} 
+        	}, 
+        	error:function(data){ 
+         		swal('AJAX ERROR1');
+        	}
+       	});
+	}   
 }
 
 $("document").ready( function(){
@@ -379,5 +427,10 @@ $("document").ready( function(){
       		$("#today").parent().hide();
     	}
     });
+
+ // 선택시 경고창 활성
+	$("#signforms").on("change keyup paste", function(){
+		datachanged = true;
+	});
 });
 </script>

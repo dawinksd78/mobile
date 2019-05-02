@@ -1403,33 +1403,84 @@ function sellstep1MdfProc()
  					+ "&LAT=" + LAT + "&LNG=" + LNG + "&LAW_ADDR2=" + LAW_ADDR2 + "&TOTAL_FLOOR=" + TOTAL_FLOOR + "&FLOOR=" + FLOOR 
  					+ "&ROOM_TYPE=" + ROOM_TYPE + "&HO=" + HO + "&AREA2=" + AREA2 + "&TRADE_TYPE=" + TRADE_TYPE + "&PRICE1=" + PRICE1
  					+ "&PRICE2=" + PRICE2 + "&PRICE3=" + PRICE3 + "&dongNm=" + dongNm + "&AREA_SELECTED=" + AREA_SELECTED;
- 
-	// 시도 리스트 가져오기
-	$.ajax({ 
-     	type: "POST", 
-     	dataType: "json",
-     	async: false, 
-     	url:"/mypage/step1_modify_save", 
-     	data: sendData, 
-     	success: function(result) {
-     		if(result.code == 200) {
-         		swal({
-      			  	title: "변경완료!",
-      			  	text: "변경하신 내용을 저장 하였습니다!",
-      			  	icon: "success",
-      			  	button: "확 인",
-      			})
-      			.then(function () {
-      				location.href = "/mypage/myhousesale";
-      			});
-         	}
-         	else {
-         		swal('저장에 실패하였습니다. 다시 확인하여 주십시요.');
-         	}
-     	}, 
-     	error:function(data){ 
-      		swal('AJAX ERROR');
-     	} 
-	});
+
+ 	if(datachanged)
+    {
+    	swal({
+    	    text: "변경하신 사항을 저장하시겠습니까?",
+    	    buttons: [
+    	        '아니요',
+    	        '네'
+    	    ],
+    	}).then(function(isConfirm) {
+			if(isConfirm)
+			{
+				// 시도 리스트 가져오기
+				$.ajax({ 
+			     	type: "POST", 
+			     	dataType: "json",
+			     	async: false, 
+			     	url:"/mypage/step1_modify_save", 
+			     	data: sendData, 
+			     	success: function(result) {
+			     		if(result.code == 200) {
+			         		swal({
+			      			  	title: "변경완료!",
+			      			  	text: "변경하신 내용을 저장 하였습니다!",
+			      			  	icon: "success",
+			      			  	button: "확 인",
+			      			})
+			      			.then(function () {
+			      				location.href = "/mypage/myhousesale";
+			      			});
+			         	}
+			         	else {
+			         		swal('저장에 실패하였습니다. 다시 확인하여 주십시요.');
+			         	}
+			     	}, 
+			     	error:function(data){ 
+			      		swal('AJAX ERROR');
+			     	} 
+				});
+				
+				datachanged = false;	// 경고창 제거
+			}
+			else {
+				return false
+			}
+		});
+    }
+    else
+    {
+    	datachanged = false;	// 경고창 제거
+    	
+    	// 시도 리스트 가져오기
+		$.ajax({ 
+	     	type: "POST", 
+	     	dataType: "json",
+	     	async: false, 
+	     	url:"/mypage/step1_modify_save", 
+	     	data: sendData, 
+	     	success: function(result) {
+	     		if(result.code == 200) {
+	         		swal({
+	      			  	title: "변경완료!",
+	      			  	text: "변경하신 내용을 저장 하였습니다!",
+	      			  	icon: "success",
+	      			  	button: "확 인",
+	      			})
+	      			.then(function () {
+	      				location.href = "/mypage/myhousesale";
+	      			});
+	         	}
+	         	else {
+	         		swal('저장에 실패하였습니다. 다시 확인하여 주십시요.');
+	         	}
+	     	}, 
+	     	error:function(data){ 
+	      		swal('AJAX ERROR');
+	     	} 
+		});
+	}
 }
 </script>

@@ -1358,27 +1358,66 @@ function sellstep1Proc()
  					+ "&ROOM_TYPE=" + ROOM_TYPE + "&HO=" + HO + "&AREA2=" + AREA2 + "&TRADE_TYPE=" + TRADE_TYPE + "&PRICE1=" + PRICE1
  					+ "&PRICE2=" + PRICE2 + "&PRICE3=" + PRICE3 + "&dongNm=" + dongNm + "&AREA_SELECTED=" + AREA_SELECTED;
 
- 	datachanged = false;	// 경고창 제거
- 	
-	// 시도 리스트 가져오기
-	$.ajax({ 
-     	type: "POST", 
-     	dataType: "text",
-     	async: false, 
-     	url:"/sellhome/saveStep1", 
-     	data: sendData, 
-     	success: function(data) {
-         	if(data == 'SUCCESS') {
-     			location.href = "/sellhome/step2/" + CATEGORY;
-         	}
-         	else {
-         		swal('등록에 실패하였습니다. 다시 확인하여 주십시요.');
-         	}
-     	}, 
-     	error:function(data){ 
-      		swal('AJAX ERROR');
-     	} 
-	});
+ 	if(datachanged)
+    {
+    	swal({
+    	    text: "변경하신 사항을 저장하시겠습니까?",
+    	    buttons: [
+    	        '아니요',
+    	        '네'
+    	    ],
+    	}).then(function(isConfirm) {
+			if(isConfirm)
+			{
+				// 시도 리스트 가져오기
+				$.ajax({ 
+			     	type: "POST", 
+			     	dataType: "text",
+			     	async: false, 
+			     	url:"/sellhome/saveStep1", 
+			     	data: sendData, 
+			     	success: function(data) {
+			         	if(data == 'SUCCESS') {
+			         		datachanged = false;	// 경고창 제거
+			     			location.href = "/sellhome/step2/" + CATEGORY;
+			         	}
+			         	else {
+			         		swal('등록에 실패하였습니다. 다시 확인하여 주십시요.');
+			         	}
+			     	}, 
+			     	error:function(data){ 
+			      		swal('AJAX ERROR');
+			     	} 
+				});
+			}
+			else {
+				return false;
+			}
+		});
+    }
+    else
+    {
+    	datachanged = false;	// 경고창 제거
+    	// 시도 리스트 가져오기
+    	$.ajax({ 
+         	type: "POST", 
+         	dataType: "text",
+         	async: false, 
+         	url:"/sellhome/saveStep1", 
+         	data: sendData, 
+         	success: function(data) {
+             	if(data == 'SUCCESS') {
+         			location.href = "/sellhome/step2/" + CATEGORY;
+             	}
+             	else {
+             		swal('등록에 실패하였습니다. 다시 확인하여 주십시요.');
+             	}
+         	}, 
+         	error:function(data){ 
+          		swal('AJAX ERROR');
+         	} 
+    	});
+	}
 }
 
 var prevSelcate = $('input[type=radio][name="CATEGORY"]:checked').val();
