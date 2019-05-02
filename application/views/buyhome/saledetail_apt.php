@@ -108,21 +108,27 @@ var tooltip_nowmonth;
                                     {
     									$images1 = explode(',',  $data['images']);
     									$images2 = explode(',',  $data['cpx_images']);
-                                        
-                                        $totImgCnt1 = count($images1); 
-                                        foreach($images1 as $imgrow)
+    									
+                                        $totImgCnt1 = count($images1);
+                                        if($totImgCnt1 > 0)
                                         {
-                                            ?>
-                                        	<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
-                                            <?php
+                                            foreach($images1 as $imgrow)
+                                            {
+                                                ?>
+                                            	<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
+                                                <?php
+                                            }
                                         }
                                         
                                         $totImgCnt2 = count($images2);
-                                        foreach($images2 as $imgrow)
+                                        if($totImgCnt2 > 0)
                                         {
-                                            ?>
-                                    		<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
-                                        	<?php
+                                            foreach($images2 as $imgrow)
+                                            {
+                                                ?>
+                                        		<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
+                                            	<?php
+                                            }
                                         }
                                         
                                         $totImgCnt = $totImgCnt1 + $totImgCnt2;
