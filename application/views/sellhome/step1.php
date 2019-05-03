@@ -63,7 +63,7 @@ if($seletedCategory != '')
                 
                 <div class="cont" id="infoSelectArea">
                     <div class="info_gp">개인정보</div>
-                    <p class="m_exp">안전한 거래를 위하여 매도(임대)안 확인 절차를 거치고 있습니다. 본인 또는 세입자가 아닌 제3자가 등록할 경우, 등록이 거부됩니다.</p>
+                    <p class="m_exp">안전한 거래를 위하여 매도(임대)인 확인 절차를 거치고 있습니다. 본인 또는 세입자가 아닌 제3자가 등록할 경우, 등록이 거부됩니다.</p>
                     
                     <div class="inpbox">
                         <label for="seller_name" class="lbl">이름</label>
@@ -1040,6 +1040,7 @@ $('#AREA2').val('<?php echo $AREA2; ?>');
         $('#PRICE3').val('<?php echo $step_1['PRICE3']; ?>');
         $('#trade04').text(number2Hangeul(""+$('#PRICE3').val()*10000));
     <?php } ?>
+    datachanged = true;	// 경고창 생성
 <?php } else { ?>
 	cateTypeSel('APT', 'selval');
 	tradeType('1');
@@ -1358,66 +1359,27 @@ function sellstep1Proc()
  					+ "&ROOM_TYPE=" + ROOM_TYPE + "&HO=" + HO + "&AREA2=" + AREA2 + "&TRADE_TYPE=" + TRADE_TYPE + "&PRICE1=" + PRICE1
  					+ "&PRICE2=" + PRICE2 + "&PRICE3=" + PRICE3 + "&dongNm=" + dongNm + "&AREA_SELECTED=" + AREA_SELECTED;
 
- 	if(datachanged)
-    {
-    	swal({
-    	    text: "변경하신 사항을 저장하시겠습니까?",
-    	    buttons: [
-    	        '아니요',
-    	        '네'
-    	    ],
-    	}).then(function(isConfirm) {
-			if(isConfirm)
-			{
-				// 시도 리스트 가져오기
-				$.ajax({ 
-			     	type: "POST", 
-			     	dataType: "text",
-			     	async: false, 
-			     	url:"/sellhome/saveStep1", 
-			     	data: sendData, 
-			     	success: function(data) {
-			         	if(data == 'SUCCESS') {
-			         		datachanged = false;	// 경고창 제거
-			     			location.href = "/sellhome/step2/" + CATEGORY;
-			         	}
-			         	else {
-			         		swal('등록에 실패하였습니다. 다시 확인하여 주십시요.');
-			         	}
-			     	}, 
-			     	error:function(data){ 
-			      		swal('AJAX ERROR');
-			     	} 
-				});
-			}
-			else {
-				return false;
-			}
-		});
-    }
-    else
-    {
-    	datachanged = false;	// 경고창 제거
-    	// 시도 리스트 가져오기
-    	$.ajax({ 
-         	type: "POST", 
-         	dataType: "text",
-         	async: false, 
-         	url:"/sellhome/saveStep1", 
-         	data: sendData, 
-         	success: function(data) {
-             	if(data == 'SUCCESS') {
-         			location.href = "/sellhome/step2/" + CATEGORY;
-             	}
-             	else {
-             		swal('등록에 실패하였습니다. 다시 확인하여 주십시요.');
-             	}
-         	}, 
-         	error:function(data){ 
-          		swal('AJAX ERROR');
-         	} 
-    	});
-	}
+	datachanged = false;	// 경고창 제거
+ 	
+	// 시도 리스트 가져오기
+	$.ajax({ 
+     	type: "POST", 
+     	dataType: "text",
+     	async: false, 
+     	url:"/sellhome/saveStep1", 
+     	data: sendData, 
+     	success: function(data) {
+         	if(data == 'SUCCESS') {
+     			location.href = "/sellhome/step2/" + CATEGORY;
+         	}
+         	else {
+         		swal('등록에 실패하였습니다. 다시 확인하여 주십시요.');
+         	}
+     	}, 
+     	error:function(data){ 
+      		swal('AJAX ERROR');
+     	} 
+	});
 }
 
 var prevSelcate = $('input[type=radio][name="CATEGORY"]:checked').val();

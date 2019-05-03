@@ -81,7 +81,7 @@
 <!-- 휴대폰 번호 변경 -->
 <form name="form_chk_Hp" id="form_chk_Hp" method="post">
 	<input type="hidden" name="m" value="checkplusSerivce">						<!-- 필수 데이타로, 누락하시면 안됩니다. -->
-	<input type="hidden" name="EncodeData" value="<?php echo $enc_data?>">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+	<input type="hidden" name="EncodeData" id="EncodeData">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
 </form>
 
 <script type="text/javascript">
@@ -265,10 +265,32 @@ $("#cellphone").keyup(function(){
 // 휴대폰 번호 변경
 function cellphoneChange()
 {
-	//window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
-	document.form_chk_Hp.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
-	//document.form_chk_Hp.target = "popupChk";
-	document.form_chk_Hp.submit();
+	$.ajax({ 
+    	type: "POST", 
+    	dataType: "json",
+    	async: false, 
+    	url: "/mypage/myinfo_certdata", 
+    	success: function(data) {
+			if(data.code == '100')
+			{
+				$('#EncodeData').val(data.res);
+				document.form_chk_Hp.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+				document.form_chk_Hp.submit();          			
+      			return false;
+			}
+     		else
+     		{
+         		// 실패
+     			swal("오류!", "오류가 발생하였습니다. 다시 시도해 주시기 바랍니다!", "error");  
+      			return false;
+     		} 
+    	}, 
+    	error:function(data){
+    		// 실패
+ 			swal("오류!", "오류가 발생하였습니다. 다시 시도해 주시기 바랍니다!", "error");  
+  			return false;
+    	} 
+   	});
 }
 
 // 회원탈퇴

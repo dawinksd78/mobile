@@ -111,6 +111,20 @@ class Mypage extends MY_Controller
         $data['LAT'] = null;
         $data['LNG'] = null;
         
+        // 정보체크
+        $sql = "SELECT MBR_CP FROM TB_UB_MEMBER WHERE MBR_IDX='".$this->userinfo['MBR_IDX']."'";
+        $qry = $this->db->query($sql);
+        $info = $qry->row_array();
+        $data['MBR_CP'] = $info['MBR_CP']; 
+        
+        $this->load->view('sub_header');
+        $this->load->view('mypage/myinfo', $data);
+        $this->load->view('sub_footer');
+    }
+    
+    // 내정보 휴대폰 인증 변경시 enc_data
+    function myinfo_certdata()
+    {
         $module = 'CPClient';
         $this->load->config("nice");
         $niceCfg = $this->config->item('nice');
@@ -133,20 +147,14 @@ class Mypage extends MY_Controller
         "11:POPUP_GUBUN" . strlen($popgubun) . ":" . $popgubun .
         "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
         "6:GENDER" . strlen($gender) . ":" . $gender ;
-        $data['enc_data'] = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
+        $enc_data = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
+        
         session_start();
         $sessiondata = array("REQ_SEQ"=>$reqseq);
         $this->session->set_userdata($sessiondata);
         
-        // 정보체크
-        $sql = "SELECT MBR_CP FROM TB_UB_MEMBER WHERE MBR_IDX='".$this->userinfo['MBR_IDX']."'";
-        $qry = $this->db->query($sql);
-        $info = $qry->row_array();
-        $data['MBR_CP'] = $info['MBR_CP']; 
-        
-        $this->load->view('sub_header');
-        $this->load->view('mypage/myinfo', $data);
-        $this->load->view('sub_footer');
+        echo json_encode(array("code"=>"100", "res"=>$enc_data));
+        return;
     }
     
     // 휴대폰 인증 및 번호 변경

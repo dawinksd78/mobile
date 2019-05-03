@@ -42,13 +42,13 @@ switch($saletypeData)
             <!-- //검색결과 영역 끝 --> 
         </div>
       	
-      	<div class="sub_filter" style="z-index:100;">
+      	<div class="sub_filter">
           	<ul class="sub_filter_inner">
-                <li class=""><a href="javascript:void(0);" data-value="sale" onclick="filterSelect(this)" class="filterTypes on" id="filerMenuName_sale"><?php echo $sale_type_cmt; ?></a></li>
-                <li class=""><a href="javascript:void(0);" data-value="deal" onclick="filterSelect(this)" class="filterTypes" id="filerMenuName_deal">거래유형</a></li>
-                <li class=""><a href="javascript:void(0);" data-value="area" onclick="filterSelect(this)" class="filterTypes" id="filerMenuName_area">면적</a></li>
-                <li class=""><a href="javascript:void(0);" data-value="roomtype" onclick="filterSelect(this)" class="filterTypes" id="filerMenuName_roomtype" style="display:<?php echo ($saletypedefault == 'ONE') ? '' : 'none'; ?>;">방구조</a></li>
-                <li class=""><a href="javascript:void(0);" data-value="price" onclick="filterSelect(this)" class="filterTypes" id="filerMenuName_price" style="display:<?php echo ($saletypedefault == 'ONE') ? '' : 'none'; ?>;">금액</a></li>
+                <li class=""><a href="javascript:void(0);" onclick="filterSelect('sale')" class="filterTypes on" id="filerMenuName_sale"><?php echo $sale_type_cmt; ?></a></li>
+                <li class=""><a href="javascript:void(0);" onclick="filterSelect('deal')" class="filterTypes" id="filerMenuName_deal">거래유형</a></li>
+                <li class=""><a href="javascript:void(0);" onclick="filterSelect('area')" class="filterTypes" id="filerMenuName_area">면적</a></li>
+                <li class=""><a href="javascript:void(0);" onclick="filterSelect('roomtype')" class="filterTypes" id="filerMenuName_roomtype" style="display:<?php echo ($saletypedefault == 'ONE') ? '' : 'none'; ?>;">방구조</a></li>
+                <li class=""><a href="javascript:void(0);" onclick="filterSelect('price')" class="filterTypes" id="filerMenuName_price" style="display:none;">금액</a></li><?php //echo ($saletypedefault == 'ONE') ? '' : 'none'; ?>
                 <li class=""></li>
           	</ul>
         </div>
@@ -56,9 +56,8 @@ switch($saletypeData)
         <!-- 필터박스 -->
     	<div class="sub_filter_group filter_cont" style="z-index:100;" style="display:none;">
         
-          	<!-- 필터체크 -->
+          	<!-- 매물종류 -->
           	<div class="inpbox rdinp searchfilterbox" id="searchfilterbox_sale" style="display:none;">
-              	<!-- 매물종류 -->
               	<div class="radio_box02">
                     <div class="rd01 rd02">
                       	<input type="radio" id="type_rd01" name="saletype" value="APT" data-default="<?php echo $saletypedefault?>" <?php echo ($saletypedefault == '' || $saletypedefault =='APT') ? 'checked' : ''; ?>>
@@ -115,10 +114,6 @@ switch($saletypeData)
                 
                 <!-- 원룸 (S) -->
                 <div class="radio_box02" id="filtertype_ONE" style="display:<?php if($saletypedefault !='' && $saletypedefault !='ONE') echo 'none'; ?>;">
-                    <!-- div class="rd01 rd02">
-                        <input type="radio" id="type02_rd08" name="transtype" value="previous" < ? p h p if($saletypedefault =='ONE') echo 'checked=""'; ?>>
-                        <label for="type02_rd08">전/월세</label>
-                    </div -->
                     <div class="rd01 rd02">
 						<input type="radio" id="type02_rd09" name="transtype" value="all" <?php if($saletypedefault == 'ONE') echo 'checked=""'; ?>>
 						<label for="type02_rd09">전체</label>
@@ -386,11 +381,9 @@ function fnpoploginClose() {
 
 //------------------------------------------------------
 
-var type = "1";	// use getCustomLayout(d) level, name, sell, chartered,rent, Gcnt, map_code
+var type = "1";
 var cate = '<?php echo $saletype; ?>'; 
 var complexdetail = {type:'<?php echo $saletype; ?>', idx:<?php echo $complex_idx; ?>};
-//var cate = null;
-//var complexdetail = {type:null, idx:null};
 var memSet = '<?php echo $memidx; ?>';
 
 // 지도 default
@@ -438,6 +431,9 @@ var startingPos = [0,0];
 var getSamrt = "<?php echo $getDevideCookie; ?>";
 var getDevice = "<?php echo $DEVICE; ?>";
 
+var monthCostSave1 = null;//월세보증금
+var monthCostSave2 = null;//월세
+
 function fnComplexmousedown(evt) {
   	isDragging = false;
   	startingPos = [evt.pageX, evt.pageY];
@@ -449,7 +445,6 @@ function fnComplexmousemove(evt) {
 }
 function fnComplexDetailonmap(idx, cate) {
   	if(isDragging) return;
-  	//fnComplexDetail(obj)
   	fnComplexDetailSrch(idx, cate);
 }
 
@@ -466,70 +461,94 @@ function delicon() {
 
 // 필터 선택
 var filterName = null;
-function filterSelect(obj)
+function filterSelect(value)
 {
+	// 필터박스 노출
 	$('.sub_filter_group').show();
+
+	// 필터 초기화&닫기 부분 노출
 	$('.filterSearchForms').show();
-	
-	var value = $(obj).data('value');
-	var saletypeVal = $(":input:radio[name=saletype]:checked").val();
+
+	// 활성화된 필터 on class 추가
+	$('#filerMenuName_'+value).addClass('on');
+
+	// 전체 닫기
+	$('.searchfilterbox').hide();
+
+	$('.sub_filter_inner').css("height", "43px");
+	$('.sub_filter_group').css("top", "100px");
+	if(monthCostSave1 != null && monthCostSave2 != null && monthCostSave1 != '전체' && monthCostSave2 != '전체') {
+		$('.sub_filter_inner').css("height", "80px");
+		$('.sub_filter_group').css("top", "137px");
+	}
 
 	if(filterName == value) {
-		$('#searchfilterbox_'+value).toggle();
+		filterboxclose();
+		filterName = null;
 	}
-	else {
-		//$('.filterTypes').removeClass('on');
-		$('.searchfilterbox').hide();	
-    	$(obj).addClass('on');
-    	$('#searchfilterbox_'+value).toggle();
-	}
-	
-	// 면적 변경
-	if(value == 'area')
+	else
 	{
-  		if(saletypeVal == 'ONE') {
-  			$('#searchfilterbox_area').show();
-  			$('#searchfilterbox_area_one').show();
-			$('#searchfilterbox_area_apt').hide();
-  		}
-  		else {
-  			$('#searchfilterbox_area').show();
-  			$('#searchfilterbox_area_one').hide();
-			$('#searchfilterbox_area_apt').show();
-  		}
-	}
+		$('#searchfilterbox_'+value).show();
 
-	// 원룸/투룸인 경우
-	if(saletypeVal == 'ONE')
-	{
-		var transtype = $(":input:radio[name=transtype]:checked").val();
+		var saletypeVal = $(":input:radio[name=saletype]:checked").val();
 
-		// 전세일때 전세(보증금)만 나오도록
-		if(transtype == 'previous_2') {
-			$('#filterCosts1').show();
-			$('#filterCosts2').hide();
-			$('#filterCosts3').hide();
-		}
-		// 월세에서 금액 필터 월세(보증금), 월세만 나오도록
-		else if(transtype == 'previous_3') {
-			$('#filterCosts1').hide();
-			$('#filterCosts2').show();
-			$('#filterCosts3').show();
-		}
-		else {
-			$('#filterCosts1').show();
-			$('#filterCosts2').show();
-			$('#filterCosts3').show();
-		}
+    	// 면적 변경
+    	if(value == 'area')
+    	{
+      		if(saletypeVal == 'ONE') {
+      			$('#searchfilterbox_area').show();
+      			$('#searchfilterbox_area_one').show();
+    			$('#searchfilterbox_area_apt').hide();
+      		}
+      		else {
+      			$('#searchfilterbox_area').show();
+      			$('#searchfilterbox_area_one').hide();
+    			$('#searchfilterbox_area_apt').show();
+      		}
+    	}
+
+    	// 원룸/투룸인 경우
+    	if(saletypeVal == 'ONE')
+    	{
+        	// 거래유형 (매매, 전월세)
+    		var transtype = $(":input:radio[name=transtype]:checked").val();
+
+    		// 전세일때 전세(보증금)만 나오도록
+    		if(transtype == 'previous_2') {
+    			$('#filterCosts1').show();
+    			$('#filterCosts2').hide();
+    			$('#filterCosts3').hide();
+    		}
+    		// 월세에서 금액 필터 월세(보증금), 월세만 나오도록
+    		else if(transtype == 'previous_3') {
+    			$('#filterCosts1').hide();
+    			$('#filterCosts2').show();
+    			$('#filterCosts3').show();
+    		}
+    		else {
+    			$('#filterCosts1').show();
+    			$('#filterCosts2').show();
+    			$('#filterCosts3').show();
+    		}
+    	}
+
+    	var valtxt = $('#filerMenuName_'+value).text();
+
+    	if(value != 'sale' && (valtxt == '전체' || valtxt == '거래유형' || valtxt == '면적' || valtxt == '방구조' || valtxt == '금액'))	{
+        	$('#filerMenuName_'+value).html('전체');
+    	}
+        
+    	filterName = value;
 	}
-		
-	filterName = value;
 }
 
 // 필터 초기화
 function filterReset()
 {
 	document.filter_form.reset();
+
+	$('.sub_filter_inner').css("height", "43px");
+	$('.sub_filter_group').css("top", "100px");
 	
 	filterboxclose();
 	
@@ -557,7 +576,8 @@ function filterReset()
 }
 
 // 필터박스 닫기
-function filterboxclose() {
+function filterboxclose()
+{
 	$('.sub_filter_group').hide();
 	$('.searchfilterbox').hide();
 	$('.filterSearchForms').hide();	
@@ -1555,7 +1575,8 @@ $("document").ready(function(){
 			$('#filerMenuName_sale').html('원룸/투룸');
 
 			$('#filerMenuName_roomtype').show();
-			$('#filerMenuName_price').show();
+			//$('#filerMenuName_price').show();
+			$('#filerMenuName_price').hide();
 			
 			$("#oneroomDanjiListButton").show();
 			$("#oneroomDanjiListView").show();
@@ -1601,8 +1622,16 @@ $("document").ready(function(){
 			$('#filerMenuName_area').removeClass('on');
 			$('#filerMenuName_roomtype').html('방구조');
 			$('#filerMenuName_roomtype').removeClass('on');
-			$('#filerMenuName_price').html('금액');
-			$('#filerMenuName_price').removeClass('on');
+			//$('#filerMenuName_price').html('금액');
+			//$('#filerMenuName_price').removeClass('on');
+			$('#searchfilterbox_price').hide();	//금액숨김
+		}
+
+		$('.sub_filter_inner').css("height", "43px");
+		$('.sub_filter_group').css("top", "100px");
+		if(monthCostSave1 != null && monthCostSave2 != null && monthCostSave1 != '전체' && monthCostSave2 != '전체') {
+			$('.sub_filter_inner').css("height", "80px");
+			$('.sub_filter_group').css("top", "137px");
 		}
 
 		fnloadInfoCall();	// 맵로딩 
@@ -1612,6 +1641,7 @@ $("document").ready(function(){
   	$('input[type=radio][name=transtype]').click(function(){
   		$('.filterSearchForms').show();
   		$('#filerMenuName_deal').html($(this).next("label").text());
+  		var dealTypeSel = $(this).val();
 
   		$("#ar_chk01").prop("checked", true);
 
@@ -1651,15 +1681,15 @@ $("document").ready(function(){
         //});
 
         // 방구조 초기화
-        $('#filerMenuName_roomtype').html("방구조");
-        $('#filerMenuName_roomtype').removeClass('on');
+        //$('#filerMenuName_roomtype').html("방구조");
+        //$('#filerMenuName_roomtype').removeClass('on');
         $("input[name='ROOM_TYPE[]']").each(function() {
         	$(this).attr("checked", false);
         });
 
         // 금액 초기화
-        $('#filerMenuName_price').html("금액");
-		$('#filerMenuName_price').removeClass('on');
+        //$('#filerMenuName_price').html("금액");
+		//$('#filerMenuName_price').removeClass('on');
 		$("input[name='charterprice[]']").each(function() {
         	$(this).attr("checked", false);
         });
@@ -1669,6 +1699,135 @@ $("document").ready(function(){
 		$("input[name='monthly[]']").each(function() {
         	$(this).attr("checked", false);
         });
+
+        if(dealTypeSel == 'all')
+        {
+        	$('#filerMenuName_price').hide();
+
+        	$('#filterCosts1').hide();
+			$('#filterCosts2').hide();
+			$('#filterCosts3').hide();
+
+			// 면적 초기화
+			$('#filerMenuName_area').html("면적");
+	        $('#filerMenuName_area').removeClass('on');
+	        $("input[name='area[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+	        // 방구조 초기화
+	        $('#filerMenuName_roomtype').html("방구조");
+	        $('#filerMenuName_roomtype').removeClass('on');
+	        $("input[name='ROOM_TYPE[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+	     	// 금액 초기화
+	        $('#filerMenuName_price').html("금액");
+			$('#filerMenuName_price').removeClass('on');
+			$("input[name='charterprice[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+			$("input[name='monthly_deposit[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+			$("input[name='monthly[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+			monthCostSave1 = null;//월세보증금
+			monthCostSave2 = null;//월세
+        }
+        else if(dealTypeSel == 'previous_2')
+        {
+        	$('#filerMenuName_price').show();
+        	$('#filerMenuName_price').html("금액");
+        	$('#filerMenuName_price').removeClass('on');
+
+			$('#filterCosts1').show();
+			$('#filterCosts2').hide();
+			$('#filterCosts3').hide();
+			$("input:checkbox[name='charterprice[]']:input[value=all]").prop("checked", true);
+
+			// 면적 초기화
+			$('#filerMenuName_area').html("면적");
+	        $('#filerMenuName_area').removeClass('on');
+	        $("input[name='area[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+	        // 방구조 초기화
+	        $('#filerMenuName_roomtype').html("방구조");
+	        $('#filerMenuName_roomtype').removeClass('on');
+	        $("input[name='ROOM_TYPE[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+	     	// 금액 초기화
+	        $('#filerMenuName_price').html("금액");
+			$('#filerMenuName_price').removeClass('on');
+			$("input[name='charterprice[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+			$("input[name='monthly_deposit[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+			$("input[name='monthly[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+			monthCostSave1 = null;//월세보증금
+			monthCostSave2 = null;//월세
+        }
+        else if(dealTypeSel == 'previous_3')
+        {
+        	$('#filerMenuName_price').show();
+        	$('#filerMenuName_price').html("금액");
+        	$('#filerMenuName_price').removeClass('on');
+
+			$('#filterCosts1').hide();
+			$('#filterCosts2').show();
+			$('#filterCosts3').show();
+			$("input:checkbox[name='monthly_deposit[]']:input[value=all]").prop("checked", true);
+			$("input:checkbox[name='monthly[]']:input[value=all]").prop("checked", true);
+
+			// 면적 초기화
+			$('#filerMenuName_area').html("면적");
+	        $('#filerMenuName_area').removeClass('on');
+	        $("input[name='area[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+	        // 방구조 초기화
+	        $('#filerMenuName_roomtype').html("방구조");
+	        $('#filerMenuName_roomtype').removeClass('on');
+	        $("input[name='ROOM_TYPE[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+	     	// 금액 초기화
+	        $('#filerMenuName_price').html("금액");
+			$('#filerMenuName_price').removeClass('on');
+			$("input[name='charterprice[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+			$("input[name='monthly_deposit[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+			$("input[name='monthly[]']").each(function() {
+	        	$(this).attr("checked", false);
+	        });
+
+			monthCostSave1 = null;//월세보증금
+			monthCostSave2 = null;//월세
+        }
+
+        $('.sub_filter_inner').css("height", "43px");
+        $('.sub_filter_group').css("top", "100px");
+        if(monthCostSave1 != null && monthCostSave2 != null && monthCostSave1 != '전체' && monthCostSave2 != '전체') {
+    		$('.sub_filter_inner').css("height", "80px");
+    		$('.sub_filter_group').css("top", "137px");
+    	}
 		
 		fnloadInfoCall();	// 맵로딩 
   	});
@@ -1732,7 +1891,22 @@ $("document").ready(function(){
 			selAreaCtn = $("input:checkbox[name='area[]']:checked").length;
 			if(selAreaCtn == 1)
     		{
-				$('#filerMenuName_area').html($("input:checkbox[name='area[]']:checked").next("label").text());
+				$("input[name='area[]']").each(function() {
+    				if($(this).prop("checked") == true)
+        			{
+    					var labelecho = "";
+    					if($(this).data('first') == "0") {
+    						labelecho = '~ ' + $(this).data('end') + "m²";
+    					}
+    					else if($(this).data('end') == "100" || $(this).data('end') == "166") {
+    						labelecho = $(this).data('end') + "m² ~";
+    					}
+    					else {
+    						labelecho = $("input:checkbox[name='area[]']:checked").next("label").text();
+    					}
+    					$('#filerMenuName_area').html(labelecho);
+    				}
+     	        });
 			}
 			else
 			{
@@ -1750,19 +1924,30 @@ $("document").ready(function(){
         				}
          	        });
 
-         	        if(first == '0') {
-         	        	setValueArea = "~" + end + "m²";
+         	        if(first == '0' && end != endNum) {
+         	        	setValueArea = "~ " + end + "m²";
          	        }
-         	        else if(end == endNum) {
-         	        	setValueArea = first + "m² 이상";
+         	        else if(first != '0' && end == endNum) {
+         	        	setValueArea = first + "m² ~";
          	        }
+         	        else if(first == '0' && end == endNum) {
+         	        	setValueArea = "전체";
+         	        	$("input[name='area[]']").each(function() {
+        					$(this).prop("checked", false);
+             	        });
+        				$("input:checkbox[name='area[]']:input[value=all]").prop("checked", true);
+        	        }
          	        else {
-         	        	setValueArea = first + "m²" + "~" + end + "m²";
+         	        	setValueArea = first + "m² ~ " + end + "m²";
          	        }
         		}
     			else
     			{
     				setValueArea = "전체";
+    				$("input[name='area[]']").each(function() {
+    					$(this).prop("checked", false);
+         	        });
+    				$("input:checkbox[name='area[]']:input[value=all]").prop("checked", true);
     			}
 
     			$('#filerMenuName_area').html(setValueArea);
@@ -1773,6 +1958,12 @@ $("document").ready(function(){
 		}
 
 		$('#filerMenuName_area').addClass('on');
+		$('.sub_filter_inner').css("height", "43px");
+		$('.sub_filter_group').css("top", "100px");
+		if(monthCostSave1 != null && monthCostSave2 != null && monthCostSave1 != '전체' && monthCostSave2 != '전체') {
+			$('.sub_filter_inner').css("height", "80px");
+			$('.sub_filter_group').css("top", "137px");
+		}
 
 		fnloadInfoCall();	// 맵로딩 
  	});
@@ -1783,7 +1974,22 @@ $("document").ready(function(){
     	$('#searchfilterbox_roomtype').show();
     	var selLabelName = $(this).next("label").text();
     	var selLavelVal = $(this).val();
+    	var selLavelRooms = null;
+    	var selLavelCheck = $(this).prop("checked");
      	$('#filerMenuName_roomtype').html(selLabelName);
+     	if(selLavelCheck == true)
+     	{
+     		selLavelRooms = $(this).data('roomname');
+         	if(selLavelRooms == '원룸(오픈형)' || selLavelRooms == '원룸(분리형)') {
+         		selLavelRooms = "원룸";
+    		}
+    		else if(selLavelRooms == '쓰리룸이상') {
+    			selLavelRooms = "쓰리룸";
+    		}
+    		else if(selLavelRooms == '복층형') {
+    			selLavelRooms = "복층";
+     		}
+     	}
 
 		// 원룸 하단닫기
 		$('#searchfilterbox_price').hide();
@@ -1802,16 +2008,16 @@ $("document").ready(function(){
         else
         {
         	$('input:checkbox[name="ROOM_TYPE[]"]:input[value=all]').attr("checked", false);
-        	if ($(this).prop('checked')) {
+        	if($(this).prop('checked')) {
         		$(this).prop("checked", true);
         	}
         	else
             {
         		var area = $("input:checkbox[name='ROOM_TYPE[]']:checked");
-        	    if ( area.length == 0 ) {
-        	        $("input[name='ROOM_TYPE[]']").each ( function() {
-        	          if($(this).val() == '' || $(this).val()=='all') $(this).prop('checked', true);
-        	          $('#filerMenuName_roomtype').html('전체');
+        	    if(area.length == 0) {
+        	        $("input[name='ROOM_TYPE[]']").each(function(){
+        	          	if($(this).val() == '' || $(this).val() == 'all') $(this).prop('checked', true);
+        	          	$('#filerMenuName_roomtype').html('전체');
         	        })
         	    }
         	    else {
@@ -1820,52 +2026,89 @@ $("document").ready(function(){
         	}
         }
 
-        var setValueRoom = null;
+		var setValueRoom = null;
 		var selRoomCtn = null;
 		if($("input:checkbox[name='ROOM_TYPE[]']:input[value=all]").prop("checked") == false)
 		{
-			selRoomCtn = $("input:checkbox[name='ROOM_TYPE[]']:checked").length;
+        	var totCnts = 6;
+    		
+        	selRoomCtn = $("input:checkbox[name='ROOM_TYPE[]']:checked").length;
 			if(selRoomCtn == 1)
     		{
-				setValueRoom = $("input:checkbox[name='ROOM_TYPE[]']:checked").next("label").text()
-				if(setValueRoom == '원룸(오픈형)' || setValueRoom == '원룸(분리형)') {
-					setValueRoom = "원룸";
-				}
-				else if(setValueRoom == '쓰리룸이상') {
-					setValueRoom = "쓰리룸";
-				}
-				else if(setValueRoom == '복층형') {
-        	 		setValueRoom = "복층";
-    	 		}
-				 
-				$('#filerMenuName_roomtype').html(setValueRoom);
+				$("input[name='ROOM_TYPE[]']").each(function() {
+    				if($(this).prop("checked") == true)
+        			{
+    					setValueRoom = $(this).data('roomname');
+    					if(setValueRoom == '원룸(오픈형)' || setValueRoom == '원룸(분리형)') {
+    						setValueRoom = "원룸";
+    					}
+    					else if(setValueRoom == '쓰리룸이상') {
+    						setValueRoom = "쓰리룸";
+    					}
+    					else if(setValueRoom == '복층형') {
+    	        	 		setValueRoom = "복층";
+    	    	 		}
+    					 
+    					$('#filerMenuName_roomtype').html(setValueRoom);
+    				}
+     	        });
 			}
 			else
 			{
-    			$("input[name='ROOM_TYPE[]']").each(function() {
-    				if($(this).prop("checked") == true) {
-    					setValueRoom = $(this).data('roomname');
-    				}
-     	        });
+    			if(selRoomCtn < totCnts)
+        		{
+            		var sel = 1;
+            		var firstNames = '';
+            		var lastNames = '';
+    				$("input[name='ROOM_TYPE[]']").each(function() {
+        				if($(this).prop("checked") == true)
+            			{
+        					setValueRoom = $(this).data('roomname');
 
-    			if(selLabelName == '원룸(오픈형)' || selLabelName == '원룸(분리형)') {
-					setValueRoom = "원룸";
-				}
-				else if(selLabelName == '쓰리룸이상') {
-					setValueRoom = "쓰리룸";
-				}
-				else if(selLabelName == '복층형') {
-        	 		setValueRoom = "복층";
-    	 		}
+        					if(setValueRoom == '원룸(오픈형)' || setValueRoom == '원룸(분리형)') {
+            					setValueRoom = "원룸";
+            				}
+            				else if(setValueRoom == '쓰리룸이상') {
+            					setValueRoom = "쓰리룸";
+            				}
+            				else if(setValueRoom == '복층형') {
+                    	 		setValueRoom = "복층";
+                	 		}
+
+                	 		if(sel == 1) firstNames = setValueRoom;
+                	 		if(sel == selRoomCtn) lastNames = setValueRoom;
+                	 		
+                	 		sel++;
+        				}
+         	        });
+
+    				//if(selLavelCheck == true && selLavelRooms != setValueRoom) setValueRoom = selLavelRooms;
+    				if(firstNames != lastNames)	setValueRoom = firstNames + ' ~ ' + lastNames;
+        		}
+    			else
+    			{
+    				setValueRoom = "전체";
+    				$("input[name='ROOM_TYPE[]']").each(function() {
+    					$(this).prop("checked", false);
+         	        });
+    				$("input:checkbox[name='ROOM_TYPE[]']:input[value=all]").prop("checked", true);
+    			}
 
     			$('#filerMenuName_roomtype').html(setValueRoom);
 			}
 		}
 		else {
-			$('#filerMenuName_roomtype').html("전체");
+			$("input:checkbox[name='ROOM_TYPE[]']:input[value=all]").prop("checked", true);
+			$('#filerMenuName_area').html("전체");
 		}
 
 		$('#filerMenuName_roomtype').addClass('on');
+		$('.sub_filter_inner').css("height", "43px");
+		$('.sub_filter_group').css("top", "100px");
+		if(monthCostSave1 != null && monthCostSave2 != null && monthCostSave1 != '전체' && monthCostSave2 != '전체') {
+			$('.sub_filter_inner').css("height", "80px");
+			$('.sub_filter_group').css("top", "137px");
+		}
 
     	fnloadInfoCall();	// 맵로딩    	
     });
@@ -1916,6 +2159,21 @@ $("document").ready(function(){
 			if(selPriceCtn == 1)
     		{
 				setValuePrice = $("input:checkbox[name='charterprice[]']:checked").next("label").text();
+
+				$("input[name='charterprice[]']").each(function() {
+    				if($(this).prop("checked") == true)
+        			{
+    					if($(this).data('first') == "0") {
+    						setValuePrice = '~ ' + "5천";
+    					}
+    					else if($(this).data('end') == "3억이상") {
+    						setValuePrice = $(this).data('first') + " ~";
+    					}
+    					else {
+    						setValuePrice = $("input:checkbox[name='charterprice[]']:checked").next("label").text();
+    					}
+    				}
+     	        });
 			}
 			else
 			{
@@ -1924,6 +2182,7 @@ $("document").ready(function(){
         			var num = 0;
         			var first = null;
         			var end = null;
+        			var endNum = '3억이상';
         			$("input[name='charterprice[]']").each(function() {
         				if($(this).prop("checked") == true)
             			{
@@ -1933,19 +2192,30 @@ $("document").ready(function(){
         				}
          	        });
 
-         	        if(first == '0') {
-         	        	setValuePrice = "~" + end + "이하";
-         	        }
-         	        else if(first != '3억' && end == '3억이상') {
-        	        	setValuePrice = first + "~";
+         	        if(first == '0' && end != endNum) {
+         	    	  setValuePrice = "~ " + end;
         	        }
-         	        else {
-         	        	setValuePrice = first + "~" + end;
-         	        }
+        	        else if(first != '0' && end == endNum) {
+        	        	setValuePrice = first + " ~";
+        	        }
+        	        else if(first == '0' && end == endNum) {
+        	        	setValuePrice = "전체";
+        	        	$("input[name='charterprice[]']").each(function() {
+       						$(this).prop("checked", false);
+            	        });
+       					$("input:checkbox[name='charterprice[]']:input[value=all]").prop("checked", true);
+       	        	}
+        	        else {
+        	        	setValuePrice = first + " ~ " + end;
+        	        }
         		}
     			else
     			{
     				setValuePrice = "전체";
+    				$("input[name='charterprice[]']").each(function() {
+    					$(this).prop("checked", false);
+         	        });
+    				$("input:checkbox[name='charterprice[]']:input[value=all]").prop("checked", true);
     			}
 			}
 		}
@@ -1957,11 +2227,17 @@ $("document").ready(function(){
 
 		$('#filerMenuName_price').html(setValuePrice);
 		$('#filerMenuName_price').addClass('on');
+		$('.sub_filter_inner').css("height", "43px");
+		$('.sub_filter_group').css("top", "100px");
+		if(monthCostSave1 != null && monthCostSave2 != null && monthCostSave1 != '전체' && monthCostSave2 != '전체') {
+			$('.sub_filter_inner').css("height", "80px");
+			$('.sub_filter_group').css("top", "137px");
+		}
 
 		fnloadInfoCall();	// 맵로딩
   	});
 
-    // 월세보증금
+    // 월세보증금 (monthCostSave1)
 	$('input[name="monthly_deposit[]"]').click(function(){
 		$('.filterSearchForms').show();
 		$('#searchfilterbox_price').show();
@@ -2006,6 +2282,21 @@ $("document").ready(function(){
 			if(seldepositCtn == 1)
     		{
 				setValuedeposit = $("input:checkbox[name='monthly_deposit[]']:checked").next("label").text();
+
+				$("input[name='monthly_deposit[]']").each(function() {
+    				if($(this).prop("checked") == true)
+        			{
+    					if($(this).data('first') == "0") {
+    						setValuedeposit = '~ ' + "1천";
+    					}
+    					else if($(this).data('end') == "1억이상") {
+    						setValuedeposit = $(this).data('first') + " ~";
+    					}
+    					else {
+    						setValuedeposit = $("input:checkbox[name='monthly_deposit[]']:checked").next("label").text();
+    					}
+    				}
+     	        });
 			}
 			else
 			{
@@ -2014,6 +2305,7 @@ $("document").ready(function(){
         			var num = 0;
         			var first = null;
         			var end = null;
+        			var endNum = '1억이상';
         			$("input[name='monthly_deposit[]']").each(function() {
         				if($(this).prop("checked") == true)
             			{
@@ -2023,19 +2315,30 @@ $("document").ready(function(){
         				}
          	        });
 
-         	        if(first == '0') {
-         	        	setValuedeposit = "~" + end + "이하";
+        	        if(first == '0' && end != endNum) {
+         	        	setValuedeposit = "~ " + end;
          	        }
-         	       	else if(first != '1억' && end == '1억이상') {
-       	        		setValuePrice = first + "~";
-       	        	}
+         	        else if(first != '0' && end == endNum) {
+         	        	setValuedeposit = first + " ~";
+         	        }
+         	        else if(first == '0' && end == endNum) {
+         	        	setValuedeposit = "전체";
+         	        	$("input[name='monthly_deposit[]']").each(function() {
+        						$(this).prop("checked", false);
+             	        });
+        					$("input:checkbox[name='monthly_deposit[]']:input[value=all]").prop("checked", true);
+        	        	}
          	        else {
-         	        	setValuedeposit = first + "~" + end;
+         	        	setValuedeposit = first + " ~ " + end;
          	        }
         		}
     			else
     			{
     				setValuedeposit = "전체";
+    				$("input[name='monthly_deposit[]']").each(function() {
+    					$(this).prop("checked", false);
+         	        });
+    				$("input:checkbox[name='monthly_deposit[]']:input[value=all]").prop("checked", true);
     			}
 			}
 		}
@@ -2045,13 +2348,42 @@ $("document").ready(function(){
 
 		selMenuValueCost = selMenuValueCost + setValuedeposit;
 
-		$('#filerMenuName_price').html(setValuedeposit);
+		monthCostSave1 = setValuedeposit;
+
+		var printSetValuedeposit = "";
+
+		if(monthCostSave2 != null)
+		{
+			$('.sub_filter_inner').css("height", "43px");
+			$('.sub_filter_group').css("top", "100px");
+			
+			if(monthCostSave1 == '전체' && monthCostSave2 == '전체') {
+				printSetValuedeposit = '전체';
+			}
+			else if(monthCostSave1 != '전체' && monthCostSave2 == '전체') {
+				printSetValuedeposit = monthCostSave1;
+			}
+			else if(monthCostSave1 == '전체' && monthCostSave2 != '전체') {
+				printSetValuedeposit = monthCostSave2;
+			}
+			else {
+				printSetValuedeposit = monthCostSave1+'/'+monthCostSave2;
+				$('.sub_filter_inner').css("height", "80px");
+				$('.sub_filter_group').css("top", "137px");
+			}
+		}
+		else
+		{
+			printSetValuedeposit = monthCostSave1;
+		}
+
+		$('#filerMenuName_price').html(printSetValuedeposit);
 		$('#filerMenuName_price').addClass('on');
 
 		fnloadInfoCall();	// 맵로딩
   	});
 
-	// 월세
+	// 월세 (monthCostSave2)
 	$('input[name="monthly[]"]').click(function(){
 		$('.filterSearchForms').show();
 		$('#searchfilterbox_price').show();
@@ -2094,6 +2426,21 @@ $("document").ready(function(){
 			if(selmonthlyCtn == 1)
     		{
 				setValuemonthly = $("input:checkbox[name='monthly[]']:checked").next("label").text();
+
+				$("input[name='monthly[]']").each(function() {
+    				if($(this).prop("checked") == true)
+        			{
+    					if($(this).data('first') == "0") {
+    						setValuemonthly = '~ ' + "50만";
+    					}
+    					else if($(this).data('end') == "100만이상") {
+    						setValuemonthly = $(this).data('first') + " ~";
+    					}
+    					else {
+    						setValuemonthly = $("input:checkbox[name='monthly[]']:checked").next("label").text();
+    					}
+    				}
+     	        });
 			}
 			else
 			{
@@ -2102,6 +2449,7 @@ $("document").ready(function(){
         			var num = 0;
         			var first = null;
         			var end = null;
+        			var endNum = '100만이상';
         			$("input[name='monthly[]']").each(function() {
         				if($(this).prop("checked") == true)
             			{
@@ -2111,19 +2459,30 @@ $("document").ready(function(){
         				}
          	        });
 
-         	        if(first == '0') {
-         	        	setValuemonthly = "~" + end + "이하";
-         	        }
-         	       	else if(first != '100만' && end == '1100만이상') {
-      	        		setValuePrice = first + "~";
-      	        	}
-         	        else {
-         	        	setValuemonthly = first + "~" + end;
-         	        }
+         	        if(first == '0' && end != endNum) {
+         	        	setValuemonthly = "~ " + end;
+        	        }
+        	        else if(first != '0' && end == endNum) {
+        	        	setValuemonthly = first + " ~";
+        	        }
+        	        else if(first == '0' && end == endNum) {
+        	        	setValuemonthly = "전체";
+        	        	$("input[name='monthly[]']").each(function() {
+       						$(this).prop("checked", false);
+            	        });
+       					$("input:checkbox[name='monthly[]']:input[value=all]").prop("checked", true);
+       	        	}
+        	        else {
+        	        	setValuemonthly = first + " ~ " + end;
+        	        }
         		}
     			else
     			{
     				setValuemonthly = "전체";
+    				$("input[name='monthly[]']").each(function() {
+    					$(this).prop("checked", false);
+         	        });
+    				$("input:checkbox[name='monthly[]']:input[value=all]").prop("checked", true);
     			}
 			}
 		}
@@ -2133,7 +2492,35 @@ $("document").ready(function(){
 
 		selMenuValueCost = selMenuValueCost + setValuemonthly;
 
-		$('#filerMenuName_price').html(setValuemonthly);
+		monthCostSave2 = setValuemonthly;
+
+		var printSetValuemonthly = '';
+
+		if(monthCostSave1 != null)
+		{
+			$('.sub_filter_inner').css("height", "43px");
+			$('.sub_filter_group').css("top", "100px");
+			
+			if(monthCostSave1 == '전체' && monthCostSave2 == '전체') {
+				printSetValuemonthly = '전체';
+			}
+			else if(monthCostSave1 != '전체' && monthCostSave2 == '전체') {
+				printSetValuemonthly = monthCostSave1;
+			}
+			else if(monthCostSave1 == '전체' && monthCostSave2 != '전체') {
+				printSetValuemonthly = monthCostSave2;
+			}
+			else {
+				printSetValuemonthly = monthCostSave1+'/'+monthCostSave2;
+				$('.sub_filter_inner').css("height", "80px");
+				$('.sub_filter_group').css("top", "137px");
+			}
+		}
+		else {
+			printSetValuemonthly = monthCostSave2;
+		}
+
+		$('#filerMenuName_price').html(printSetValuemonthly);
 		$('#filerMenuName_price').addClass('on');
 
 		fnloadInfoCall();	// 맵로딩
