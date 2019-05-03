@@ -752,7 +752,7 @@ header.maphd .btn_sch {left:0}
 .aptitm .area {margin-top:1px;font-size:14px;color:#666}
 .aptitm .ex_info {padding-top:5px;font-size:14px;color:#666}
 .aptitm .mask {opacity:.4;z-index:104;position:absolute}
-.soldout {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:100px;z-index:105}
+.soldout {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:100px;z-index:104}
 .soldout .txt {display:block;font-size:18px;color:#fff;padding-top:20px;text-align:center;background:url(../images/img_check.png) no-repeat 40px 2px}
 .soldout .date {display:block;font-size:13px;color:#fff;text-align:center}
 .bg_map + .itm_lst {/*height:170px*/padding:15px;padding-bottom:calc(constant(safe-area-inset-bottom) + 15px);padding-bottom:calc(env(safe-area-inset-bottom) + 15px);}
