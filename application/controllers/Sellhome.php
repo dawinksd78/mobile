@@ -141,6 +141,7 @@ class Sellhome extends MY_Controller
         $data['LAT'] = null;
         $data['LNG'] = null;
         
+        /*
         $module = 'CPClient';
         $this->load->config("nice");
         $niceCfg = $this->config->item('nice');
@@ -164,9 +165,11 @@ class Sellhome extends MY_Controller
         "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
         "6:GENDER" . strlen($gender) . ":" . $gender ;
         $data['enc_data'] = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
+        
         //session_start();
         //$sessiondata = array("REQ_SEQ"=>$reqseq);
         //$this->session->set_userdata($sessiondata);
+        */
         
         $this->load->helper('cookie');
         $data['MOBILE_NO'] = get_cookie('MOBILE_NO');
@@ -175,6 +178,40 @@ class Sellhome extends MY_Controller
         $this->load->view('sub_header');
         $this->load->view('sellhome/agency_service', $data);
         $this->load->view('sub_footer');
+    }
+    
+    function agencyServiceCert()
+    {
+        $module = 'CPClient';
+        $this->load->config("nice");
+        $niceCfg = $this->config->item('nice');
+        
+        $authtype = "M";
+        $popgubun = "N";
+        $customize = "";
+        $gender = "";
+        $reqseq = get_cprequest_no($niceCfg['site']);
+        $niceReturnHost =((!isset($_SERVER['HTTPS']) ||$_SERVER['HTTPS'] != "on") ? "http://" : "https://" ).$_SERVER['HTTP_HOST'];
+        
+        $returnurl = $niceReturnHost."/sellhome/agencyCertHP";	        // 성공시 이동될 URL
+        $errorurl = $niceReturnHost."/sellhome/agencyCertHPFail";		// 실패시 이동될 URL
+        
+        $plaindata = "7:REQ_SEQ" . strlen($reqseq) . ":" . $reqseq .
+        "8:SITECODE" . strlen($niceCfg['site']) . ":" . $niceCfg['site'] .
+        "9:AUTH_TYPE" . strlen($authtype) . ":". $authtype .
+        "7:RTN_URL" . strlen($returnurl) . ":" . $returnurl .
+        "7:ERR_URL" . strlen($errorurl) . ":" . $errorurl .
+        "11:POPUP_GUBUN" . strlen($popgubun) . ":" . $popgubun .
+        "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
+        "6:GENDER" . strlen($gender) . ":" . $gender ;
+        $enc_data = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
+        
+        //session_start();
+        //$sessiondata = array("REQ_SEQ"=>$reqseq);
+        //$this->session->set_userdata($sessiondata);
+        
+        echo json_encode(array("code"=>"100", "res"=>$enc_data));
+        return;
     }
     
     // 저장처리

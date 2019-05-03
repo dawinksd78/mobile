@@ -79,7 +79,7 @@
 <!-- 휴대폰 인증 -->
 <form name="form_chk_realtor" id="form_chk_realtor" method="post">
 <input type="hidden" name="m" value="checkplusSerivce">						<!-- 필수 데이타로, 누락하시면 안됩니다. -->
-<input type="hidden" name="EncodeData" value="<?php echo $enc_data?>">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+<input type="hidden" name="EncodeData" id="EncodeData">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
 </form>
 
 <script type="text/javascript">
@@ -95,8 +95,34 @@ var datachanged = false;
 // 휴대폰 인증
 function fnPopupRealtorNC()
 {
-	document.form_chk_realtor.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
-	document.form_chk_realtor.submit();
+	$.ajax({ 
+    	type: "POST", 
+    	dataType: "json",
+    	async: false, 
+    	url: "/agent/joinAgent4CertInfo", 
+    	success: function(data) {
+			if(data.code == '100')
+			{
+				$('#EncodeData').val(data.res);
+				document.form_chk_realtor.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+				document.form_chk_realtor.submit();          			
+      			return false;
+			}
+     		else
+     		{
+         		// 실패
+     			swal("오류!", "오류가 발생하였습니다. 다시 시도해 주시기 바랍니다!", "error");  
+      			return false;
+     		} 
+    	}, 
+    	error:function(data){
+    		// 실패
+ 			swal("오류!", "오류가 발생하였습니다. 다시 시도해 주시기 바랍니다!", "error");  
+  			return false;
+    	} 
+   	});
+   	
+	
 }
 
 // 인증체크

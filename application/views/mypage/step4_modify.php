@@ -296,6 +296,33 @@ function fnSaveRelatorPrc()
     });
 }
 
+// 저장 후 이전 페이지로
+function savePrev()
+{
+	<?php if($change_avail == "able" || $this->config->item('SERVERSTATE') == 'test') { ?>
+		var param =  $("#realtorform").serialize();
+	    $.ajax({
+	        url: '/mypage/step4_modify_save/',
+	        type: 'POST',
+	        data: param,
+	        dataType: 'json',
+	        success: function (result) {
+	          	if(result.code == 200) {
+	          		location.href = "/mypage/step3_modify/<?php echo $step4['GOODS_IDX']; ?>";
+	          	}
+	          	else {
+	            	swal(result.msg);
+	          	}
+	        },
+	        error: function(request, status, error) {
+	        	swal("잠시후에 다시 시도해 주세요!")
+	        }
+	    });
+	<?php } else { ?>
+		location.href = "/mypage/step3_modify/<?php echo $step4['GOODS_IDX']; ?>";
+    <?php } ?>
+}
+
 $("document").ready( function() {
 	<?php if($this->config->item('SERVERSTATE') != 'test' && $change_avail != "able") { ?>
 		popalert();

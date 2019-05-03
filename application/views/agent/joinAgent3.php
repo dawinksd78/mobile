@@ -41,7 +41,7 @@
                                 </div>
                                 
                                 <!-- 1/0404 검색어 삭제버튼 추가 -->
-                                <button type="button" onclick="selectBrokerOfficeDel()" class="btn_del02 inpdel">삭제</button>
+                                <button type="button" onclick="selectBrokerOfficeDel()" class="btn_del02 inpdel" id="selbrokeraddrdel" style="display:none;">삭제</button>
                                 <div class="sle_bk"></div>
                             </div>
                             
@@ -321,6 +321,7 @@ if(BROKEROFFICEINFOIDX != '') saveBrokerOffice(BROKEROFFICEINFOIDX);
 // 중개소 선택
 function selectBrokerOffice(idx, office, broker, office_addr, lat, lng)
 {
+	$('#selbrokeraddrdel').show();
 	$('.sle_bk').children().remove().end();
 	//$('.sle_bk').css('display', 'block');
 	//$('.sle_bk').append('<span class="" id="sbo' + idx + '">' + office + ' (' + broker + ') <a href="javascript:selectBrokerOfficeDel()" class="del01">삭제</a></span>');
@@ -337,6 +338,7 @@ function selectBrokerOffice(idx, office, broker, office_addr, lat, lng)
 
 // 중개소 삭제
 function selectBrokerOfficeDel() {
+	$('#selbrokeraddrdel').hide();
 	$('#brokerofficeidx').val('');
 	$('#office_addr').val('');
 	$('#office_lat').val('');

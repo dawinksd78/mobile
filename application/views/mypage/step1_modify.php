@@ -153,11 +153,11 @@ if($CATEGORY == 'APT' || $CATEGORY == 'OFT')
                     </div>
 				</div>
 				
-                <div class="modi_btn"><button class="btn_line03 btn_next" type="button" onclick="goPage('/mypage/step2_modify/<?php echo $step_1['GOODS_IDX']; ?>')">다음</button></div>
+                <div class="modi_btn"><button class="btn_line03 btn_next" type="button" onclick="sellstep1MdfProc('next')">다음</button></div>
 			</div>
                 
             <div class="btn_area bot_btn">
-                <button type="button" class="btn_type02" onclick="sellstep1MdfProc()">수정완료</button>
+                <button type="button" class="btn_type02" onclick="sellstep1MdfProc('save')">수정완료</button>
             </div>
 		</div>
 		<input type="hidden" value="<?php echo $step_1['GOODS_IDX']; ?>" name="idx" id="idx">
@@ -1191,7 +1191,7 @@ $("document").ready(function(){
 //--------------------------------------------------------------------------------//
 
 // 저장하기
-function sellstep1MdfProc()
+function sellstep1MdfProc(regType)
 {
 	var REG_TYPE = $(":input:radio[name=REG_TYPE]:checked").val();
 	if(!REG_TYPE) {
@@ -1412,16 +1412,24 @@ function sellstep1MdfProc()
      	url:"/mypage/step1_modify_save", 
      	data: sendData, 
      	success: function(result) {
-     		if(result.code == 200) {
-         		swal({
-      			  	title: "변경완료!",
-      			  	text: "변경하신 내용을 저장 하였습니다!",
-      			  	icon: "success",
-      			  	button: "확 인",
-      			})
-      			.then(function () {
-      				location.href = "/mypage/myhousesale";
-      			});
+     		if(result.code == 200)
+         	{
+             	if(regType == 'save')
+             	{
+             		swal({
+          			  	title: "변경완료!",
+          			  	text: "변경하신 내용을 저장 하였습니다!",
+          			  	icon: "success",
+          			  	button: "확 인",
+          			})
+          			.then(function () {
+          				location.href = "/mypage/myhousesale";
+          			});
+             	}
+             	else
+             	{
+                 	location.href = "/mypage/step2_modify/<?php echo $step_1['GOODS_IDX']; ?>";
+             	}
          	}
          	else {
          		swal('저장에 실패하였습니다. 다시 확인하여 주십시요.');

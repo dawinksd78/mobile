@@ -48,20 +48,126 @@ class Sendfile extends MY_Controller
             echo json_encode(array('code'=>'603', "msg"=>"jpg, gif, png 파일만 업로드가 가능합니다."));
             return;
         }
-        else if( $_FILES['files']['size']/1024/1024 > 4 ) {
+        /*else if( $_FILES['files']['size']/1024/1024 > 4 ) {
             echo json_encode(array('code'=>'604', "msg"=>"최대 4M까지만 업로드가 가능합니다."));
             return;
+        }*/
+        
+        //------------------
+        
+        // 이미지 로테이션
+        if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+            $image = imagecreatefromjpeg($_FILES['files']['tmp_name']);
+            $imgType = "jpeg";
         }
+        else if(in_array($_FILES['files']['type'], array("image/png"))) {
+            $image = imagecreatefrompng($_FILES['files']['tmp_name']);
+            $imgType = "png";
+        }
+        else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+            $image = imagecreatefromwbmp($_FILES['files']['tmp_name']);
+            $imgType = "wbmp";
+        }
+        else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+            $image = imagecreatefromgif($_FILES['files']['tmp_name']);
+            $imgType = "gif";
+        }
+        
+        $exif = exif_read_data($_FILES['files']['tmp_name']);
+        if(!empty($exif['Orientation']))
+        {
+            switch($exif['Orientation'])
+            {
+                case 8:
+                    $image = imagerotate($image,90,0);
+                    break;
+                    
+                case 3:
+                    $image = imagerotate($image,180,0);
+                    break;
+                    
+                case 6:
+                    $image = imagerotate($image,-90,0);
+                    break;
+            }
+            
+            header('Content-type: image/'.$imgType);
+            
+            if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+                imagejpeg($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/png"))) {
+                imagepng($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+                imagewbmp($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+                imagegif($image,$_FILES['files']['tmp_name']);
+            }
+            
+            imagedestroy($image);
+        }
+        
+        //------------------
+        
+        // 이미지 width, height 변경 (최대 가로세로 1000px)
+        $size = getimagesize($_FILES['files']['tmp_name']);
+        $ratio = $size[0]/$size[1]; // width/height
+        if( $ratio > 1)
+        {
+            if($size[0] > 1000) {
+                $width = 1000;
+                $height = 1000/$ratio;
+            }
+            else {
+                $width = $size[0];
+                $height = $size[1];
+            }
+        }
+        else
+        {
+            if($size[1] > 1000) {
+                $width = 1000*$ratio;
+                $height = 1000;
+            }
+            else {
+                $width = $size[0];
+                $height = $size[1];
+            }
+        }
+        $src = imagecreatefromstring(file_get_contents($_FILES['files']['tmp_name']));
+        $dst = imagecreatetruecolor($width,$height);
+        imagecopyresampled($dst,$src,0,0,0,0,$width,$height,$size[0],$size[1]);
+        imagedestroy($src);
+        
+        if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+            imagejpeg($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/png"))) {
+            imagepng($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+            imagewbmp($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+            imagegif($dst,$_FILES['files']['tmp_name']);
+        }
+        
+        
+        imagedestroy($dst);
+        
+        //------------------
         
         $this->load->model("S3_model");
         $res = $this->S3_model->uploadFromTmp( $this->S3_model->makePrefix('sale'),$_FILES['files']['tmp_name'],$_FILES['files']['type']  );
         
         if(isset($res['code']) && $res['code']==200) {
-            $this->db->insert('TB_TMP_FOR_SALE_IMAGE', array("MBR_IDX"=>$this->userinfo['MBR_IDX'], "CATEGORY"=>$loadCategory, "INOUT"=>$inout, "FILEKEY"=>$res['key'],"IMG_FULL_PATH"=>$res['url'] ));
+            $this->db->insert('TB_TMP_FOR_SALE_IMAGE', array("MBR_IDX"=>$this->userinfo['MBR_IDX'], "CATEGORY"=>$loadCategory, "INOUT"=>$inout, "FILEKEY"=>$res['key'], "IMG_FULL_PATH"=>$res['url']));
             $insid = $this->db->insert_id();
             echo json_encode(array('code'=>'200',"newUuid"=>$insid,"data"=>$res['url']));
         }
-        else if( isset($res['code']) && isset($res['msg'])) {
+        else if(isset($res['code']) && isset($res['msg'])) {
             echo json_encode( $res );
         }
         else {
@@ -72,18 +178,19 @@ class Sendfile extends MY_Controller
     function del()
     {
         $uuid = (int)($this->input->post('uuid', true));
-        $qry = $this->db->query("select FILEKEY from TB_TMP_FOR_SALE_IMAGE where IMG_IDX= ? and MBR_IDX = ?", array($uuid,$this->userinfo['MBR_IDX'] ) );
+        $qry = $this->db->query("select FILEKEY from TB_TMP_FOR_SALE_IMAGE where IMG_IDX = ? and MBR_IDX = ?", array($uuid,$this->userinfo['MBR_IDX']));
         if($qry->num_rows() < 1) {
-            echo json_encode(array('code'=>'1', "msg"=>"파일정보를 찾을 수 없습니다."));return;
+            echo json_encode(array('code'=>'1', "msg"=>"파일정보를 찾을 수 없습니다."));
+            return;
         }
         else
         {
             $row = $qry->row_array();
             $this->load->model("S3_model");
             $res = $this->S3_model->delimage( $row['FILEKEY']);
-            if( $res['code']==200 ) {
-                $qry=$this->db->where('IMG_IDX', $uuid)->where ('MBR_IDX',$this->userinfo['MBR_IDX'])->delete('TB_TMP_FOR_SALE_IMAGE');
-                if( $qry ) echo json_encode(array('code'=>'200'));
+            if($res['code'] == 200) {
+                $qry=$this->db->where('IMG_IDX', $uuid)->where('MBR_IDX',$this->userinfo['MBR_IDX'])->delete('TB_TMP_FOR_SALE_IMAGE');
+                if($qry) echo json_encode(array('code'=>'200'));
                 else echo json_encode(array('code'=>'500', "msg"=>"잠시 후에 다시 시도해 주세요"));
             }
             else echo json_encode($res);
@@ -94,19 +201,19 @@ class Sendfile extends MY_Controller
     function chkGoodsSTatus( $goods_idx )
     {
         $this->load->model("sellhome_model");
-        $goods_info = $this->sellhome_model->goodsInfo($goods_idx );
+        $goods_info = $this->sellhome_model->goodsInfo($goods_idx);
         
-        if( $goods_info === false ) {
+        if($goods_info === false) {
             echo json_encode(array("code"=>"404", "msg"=>"매물을 찾을 수 없습니다") );
             exit;
         }
         
-        if( !in_array($goods_info['GOODS_STATUS'], array("BL","SB")) ) {
+        if(!in_array($goods_info['GOODS_STATUS'], array("BL","SB"))) {
             echo json_encode(array("code"=>"501", "msg"=>"매물 정보를 수정할 수 없습니다") );
             exit;
         }
         
-        if( $goods_info['REG_MBR_IDX'] != $this->userinfo['MBR_IDX'] ) {
+        if($goods_info['REG_MBR_IDX'] != $this->userinfo['MBR_IDX']) {
             echo json_encode(array("code"=>"500", "msg"=>"매물 정보를 수정할 수 없습니다") );
             exit;
         }
@@ -128,7 +235,8 @@ class Sendfile extends MY_Controller
         $goods_info = $this->chkGoodsSTatus($imginfo['GOODS_IDX']);
         $this->load->model("S3_model");
         $res = $this->S3_model->delimage($imginfo['FILE_NAME']);
-        if( $res['code']==200 ) {
+        if($res['code'] == 200)
+        {
             $qry = $this->db->where('GOODS_IMG_IDX', $imginfo['GOODS_IMG_IDX'])->delete('TB_UM_GOODS_IMG');
             if($qry)
             {
@@ -168,10 +276,116 @@ class Sendfile extends MY_Controller
             echo json_encode(array('code'=>'603', "msg"=>"jpg, gif, png 파일만 업로드가 가능합니다."));
             return;
         }
-        else if( $_FILES['files']['size']/1024/1024 > 4 ) {
+        /*else if( $_FILES['files']['size']/1024/1024 > 4 ) {
             echo json_encode(array('code'=>'604', "msg"=>"최대 4M까지만 업로드가 가능합니다."));
             return;
+        }*/
+        
+        //------------------
+        
+        // 이미지 로테이션
+        if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+            $image = imagecreatefromjpeg($_FILES['files']['tmp_name']);
+            $imgType = "jpeg";
         }
+        else if(in_array($_FILES['files']['type'], array("image/png"))) {
+            $image = imagecreatefrompng($_FILES['files']['tmp_name']);
+            $imgType = "png";
+        }
+        else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+            $image = imagecreatefromwbmp($_FILES['files']['tmp_name']);
+            $imgType = "wbmp";
+        }
+        else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+            $image = imagecreatefromgif($_FILES['files']['tmp_name']);
+            $imgType = "gif";
+        }
+        
+        $exif = exif_read_data($_FILES['files']['tmp_name']);
+        if(!empty($exif['Orientation']))
+        {
+            switch($exif['Orientation'])
+            {
+                case 8:
+                    $image = imagerotate($image,90,0);
+                    break;
+                    
+                case 3:
+                    $image = imagerotate($image,180,0);
+                    break;
+                    
+                case 6:
+                    $image = imagerotate($image,-90,0);
+                    break;
+            }
+            
+            header('Content-type: image/'.$imgType);
+            
+            if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+                imagejpeg($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/png"))) {
+                imagepng($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+                imagewbmp($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+                imagegif($image,$_FILES['files']['tmp_name']);
+            }
+            
+            imagedestroy($image);
+        }
+        
+        //------------------
+        
+        // 이미지 width, height 변경 (최대 가로세로 1000px)
+        $size = getimagesize($_FILES['files']['tmp_name']);
+        $ratio = $size[0]/$size[1]; // width/height
+        if( $ratio > 1)
+        {
+            if($size[0] > 1000) {
+                $width = 1000;
+                $height = 1000/$ratio;
+            }
+            else {
+                $width = $size[0];
+                $height = $size[1];
+            }
+        }
+        else
+        {
+            if($size[1] > 1000) {
+                $width = 1000*$ratio;
+                $height = 1000;
+            }
+            else {
+                $width = $size[0];
+                $height = $size[1];
+            }
+        }
+        $src = imagecreatefromstring(file_get_contents($_FILES['files']['tmp_name']));
+        $dst = imagecreatetruecolor($width,$height);
+        imagecopyresampled($dst,$src,0,0,0,0,$width,$height,$size[0],$size[1]);
+        imagedestroy($src);
+        
+        if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+            imagejpeg($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/png"))) {
+            imagepng($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+            imagewbmp($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+            imagegif($dst,$_FILES['files']['tmp_name']);
+        }
+        
+        
+        imagedestroy($dst);
+        
+        //------------------
         
         $this->load->model("S3_model");
         $res = $this->S3_model->uploadFromTmp( $this->S3_model->makePrefix('sale'),$_FILES['files']['tmp_name'],$_FILES['files']['type']  );

@@ -134,7 +134,7 @@ switch($saletypeData)
                 <!-- 아파트 & 오피스텔 -->
                 <div class="check_box02" id="searchfilterbox_area_apt" style="display:none;">
                     <div class="chk01">
-                      	<input type="checkbox" id="ar_chk01" name="area[]" data-first="all" data-end="all" value="all" <?php if($saletypedefault != 'ONE') echo 'checked=""'; ?>>
+                      	<input type="checkbox" id="ar_chk01" name="area[]" data-first="all" data-end="all" value="all" <?php if($saletypedefault == 'APT' || $saletypedefault == 'OFT') echo 'checked=""'; ?>>
                       	<label for="ar_chk01">전체</label>
                     </div>
                     <div class="chk01">
@@ -1622,8 +1622,8 @@ $("document").ready(function(){
 			$('#filerMenuName_area').removeClass('on');
 			$('#filerMenuName_roomtype').html('방구조');
 			$('#filerMenuName_roomtype').removeClass('on');
-			//$('#filerMenuName_price').html('금액');
-			//$('#filerMenuName_price').removeClass('on');
+			$('#filerMenuName_price').html('금액');
+			$('#filerMenuName_price').removeClass('on');
 			$('#searchfilterbox_price').hide();	//금액숨김
 		}
 
@@ -1674,22 +1674,23 @@ $("document").ready(function(){
         $('#filerMenuName_deal').addClass('on');
 
 		// 면적 초기화
-		//$('#filerMenuName_area').html("면적");
-        //$('#filerMenuName_area').removeClass('on');
-        //$("input[name='area[]']").each(function() {
-        	//$(this).attr("checked", false);
-        //});
+		$('#filerMenuName_area').html("면적");
+        $('#filerMenuName_area').removeClass('on');
+        $("input[name='area[]']").each(function() {
+        	if($(this).val() != 'all') $(this).prop("checked", false);
+           	else $(this).prop("checked", true);
+        });
 
         // 방구조 초기화
-        //$('#filerMenuName_roomtype').html("방구조");
-        //$('#filerMenuName_roomtype').removeClass('on');
+        $('#filerMenuName_roomtype').html("방구조");
+        $('#filerMenuName_roomtype').removeClass('on');
         $("input[name='ROOM_TYPE[]']").each(function() {
         	$(this).attr("checked", false);
         });
 
         // 금액 초기화
-        //$('#filerMenuName_price').html("금액");
-		//$('#filerMenuName_price').removeClass('on');
+        $('#filerMenuName_price').html("금액");
+		$('#filerMenuName_price').removeClass('on');
 		$("input[name='charterprice[]']").each(function() {
         	$(this).attr("checked", false);
         });
@@ -1700,7 +1701,9 @@ $("document").ready(function(){
         	$(this).attr("checked", false);
         });
 
-        if(dealTypeSel == 'all')
+		var saletypeVal = $(":input:radio[name=saletype]:checked").val();
+
+        if(dealTypeSel == 'all' && saletypeVal == 'ONE')
         {
         	$('#filerMenuName_price').hide();
 
@@ -1738,7 +1741,7 @@ $("document").ready(function(){
 			monthCostSave1 = null;//월세보증금
 			monthCostSave2 = null;//월세
         }
-        else if(dealTypeSel == 'previous_2')
+        else if(dealTypeSel == 'previous_2' && saletypeVal == 'ONE')
         {
         	$('#filerMenuName_price').show();
         	$('#filerMenuName_price').html("금액");
@@ -1779,7 +1782,7 @@ $("document").ready(function(){
 			monthCostSave1 = null;//월세보증금
 			monthCostSave2 = null;//월세
         }
-        else if(dealTypeSel == 'previous_3')
+        else if(dealTypeSel == 'previous_3' && saletypeVal == 'ONE')
         {
         	$('#filerMenuName_price').show();
         	$('#filerMenuName_price').html("금액");
@@ -1845,7 +1848,8 @@ $("document").ready(function(){
 		$("#oneroomDanjiListView").hide();
 		fnoneRoomAllListPrintClose();
 
-        if($(this).val() == '' || $(this).val()=='all') {
+        if($(this).val() == '' || $(this).val()=='all')
+        {
         	$("input[name='area[]']").each(function() {
  	           	if($(this).val() != 'all') $(this).prop("checked", false);
  	           	else $(this).prop("checked", true);
@@ -2099,7 +2103,7 @@ $("document").ready(function(){
 		}
 		else {
 			$("input:checkbox[name='ROOM_TYPE[]']:input[value=all]").prop("checked", true);
-			$('#filerMenuName_area').html("전체");
+			$('#filerMenuName_roomtype').html("전체");
 		}
 
 		$('#filerMenuName_roomtype').addClass('on');

@@ -99,6 +99,7 @@ class Agent extends MY_Controller {
             return;
         }
         
+        // 파일 체크
         if(!isset($_FILES['files']) || $_FILES['files']['error']) {
             echo json_encode(array('code'=>'602', "msg"=>"파일업로드 중 에러가 발생했습니다."));
             return;
@@ -107,10 +108,116 @@ class Agent extends MY_Controller {
             echo json_encode(array('code'=>'603', "msg"=>"jpg, gif, png 파일만 업로드가 가능합니다."));
             return;
         }
-        else if( $_FILES['files']['size']/1024/1024 > 4 ) {
+        /*else if( $_FILES['files']['size']/1024/1024 > 4 ) {
             echo json_encode(array('code'=>'604', "msg"=>"최대 4M까지만 업로드가 가능합니다."));
             return;
+        }*/
+        
+        //------------------
+        
+        // 이미지 로테이션        
+        if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+            $image = imagecreatefromjpeg($_FILES['files']['tmp_name']);
+            $imgType = "jpeg";
         }
+        else if(in_array($_FILES['files']['type'], array("image/png"))) {
+            $image = imagecreatefrompng($_FILES['files']['tmp_name']);
+            $imgType = "png";
+        }
+        else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+            $image = imagecreatefromwbmp($_FILES['files']['tmp_name']);
+            $imgType = "wbmp";
+        }
+        else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+            $image = imagecreatefromgif($_FILES['files']['tmp_name']);
+            $imgType = "gif";
+        }
+        
+        $exif = exif_read_data($_FILES['files']['tmp_name']);
+        if(!empty($exif['Orientation']))
+        {
+            switch($exif['Orientation'])
+            {
+                case 8:
+                    $image = imagerotate($image,90,0);
+                break;
+                
+                case 3:
+                    $image = imagerotate($image,180,0);
+                break;
+                
+                case 6:
+                    $image = imagerotate($image,-90,0);
+                break;
+            }
+            
+            header('Content-type: image/'.$imgType);
+            
+            if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+                imagejpeg($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/png"))) {
+                imagepng($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+                imagewbmp($image,$_FILES['files']['tmp_name']);
+            }
+            else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+                imagegif($image,$_FILES['files']['tmp_name']);
+            }
+            
+            imagedestroy($image);
+        }
+        
+        //------------------
+        
+        // 이미지 width, height 변경 (최대 가로세로 1000px)
+        $size = getimagesize($_FILES['files']['tmp_name']);
+        $ratio = $size[0]/$size[1]; // width/height
+        if( $ratio > 1)
+        {
+            if($size[0] > 1000) {
+                $width = 1000;
+                $height = 1000/$ratio;
+            }
+            else {
+                $width = $size[0];
+                $height = $size[1];
+            }
+        }
+        else
+        {
+            if($size[1] > 1000) {
+                $width = 1000*$ratio;
+                $height = 1000;
+            }
+            else {
+                $width = $size[0];
+                $height = $size[1];
+            }
+        }
+        $src = imagecreatefromstring(file_get_contents($_FILES['files']['tmp_name']));
+        $dst = imagecreatetruecolor($width,$height);
+        imagecopyresampled($dst,$src,0,0,0,0,$width,$height,$size[0],$size[1]);
+        imagedestroy($src);
+        
+        if(in_array($_FILES['files']['type'], array("image/jpeg", "image/jpg"))) {
+            imagejpeg($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/png"))) {
+            imagepng($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/bmp", "image/wbmp"))) {
+            imagewbmp($dst,$_FILES['files']['tmp_name']);
+        }
+        else if(in_array($_FILES['files']['type'], array("image/gif"))) {
+            imagegif($dst,$_FILES['files']['tmp_name']);
+        }
+        
+        
+        imagedestroy($dst);
+        
+        //------------------
         
         $this->load->model("S3_model");
         $res = $this->S3_model->uploadFromTmp( $this->S3_model->makePrefix('realtorDoc'),$_FILES['files']['tmp_name'],$_FILES['files']['type']  );
@@ -250,6 +357,7 @@ class Agent extends MY_Controller {
         
         $joinData = $this->getJoinData($cook);
         
+        /*
         $module = 'CPClient';
         $this->load->config("nice");
         $niceCfg = $this->config->item('nice');
@@ -273,9 +381,11 @@ class Agent extends MY_Controller {
         "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
         "6:GENDER" . strlen($gender) . ":" . $gender ;
         $joinData['enc_data'] = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
+        
         session_start();
         $sessionagentdata = array("REQ_SEQ"=>$reqseqagent);
         $this->session->set_userdata($sessionagentdata);
+        */
         
         $joinData['certState'] = "X";
         
@@ -300,6 +410,41 @@ class Agent extends MY_Controller {
         $this->load->view('sub_header');
         $this->load->view('agent/joinAgent4', $joinData);
         $this->load->view('sub_footer');
+    }
+    
+    // 중개사 회원가입 4단계 인증 정보
+    function joinAgent4CertInfo()
+    {
+        $module = 'CPClient';
+        $this->load->config("nice");
+        $niceCfg = $this->config->item('nice');
+        
+        $authtype = "M";
+        $popgubun 	= "N";
+        $customize 	= "";
+        $gender = "";
+        $reqseqagent = get_cprequest_no($niceCfg['site']);
+        $niceReturnHost =((!isset($_SERVER['HTTPS']) ||$_SERVER['HTTPS'] != "on") ? "http://" : "https://" ).$_SERVER['HTTP_HOST'];
+        
+        $returnagenturl = $niceReturnHost."/agent/nice";	// 성공시 이동될 URL
+        $erroragenturl = $niceReturnHost."/agent/fail";		// 실패시 이동될 URL
+        
+        $plaindata = "7:REQ_SEQ" . strlen($reqseqagent) . ":" . $reqseqagent .
+        "8:SITECODE" . strlen($niceCfg['site']) . ":" . $niceCfg['site'] .
+        "9:AUTH_TYPE" . strlen($authtype) . ":". $authtype .
+        "7:RTN_URL" . strlen($returnagenturl) . ":" . $returnagenturl .
+        "7:ERR_URL" . strlen($erroragenturl) . ":" . $erroragenturl .
+        "11:POPUP_GUBUN" . strlen($popgubun) . ":" . $popgubun .
+        "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
+        "6:GENDER" . strlen($gender) . ":" . $gender ;
+        $enc_data = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
+        
+        session_start();
+        $sessionagentdata = array("REQ_SEQ"=>$reqseqagent);
+        $this->session->set_userdata($sessionagentdata);
+        
+        echo json_encode(array("code"=>"100", "res"=>$enc_data));
+        return;
     }
     
     // 중개사 회원가입 4단계 저장

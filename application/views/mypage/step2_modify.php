@@ -308,11 +308,11 @@
                     </div>
                 </div>
                 
-                <div class="modi_btn"><button class="btn_line03 btn_prev" type="button" onclick="goPage('/mypage/step1_modify/<?php echo $step2['GOODS_IDX']; ?>')">이전</button><button class="btn_line03 btn_next" type="button" onclick="goPage('/mypage/step3_modify/<?php echo $step2['GOODS_IDX']; ?>')">다음</button></div>
+                <div class="modi_btn"><button class="btn_line03 btn_prev" type="button" onclick="saveMdfStep2('prev')">이전</button><button class="btn_line03 btn_next" type="button" onclick="saveMdfStep2('next')">다음</button></div>
             </div>
             
             <div class="btn_area bot_btn">
-                <button type="button" class="btn_type02" onclick="saveMdfStep2()">수정완료</button>
+                <button type="button" class="btn_type02" onclick="saveMdfStep2('save')">수정완료</button>
             </div>
         </div>
         <input type="hidden" name="idx" id="idx" value="<?php echo $step2['GOODS_IDX']; ?>" >
@@ -326,7 +326,7 @@ function changeEtcArea(chk) {
 	else  $("#GOODS_FEATURE_ETC").attr('readonly', true);
 }
 
-function saveMdfStep2()
+function saveMdfStep2(regType)
 {
 	var param = $("#step2form").serialize();
 	$.ajax({ 
@@ -338,15 +338,26 @@ function saveMdfStep2()
     	success: function(data) {
     		if(data.code == 200)
         	{
-    			swal({
-      			  	title: "변경완료!",
-      			  	text: "변경하신 내용을 저장 하였습니다!",
-      			  	icon: "success",
-      			  	button: "확 인",
-      			})
-      			.then(function () {
-      				location.href = "/mypage/myhousesale";
-      			});
+            	if(regType == 'next')
+            	{
+            		location.href = "/mypage/step3_modify/<?php echo $step2['GOODS_IDX']; ?>";
+            	}
+            	else if(regType == 'prev')
+            	{
+            		location.href = "/mypage/step1_modify/<?php echo $step2['GOODS_IDX']; ?>";
+            	}
+            	else
+            	{
+        			swal({
+          			  	title: "변경완료!",
+          			  	text: "변경하신 내용을 저장 하였습니다!",
+          			  	icon: "success",
+          			  	button: "확 인",
+          			})
+          			.then(function () {
+          				location.href = "/mypage/myhousesale";
+          			});
+            	}
       		}
       		else {
         		swal(data.msg);
