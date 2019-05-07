@@ -142,7 +142,7 @@ var tooltip_nowmonth;
                                     }
                                     ?>
                             	</ul>
-                            	<div class="swiper" style="z-index:1000;"><span class="cu">1</span> / <span class="tot"><?php echo $totImgCnt; ?></span></div>
+                            	<div class="swiper" style="z-index:1000;"><span class="cu"><?php if($totImgCnt > 0) { echo "1"; } else { echo "0"; } ?></span> / <span class="tot"><?php echo $totImgCnt; ?></span></div>
                           	</div>
                           	
                             <?php

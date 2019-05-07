@@ -91,13 +91,21 @@ switch($data['ENTER_TYPE'])
                                         }
                                         else $images = explode(',',  $data['images']);
                                         
-                                        $totImgCnt = count($images); 
-                                        foreach($images as $imgrow) {
+                                        //$totImgCnt = count($images); 
+                                        $totImgCnt = 0;
+                                        foreach($images as $imgrow)
+                                        {
+                                            if($imgrow != '')
+                                            {
+                                                ?>
+                                            	<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
+                                                <?php
+                                                $totImgCnt++;
+                                            }
+                                        }
                                         ?>
-                                    	<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
-                                        <?php } ?>
                                     </ul>
-                                    <div class="swiper" style="z-index:1000;"><span class="cu">1</span> / <span class="tot"><?php echo $totImgCnt; ?></span></div>
+                                    <div class="swiper" style="z-index:1000;"><span class="cu"><?php if($totImgCnt > 0) { echo "1"; } else { echo "0"; } ?></span> / <span class="tot"><?php echo $totImgCnt; ?></span></div>
     							</div>
                                 <div class="itm_summ itm_exp">
                                     <?php /*<p class="itmnum">매물번호 <b><?php echo $data['GOODS_NO']?></b></p>*/ ?>
