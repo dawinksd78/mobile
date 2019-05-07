@@ -106,44 +106,37 @@ var tooltip_nowmonth;
 									
                                     if($imgState == 'O')
                                     {
-    									//$images1 = explode(',',  $data['images']);
-                                        $images1 = $data['outimg'];
-    									$images2 = explode(',',  $data['cpx_images']);
-    									
-                                        $totImgCnt1 = count($images1);
-                                        if($totImgCnt1 > 0)
+    									$images1 = explode(',',  $data['images']);
+                                        $totImgCnt1 = 0;
+                                        foreach($images1 as $imgrow)
                                         {
-                                            foreach($images1 as $imgrow)
-                                            {
-                                                ?>
-                                            	<li class="swiper-slide"><img src="<?php echo $imgrow['SERVER_PATH'].$imgrow['FULL_PATH']; ?>" alt="단지사진"></li>
-                                                <?php
+                                            if($imgrow != '') {
+                                            ?>
+                                        	<!-- li class="swiper-slide"><img src="<?php //echo $imgrow['SERVER_PATH'].$imgrow['FULL_PATH']; ?>" alt="단지사진"></li -->
+                                        	<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
+                                            <?php
+                                                $totImgCnt1++;
                                             }
                                         }
                                         
-                                        $totImgCnt2 = count($images2);
-                                        if($totImgCnt2 > 0)
+                                        $images2 = explode(',',  $data['cpx_images']);
+                                        $totImgCnt2 = 0;
+                                        foreach($images2 as $imgrow)
                                         {
-                                            foreach($images2 as $imgrow)
-                                            {
-                                                ?>
-                                        		<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
-                                            	<?php
+                                            if($imgrow != '') {
+                                            ?>
+                                    		<li class="swiper-slide"><img src="<?php echo $imgrow; ?>" alt="단지사진"></li>
+                                        	<?php
+                                        	   $totImgCnt2++;
                                             }
                                         }
                                         
                                         $totImgCnt = $totImgCnt1 + $totImgCnt2;
-                                        
-                                        if($totImgCnt < 1) {
-                                            ?>
-                                            <li class="swiper-slide"><img src="/images/img_noimg.png" alt="단지사진"></li>
-                                            <?php
-                                        }
                                     }
                                     else
                                     {
                                         ?>
-                                        <li class="swiper-slide"><img src="/images/img_noimg.png" alt="단지사진"></li>
+                                        <li class="swiper-slide"><img src="<?php echo $images; ?>" alt="단지사진"></li>
                                         <?php
                                         $totImgCnt = 0;
                                     }
