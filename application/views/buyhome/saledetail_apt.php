@@ -133,11 +133,17 @@ var tooltip_nowmonth;
                                         }
                                         
                                         $totImgCnt = $totImgCnt1 + $totImgCnt2;
+                                        
+                                        if($totImgCnt < 1) {
+                                            ?>
+                                            <li class="swiper-slide"><img src="/images/img_noimg.png" alt="단지사진"></li>
+                                            <?php
+                                        }
                                     }
                                     else
                                     {
                                         ?>
-                                        <li class="swiper-slide"><img src="<?php echo $images; ?>" alt="단지사진"></li>
+                                        <li class="swiper-slide"><img src="/images/img_noimg.png" alt="단지사진"></li>
                                         <?php
                                         $totImgCnt = 0;
                                     }
