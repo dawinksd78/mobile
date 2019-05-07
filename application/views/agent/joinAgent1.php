@@ -28,7 +28,7 @@
     			<ul class="swiper-wrapper">
     				<li class="s_jabg sjabg01 swiper-slide">
                         <div class="jatit_wrap">
-                            <p class="ja_tit03">네이버,직방은 이제그만!!</p>
+                            <p class="ja_tit03">네이버, 직방은 이제그만!!</p>
                             <p class="ja_tit01">부동산 중개의 <b class="t_yellow">대변화</b>에<br> 올라타세요!</p>
                             <p class="ja_tit02">온라인상에 중개사무실을 개설하세요.<br>수많은 고객들이 알아서 찾아옵니다.</p>
                         </div>
@@ -42,7 +42,7 @@
                     <li class="s_jabg sjabg03 swiper-slide">
                         <div class="jatit_wrap">
                             <p class="ja_tit01">매수인, 임차인 확보<br>걱정 No!</p>
-                          <p class="ja_tit02">다윈에서 다양한 광고를 통해<br><b>매수인, 임차인을 확보해드립니다.</b><br>중개사님은 중개 서비스 향상에만 집중하세요.</p>
+                          <p class="ja_tit02">다윈중개에서 다양한 광고를 통해<br><b>매수인, 임차인을 확보해드립니다.</b><br>중개사님은 중개 서비스 향상에만 집중하세요.</p>
                         </div>
                     </li>
                     <li class="s_jabg sjabg04 swiper-slide">
@@ -54,7 +54,7 @@
                     <li class="s_jabg sjabg05 swiper-slide">
                         <div class="jatit_wrap">
                             <p class="ja_tit01">임대료<br>걱정 No!</p>
-                            <p class="ja_tit02">더 이상 비싼 임대료를 내가며<br>1층 상가에 있을 필요가 없습니다.<br><b>매물 확보에서 매수인, 임차인 확보,<br>모든 중개업무까지</b> 온라인으로 해결.<br>컴퓨터와 휴대폰만으로 완벽한 업무를<br>처리할 수 있도록 지원해드립니다.</p>
+                            <p class="ja_tit02">더 이상 비싼 임대료를 내가며<br>1층 상가에 있을 필요가 없습니다.<br><b>매물 확보에서 매수인, 임차인 확보,<br>모든 중개업무까지 온라인</b>으로 해결.<br>컴퓨터와 휴대폰만으로 완벽한 업무를<br>처리할 수 있도록 지원해드립니다.</p>
                         </div>
                     </li>
                     <li class="s_jabg sjabg06 swiper-slide">
@@ -66,7 +66,7 @@
                     <li class="s_jabg sjabg07 swiper-slide">
                         <div class="jatit_wrap">
                             <p class="ja_tit01">하루종이 사무실에서<br>뻗치기 No!</p>
-                            <p class="ja_tit02">더 이상 하루 종일 사무실에서<br>대기할 필요가 없습니다.<br><b>모든 일은 언제, 어디서든 컴퓨터와 휴대폰으로.</b><br>이젠 근무시간과 근무장소를<br>자유롭게 활용하세요.</p>
+                            <p class="ja_tit02">더 이상 하루 종일 사무실에서<br>대기할 필요가 없습니다.<br><b>모든 일은 언제, 어디서든 컴퓨터와 휴대폰으로.</b><br>이젠 근무시간과 근무장소를<br>자유롭게 활용하세요.
                         </div>
                     </li>
                     <li class="s_jabg sjabg08 swiper-slide">

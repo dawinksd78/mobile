@@ -9,14 +9,14 @@
               <p >모두가 WinWin하는 <i class="f_yelloe">'다윈중개'</i></p>
           </div>
           <ul class="m_tab" id="main_searchtab">
-              <li><a class="tab01 on" data-category="APT" data-placeholder="원하시는 지역명, 지하철역, 단지명(아파트명)을 입력해주세요"><span>아파트</span></a></li>
-              <li><a class="tab02" data-category="OFT" data-placeholder="원하시는 지역명, 지하철역, 단지명(오피스텔명)을 입력해주세요"><span>오피스텔</span></a></li>
-              <li><a class="tab03" data-category="ONE" data-placeholder="원하시는 지역명, 지하철역을 입력해주세요"><span>원룸/투룸</span></a></li>
+              <li><a class="tab01 on" data-category="APT" data-placeholder="지역, 지하철역, 단지명을 입력해주세요."><span>아파트</span></a></li>
+              <li><a class="tab02" data-category="OFT" data-placeholder="지역, 지하철역, 단지명을 입력해주세요."><span>오피스텔</span></a></li>
+              <li><a class="tab03" data-category="ONE" data-placeholder="지역, 지하철역을 입력해주세요."><span>원룸/투룸</span></a></li>
           </ul>
           <div class="tabcon">
               
               <div class="inpout">
-              	<input type="text" id="main_searchtab_keyword" placeholder="지역,지하철역,지역+단지명으로 검색" title="지역,지하철역,지역+단지명으로 검색" class="inp m_sch_inp" autocomplete="off">
+              	<input type="text" id="main_searchtab_keyword" placeholder="지역, 지하철역, 단지명을 입력해주세요." title="지역, 지하철역, 단지명을 입력해주세요." class="inp m_sch_inp" autocomplete="off">
               	<div class="btn_sch">
                 	<button type="button" onclick="fnkeywordSearch"><span>검색</span></button>
               	</div>
@@ -43,8 +43,8 @@
       <p class="sc_dec">중개 효율화를 통해<br>
           중개수수료 거품을 확 낮췄습니다.</p>
       <p class="scdec_img"><img src="images/img_dec01.png" alt="중개수수료설명"></p>
-      <p class="addt">거래 종류/매물 금액별로 수수료율은 다르기에<br>
-          확인해주세요.</p>
+      <p class="addt">거래 종류/매물 금액별로<br>
+                      수수료율은 다르기에 확인해주세요.</p>
       <p class="addt">
           <button class="btn_line" onclick="goPage('/company/bkpee')">다윈중개 중개수수료요율표</button>
       </p>
@@ -52,14 +52,14 @@
   <div class="sec_box">
       <p class="sc_tit">검증된 중개사!</p>
       <p class="sc_dec">실제 거래한 고객들을 통한 중개사 평가체계 구축,<br>
-          이제 전문성을 갖춘 검증된 중개사를<br>
-          선택할 수 있습니다.</p>
+                      이제 전문성을 갖춘 검증된 중개사를<br>
+                      선택할 수 있습니다.</p>
       <p class="scdec_img"><img src="images/img_dec02.png" alt="중개수수료설명"></p>
   </div>
   <div class="sec_box">
       <p class="sc_tit">허위 매물 제로!</p>
-      <p class="sc_dec">다윈의 모든 매물은 매도(임대)인이 직접 등록합니다.<br>
-          따라서 중개사들의 낚시성 허위매물이 없습니다.</p>
+      <p class="sc_dec">다윈중개의 모든 매물은 집주인 본인이 직접 등록합니다.<br>
+                      따라서 중개사들의 낚시성 허위매물이 없습니다.</p>
       <p class="scdec_img"><img src="images/img_dec03.png" alt="중개수수료설명"></p>
   </div>
 </section>

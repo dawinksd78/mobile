@@ -19,7 +19,7 @@
                 
                     <div class="cont_t">
                         <div class="">
-                            <p>매도를 위해 중개사를 선택하여 지정하실 수 있습니다. (선택한 중개사들에게만 연락처 공개)<br>중개사를 선택하지 않은 경우에는 인근 중개사 모두에게 노출됩니다.</p>
+                            <p>매물을 내놓을 중개사를 선택하실 수 있습니다 (이 경우 선택하신 중개사들에게만 연락처가 공개됩니다.)<br>중개사를 선택하지 않은 경우에는 인근 중개사 모두에게 연락처가 공개됩니다.</p>
                         </div>
                         <div class="inpbox">
                             <div class="selec_option">
@@ -172,7 +172,7 @@ function fnDelinUl(ln)
 function fnRealtorSelecter()
 {
     if( $("input[name=AGENCY_OPEN_FLAG]:checked").val() != 'Y' ) {
-    	swal("[특정중계사 선택] 일때만 추가가 가능합니다.");
+    	swal("[특정 중개사 선택]일때만 추가가 가능합니다.");
     	return;
     }
     

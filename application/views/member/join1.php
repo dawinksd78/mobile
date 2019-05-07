@@ -17,7 +17,7 @@
                             <div class="check ag_all">
                                 <label for="agree_all">
                                     <input type="checkbox" name="agree" id="agree_all" value="" >
-                                    <i></i> <strong>모두확인, 전체약관에 동의합니다.</strong>
+                                    <i></i> <strong>전체 약관에 모두 동의합니다.</strong>
                                 </label>
                             </div>
                         </li>
@@ -25,7 +25,7 @@
                             <div class="check">
                                 <label for="agree01">
                                     <input type="checkbox" name="agree" id="agree01" value="" >
-                                    <i></i> <strong><em>[필수]</em> 서비스이용약관</strong>
+                                    <i></i> <strong><em>[필수]</em> 이용약관 동의</strong>
                                 </label>
                             </div>
                             <div class="cont_term">
@@ -208,7 +208,7 @@
                             <div class="check">
                                 <label for="agree02">
                                     <input type="checkbox" name="agree" id="agree02" value="" >
-                                    <i></i> <strong><em>[필수]</em> 개인정보처리방침</strong>
+                                    <i></i> <strong><em>[필수]</em> 개인정보 처리방침에 대한 동의</strong>
                                 </label>
                             </div>
                             <div class="cont_term">
@@ -323,7 +323,7 @@
 													<td>나이스평가정보(주)</td>
 													<td>SMS, LMS, 푸쉬 발송</td>
 													<td>이용목적 달성시까지</td>
-												</tr>	
+												</tr>                        
 											</tbody>
 										</table>
 									</div>
@@ -355,7 +355,7 @@
 								E-mail : cs@dawin.xyz<br><br>
 								[ 개인정보 보호책임자 ]<br>
 								이름 : 김석환<br>
-								E-mail : csdawin.xyz<br><br>
+								E-mail : ceo@dawin.xyz<br><br>
 								[ 개인정보 관리담당자 ]<br>
 								성명 : 김종필<br>
 								소속 : IT팀<br>
@@ -368,14 +368,14 @@
 							<p><strong>제12조(고지의 의무)</strong><br>
 								현 개인정보처리방침은 2019년 04월 01일에 제정되었으며, 정부 및 회사의 정책 또는 보안기술의 변경에 따라 내용의 추가, 삭제 및 수정이 있을 경우에는 개정 최소 7일 전부터 서비스의 ’공지사항’란을 통해 고지하며, 본 정책은 시행일자에 시행됩니다.<br><br>
 								가. 공고일자 : 2019년 04월 01일<br>
-								나. 시행일자 : 2019년 04월 01일</p>
+								나. 시행일자 : 2019년 04월 01일</p>	
                             </div>
                         </li>
                         <li class="check_box">
                             <div class="check">
                                 <label for="agree03">
                                     <input type="checkbox" name="agree" id="agree03" value="" >
-                                    <i></i> <strong><em>[필수]</em> 위치기반 서비스약관</strong>
+                                    <i></i> <strong><em>[필수]</em> 위치기반 서비스 이용약관</strong>
                                 </label>
                             </div>
                             <div class="cont_term">
@@ -445,13 +445,13 @@
 								회사는 위치정보와 관련된 분쟁의 당사자간 협의가 이루어지지 아니하거나 협의를 할 수 없는 경우에는 전기통신기본법의 규정에 따라 방송통신위원회에 재정을 신청하거나 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」의 규정에 의한 개인정보분쟁조정위원회에 조정을 신청할 수 있습니다.</p><br>
 						<p><strong>제15조 (사업자 정보 및 위치정보관리책임자 지정)</strong><br>
 							① 회사의 상호, 주소, 전화번호 그 밖의 연락처는 다음과 같습니다.<br>
-							상호 : 주식회사다윈소프트<br>
+							상호 : (주)다윈소프트<br>
 							주소 : 경기도 분당구 성남대로 170 한국프라자 6층<br>
 							전화번호 : 1544-6075<br>
 							이메일 주소 : cs@dawin.xyz<br><br>
 							② 위치정보관리책임자는 다음과 같이 지정합니다.<br>
-							[ 개인정보 처리방침 및 위치정보관리책임자 ]<br>
-							이름 :김석환<br>
+							[ 개인정보처리방침 및 위치정보관리책임자 ]<br>
+							이름 : 김석환<br>
 							E-mail : cs@dawin.xyz</p><br>
 				<p><strong>부칙</strong></p><br>
 				<p><strong>제1조 (시행일)</strong><br>

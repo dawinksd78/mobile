@@ -39,7 +39,7 @@
                         </div>
                         
                         <div class="cont_exp">
-                            <p>매수(임차)의뢰하여 계약완료한 매물입니다.</p>
+                            <p>내가 다윈중개에서 계약한 매물입니다.</p>
                         </div>
                         
                         <ul class="itm_box">

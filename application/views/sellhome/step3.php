@@ -12,7 +12,7 @@
     <section id="container">
         <div class="sub_container">
             <div class="cont_wrap join_wrap sellitm">
-                <h2 class="subj_tit"><span class="m_tit">매물사진등록</span></h2>
+                <h2 class="subj_tit"><span class="m_tit">매물 사진 등록</span></h2>
                 <div class="proc"> <a href="" class="bul_proc prev"></a><a href="" class="bul_proc prev"></a><a href="" class="bul_proc on"></a><a href="" class="bul_proc"></a></div>
                 
                 <div class="cont">
@@ -27,7 +27,7 @@
                     }
                 ?>
                     <div class="cont_exp">
-                        <p><?php echo $expl; ?> 내부와 단지 사진을 등록해주세요. 사진은 4MB 이하의 jpg, png 파일로 업로드해주세요.<br><small class="t_red">* 사진등록은 선택사항이지만 좋은 사진을 올릴수록 빨리 거래될 확률이 높아집니다</small></p>
+                        <p><?php echo $expl; ?> 내부와 단지 사진을 등록해주세요. 사진은 4MB 이하의 jpg, png 파일로 업로드해주세요.<br><small class="t_red">* 사진등록은 선택사항이지만 좋은 사진을 올릴수록 빨리 거래될 확률이 높아집니다.</small></p>
                     </div>   
                                      
                     <div class="inpbox">

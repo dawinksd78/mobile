@@ -613,7 +613,7 @@ class Member extends CI_Controller {
         $this->input->set_cookie('certIDX', $certIDX, 0);
         
         $this->load->view('sub_header');
-        $this->load->view("nice", array("msg"=>"인증이 완료 되었습니다. 가입진행하시기 바랍니다.", "url"=>"/member/join2") );
+        $this->load->view("nice", array("msg"=>"핸드폰 인증이 완료되었습니다.", "url"=>"/member/join2") );
         $this->load->view('sub_footer');
     }
     

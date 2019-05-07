@@ -26,7 +26,7 @@
                 <!-- 내용입력 -->
                 <div class="cont q_cont">
                     <input type="text" name="title" id="title" placeholder="제목입력" title="제목입력" class="inp" autocomplete="off">
-                    <textarea name="contents" id="contents" class="txtarea" placeholder="문의할 내용을 입력하세요."></textarea>
+                    <textarea name="contents" id="contents" class="txtarea" placeholder="문의할 내용을 입력해주세요."></textarea>
                 </div>
             </div>
             

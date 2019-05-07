@@ -15,23 +15,23 @@
                 <div class="cont">
                     <div class="inpbox">
                       <label for="u_name" class="lbl">이름</label>
-                      <input type="text" name="user_name" id="user_name" value="<?php echo $username; ?>" tabindex="1" placeholder="이름을 입력하세요." title="이름을 입력하세요." class="inp" autocomplete="off">
+                      <input type="text" name="user_name" id="user_name" value="<?php echo $username; ?>" tabindex="1" placeholder="이름" title="이름" class="inp" autocomplete="off">
                     </div>
                     <div class="inpbox inpbn">
                         <label for="u_id" class="lbl">아이디</label>
-                        <input type="text" name="user_id" id="user_id" value="<?php echo $idemail; ?>" tabindex="2" placeholder="아이디(이메일)를 입력하세요." title="아이디(이메일)를 입력하세요." class="inp" autocomplete="off">
+                        <input type="text" name="user_id" id="user_id" value="<?php echo $idemail; ?>" tabindex="2" placeholder="아이디(이메일)" title="아이디(이메일)" class="inp" autocomplete="off">
                         <span class="dcbtn">
                         	<button type="button" class="btn_line02" onclick="idemail_confirmRepetition()">중복확인 </button>
                         </span>
                     </div>
                     <div class="inpbox">
                         <label for="u_pass" class="lbl">비밀번호</label>
-                        <input type="password" name="password" id="password" onkeyup="passwordChk()" value="<?php echo $password; ?>" tabindex="3" placeholder="비밀번호를 입력하세요(영문+숫자8-15)" title="비밀번호를 입력하세요(영문+숫자8-15)" class="inp" autocomplete="off">
+                        <input type="password" name="password" id="password" onkeyup="passwordChk()" value="<?php echo $password; ?>" tabindex="3" placeholder="비밀번호(영문+숫자8-15)" title="비밀번호(영문+숫자8-15)" class="inp" autocomplete="off">
                         
                         <!-- 입력내용 문제있을 경우 에러메세지 출력 -->
                         <div class="err_msg_passwd"><span id="password_check" style="<?php if($password == '') { echo "display:;"; } else { echo "display:none;"; } ?>">* 비밀번호를 영문+숫자 8-15로 입력하세요.</span></div>
                                      
-                        <input type="password" name="repassword" id="repassword" onkeyup="repasswordChk()" value="<?php echo $password; ?>" tabindex="4" placeholder="비밀번호를 다시입력하세요." title="비밀번호를 다시입력하세요." class="inp" autocomplete="off">
+                        <input type="password" name="repassword" id="repassword" onkeyup="repasswordChk()" value="<?php echo $password; ?>" tabindex="4" placeholder="비밀번호 확인" title="비밀번호 확인" class="inp" autocomplete="off">
                         <!-- 입력내용 문제있을 경우 에러메세지 출력 -->
                         <div class="err_msg" style="display:none;"><span id="password_result">* 비밀번호가 동일하지 않습니다.</span></div>
                     </div>

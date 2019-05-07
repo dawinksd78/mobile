@@ -58,7 +58,7 @@ if($CATEGORY == 'APT' || $CATEGORY == 'OFT')
                 
                 <div class="cont">
                     <div class="info_gp">개인정보</div>
-                    <p class="m_exp">안전한 거래를 위하여 매도(임대)안 확인 절차를 거치고 있습니다. 본인 또는 세입자가 아닌 제3자가 등록할 경우, 등록이 거부됩니다.</p>
+                    <p class="m_exp">다윈중개는 안전한 거래를 위하여 매도(임대)인 확인 절차를 거치고 있습니다. 집주인 또는 세입자가 아닌 제 3자가 등록할 경우, 매물등록이 거부됩니다.</p>
                     
                     <div class="inpbox">
                         <label for="seller_name" class="lbl">이름</label>

@@ -53,7 +53,7 @@ if(!empty($this->userinfo['MBR_ID']))
         $myinfo = "goPage('/mypage/myinfo')";
     }
     else {
-        $myinfo = "swal('준비중입니다. 웹 마이페이지를 이용해 주세요!')";
+        $myinfo = "swal('준비중입니다. 웹 마이페이지를 이용해주세요.')";
     }
     $sellhome = "goPage('/sellhome/main')";
 }

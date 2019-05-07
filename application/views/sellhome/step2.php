@@ -306,7 +306,7 @@
                     
                     <div class="inpbox">
                         <label for="host_commt" class="lbl">집주인 한마디</label>
-                        <textarea class="txtarea" name="OWNER_COMMENT" onkeydown="" placeholder="빠른 거래를 위해 장점 위주로 간략하게 설명해주세요. &#13;&#10;ex) 1년전 인테리어 공사로 깨끗하고 고층이라 조망권이 좋습니다. 단지내 어린이집이 있어 아이 키우기 너무 좋아요 등"><?php echo (isset($step2['OWNER_COMMENT'])) ? $step2['OWNER_COMMENT']:"" ?></textarea>
+                        <textarea class="txtarea" name="OWNER_COMMENT" onkeydown="" placeholder="빠른 거래를 위해 장점 위주로 간략하게 설명해주세요. &#13;&#10;ex1) 1년전 인테리어 공사로 깨끗합니다.&#13;&#10;ex2) 고층이라 조망권이 좋습니다.&#13;&#10;ex3) 단지내 어린이집이 있어 아이 키우기 너무 좋아요 등"><?php echo (isset($step2['OWNER_COMMENT'])) ? $step2['OWNER_COMMENT']:"" ?></textarea>
                     </div>
                 </div>
             </div>

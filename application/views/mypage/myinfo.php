@@ -44,15 +44,15 @@
                     
                     <div class="inpbox">
                       <label for="u_pass" class="lbl">비밀번호</label>
-                      <input type="password" name="now_pass" id="now_pass" placeholder="현재비밀번호" title="현재비밀번호" class="inp" autocomplete="off">
+                      <input type="password" name="now_pass" id="now_pass" placeholder="현재 비밀번호" title="현재 비밀번호" class="inp" autocomplete="off">
                       
-                      <input type="password" name="new_pass" id="new_pass" onkeyup="passwordChk()" placeholder="비밀번호를 입력하세요. (영문+숫자8-15)" title="비밀번호를 입력하세요. (영문+숫자8-15)" class="inp" autocomplete="off">
+                      <input type="password" name="new_pass" id="new_pass" onkeyup="passwordChk()" placeholder="신규 비밀번호 (영문+숫자8-15)" title="신규 비밀번호 (영문+숫자8-15)" class="inp" autocomplete="off">
                       
                       <!-- 입력내용 문제있을 경우 에러메세지 출력 -->
                       <div class="err_msg_passwd"><span id="password_check" style="display:none;">* 비밀번호를 영문+숫자 8-15로 입력하세요.</span></div>
                       
                       <!-- 비밀번호 동일하지 않을 경우 error 클래스 추가 -->
-                      <input type="password" name="re_pass" id="re_pass" onkeyup="repasswordChk()" placeholder="비밀번호를 다시입력하세요." title="비밀번호를 다시입력하세요." class="inp" autocomplete="off">
+                      <input type="password" name="re_pass" id="re_pass" onkeyup="repasswordChk()" placeholder="신규 비밀번호 다시 입력" title="신규 비밀번호 다시 입력" class="inp" autocomplete="off">
                       
                       <!-- 입력내용 문제있을 경우 에러메세지 출력 -->
                       <div class="err_msg"><span id="repassword_check" style="display:none;">* 비밀번호가 동일하지 않습니다.</span></div>
@@ -64,7 +64,7 @@
                     
                     <div class="inpbox inpbn">
                         <label for="u_phone" class="lbl">휴대폰번호</label>
-                        <input type="tel" name="cellphone" id="cellphone" value="<?php echo $MBR_CP; ?>" placeholder="010-0000-0000" title="010-0000-0000" class="inp" autocomplete="off" readonly="readonly">
+                        <input type="tel" name="cellphone" id="cellphone" value="<?php echo $MBR_CP; ?>" placeholder="휴대폰번호" title="휴대폰번호" class="inp" autocomplete="off" readonly="readonly">
                         <span class="dcbtn"><button type="button" class="btn_line02" onclick="cellphoneChange()">휴대폰변경</button></span> 
                     </div>
                     
@@ -80,7 +80,7 @@
 
 <!-- 휴대폰 번호 변경 -->
 <form name="form_chk_Hp" id="form_chk_Hp" method="post">
-	<input type="hidden" name="m" value="checkplusSerivce">						<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+	<input type="hidden" name="m" value="checkplusSerivce">		<!-- 필수 데이타로, 누락하시면 안됩니다. -->
 	<input type="hidden" name="EncodeData" id="EncodeData">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
 </form>
 

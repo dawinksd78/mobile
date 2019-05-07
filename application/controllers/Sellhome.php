@@ -26,7 +26,7 @@ class Sellhome extends MY_Controller
         
         // 비로그인상태
         /*if( !$this->is_login ) {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -76,7 +76,7 @@ class Sellhome extends MY_Controller
     public function main()
     {
         /*if( !$this->is_login ) {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -327,7 +327,7 @@ class Sellhome extends MY_Controller
     public function step1()
     {
         if( !$this->is_login ) {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -641,7 +641,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -838,7 +838,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -930,7 +930,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -1133,7 +1133,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -1254,7 +1254,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -1313,7 +1313,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -1371,7 +1371,7 @@ class Sellhome extends MY_Controller
     function step4_inquiry()
     {
         if( !$this->is_login ) {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -1395,7 +1395,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;
@@ -1536,7 +1536,7 @@ class Sellhome extends MY_Controller
     {
         if(!$this->is_login)
         {
-            $data['msg'] = "로그인이 필요한 페이지 입니다.";
+            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
             $this->load->view("alert", $data);
             return;

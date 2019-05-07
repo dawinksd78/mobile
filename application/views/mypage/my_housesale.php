@@ -44,7 +44,7 @@
                         <?php if( count($items) > 0 ) { ?>
                         	<!-- 등록한 매물 리스트 -->
                             <div class="cont_exp">
-                                <p>내가 등록한 매물리스트입니다.</p>
+                                <p>내가 등록한 매물입니다.</p>
                             </div>
                             <ul class="itm_box">
                                 <?php foreach ($items as $row) { ?>

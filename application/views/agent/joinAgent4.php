@@ -45,7 +45,7 @@
                    	</div>
                    	<div class="inpbox inpbn" id="emailform">
                         <label for="u_id" class="lbl">아이디</label>
-                        <input type="text" id="email" name="email" value="<?php echo $email; ?>" onkeyup="if (window.event.keyCode == 13) { idemail_confirmRepetition(); }" placeholder="아이디(이메일)를 입력하세요." title="아이디(이메일)를 입력하세요." class="inp" autocomplete="off">
+                        <input type="text" id="email" name="email" value="<?php echo $email; ?>" onkeyup="if (window.event.keyCode == 13) { idemail_confirmRepetition(); }" placeholder="아이디(이메일)" title="아이디(이메일)" class="inp" autocomplete="off">
                         <span class="dcbtn">
                         <button type="button" class="btn_line02" onclick="idemail_confirmRepetition()">중복확인 </button>
                         </span>
@@ -53,16 +53,16 @@
                     <div class="inpbox" id="passwdform">
                         <label for="u_pass" class="lbl">비밀번호</label>
                         
-                        <input type="password" name="passwd" id="passwd" onkeyup="passwordChk()" placeholder="비밀번호를 입력하세요(영문+숫자8-15)" title="비밀번호를 입력하세요(영문+숫자8-15)" class="inp" autocomplete="off">
+                        <input type="password" name="passwd" id="passwd" onkeyup="passwordChk()" placeholder="비밀번호(영문+숫자8-15)" title="비밀번호(영문+숫자8-15)" class="inp" autocomplete="off">
                         <!-- 입력내용 문제있을 경우 에러메세지 출력 -->
                         <div class="err_msg_passwd"><span id="password_check" style="display:none;">* 비밀번호를 영문+숫자 8-15로 입력하세요.</span></div>
                                      
-                        <input type="password" name="passwd_confirm" id="passwd_confirm" onkeyup="repasswordChk()" placeholder="비밀번호를 다시입력하세요." title="비밀번호를 다시입력하세요." class="inp error" autocomplete="off">
+                        <input type="password" name="passwd_confirm" id="passwd_confirm" onkeyup="repasswordChk()" placeholder="비밀번호 확인" title="비밀번호 확인" class="inp error" autocomplete="off">
                         <div class="err_msg" style="display:none;"><span id="password_result">* 비밀번호가 동일하지 않습니다.</span></div>
                     </div>
                     <div class="inpbox">
                         <label for="bk_career" class="lbl">경력사항 <small>* 선택</small></label>
-                        <textarea id="career" name="career" class="txtarea" onkeyup="phoneCert()" placeholder="중개의뢰 고객이 믿고 선택할 수 있도록, 내용을 상세하게 입력해 주세요. &#13;&#10;ex) 1. 금곡동 까치마을 주변에서 개업 (1995) &#13;&#10; 2. 분당구 중개사회 총무 (2010-2013) &#13;&#10; 3. 총 계약건수 200회 이상 등"><?php echo nl2br($career); ?></textarea>
+                        <textarea id="career" name="career" class="txtarea" onkeyup="phoneCert()" placeholder="중개의뢰 고객이 믿고 선택할 수 있도록, 내용을 상세하게 입력헤주세요. &#13;&#10;ex) 1. 금곡동 까치마을 주변에서 개업 (1995) &#13;&#10; 2. 분당구 중개사회 총무 (2010-2013) &#13;&#10; 3. 총 계약건수 200회 이상 등"><?php echo nl2br($career); ?></textarea>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
 
 <!-- 휴대폰 인증 -->
 <form name="form_chk_realtor" id="form_chk_realtor" method="post">
-<input type="hidden" name="m" value="checkplusSerivce">						<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+<input type="hidden" name="m" value="checkplusSerivce">		<!-- 필수 데이타로, 누락하시면 안됩니다. -->
 <input type="hidden" name="EncodeData" id="EncodeData">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
 </form>
 

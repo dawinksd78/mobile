@@ -33,8 +33,8 @@
                               <tr>
                                 <td>5천만원 미만</td>
                                 <td>0.6</td>
-                                <td>0.5</td>
-                                <td>25만원 이하</td>
+                                <td>0.6</td>
+                                <td>30만원 이하</td>
                               </tr>
                               <tr>
                                 <td>5천만~2억 미만</td>
@@ -86,8 +86,8 @@
                             <tr>
                               <td>5천만원 미만</td>
                               <td>0.5</td>
-                              <td>0.4</td>
-                              <td>20만원 이하</td>
+                              <td>0.5</td>
+                              <td>25만원 이하</td>
                             </tr>
                             <tr>
                               <td>5천만~1억 미만</td>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <div class="box">
-                    <p>4. 주거용 오피스텔 (임대차): 전용면적 85㎡(32평) 이하</p>
+                    <p>4. 주거용 오피스텔 : 전용면적 85㎡(32평) 이하</p>
                     <div class="tblwrap">
                         <table class="tbl_type01">
                             <colgroup>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class="box">
-                    <p>5. 주거용 오피스텔 (매매/임대차): 전용면적 85㎡(32평) 초과</p>
+                    <p>5. 주거용 오피스텔 : 전용면적 85㎡(32평) 초과</p>
                     <div class="tblwrap">
                         <table class="tbl_type01">
                             <colgroup>

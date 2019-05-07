@@ -3,7 +3,7 @@
     	<span class="btn_back">
         	<button type="button" onclick="history.back();"><span class="">뒤로</span></button>
         </span>
-        <h2 class="title">인근 중개사무소 보기</h2>
+        <!-- h2 class="title">인근 중개사무소 보기</h2 -->
     </header>
     
     <section id="container">

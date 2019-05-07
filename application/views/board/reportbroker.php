@@ -129,27 +129,38 @@
                                 <div class="radio">
                                     <label for="rept01">
                                         <input type="radio" name="rept" id="rept01" value="CI1">
-                                        <i></i><strong>휴폐업/행정처분 기간 중 영업한 경우</strong>
-                                    </label>
+                                        <i></i><strong>휴폐업/행정처분 기간 중 영업한 경우</strong> </label>
                                 </div>
                                 <div class="radio">
                                     <label for="rept02">
                                         <input type="radio" name="rept" id="rept02" value="CI2">
-                                        <i></i><strong>다윈에서 제시한 중개보수 이외 초과보수를 요구한 경우</strong>
-                                    </label>
+                                        <i></i><strong>다윈중개에서 제시한 중개보수 이외 초과보수를 요구한 경우</strong> </label>
                                 </div>
                                 <div class="radio">
                                     <label for="rept03">
                                         <input type="radio" name="rept" id="rept03" value="CI3">
-                                        <i></i><strong>중개사의 품위를 현저하게 훼손한 경우</strong>
-                                    </label>
+                                        <i></i><strong>중개사의 품위를 현저하게 훼손한 경우</strong> </label>
                                 </div>
                                 <div class="radio">
                                     <label for="rept04">
-                                        <input type="radio" name="rept" id="rept04" value="ETC">
-                                        <i></i><strong>기타</strong>
-                                    </label>
-                                </div>                                
+                                        <input type="radio" name="rept" id="rept04" value="CI4">
+                                        <i></i><strong>과도하게 다른 매물을 권유한 경우</strong> </label>
+                                </div>
+                                <div class="radio">
+                                    <label for="rept05">
+                                        <input type="radio" name="rept" id="rept05" value="CI5">
+                                        <i></i><strong>사이트에서 매물을 내리라고 권유한 경우</strong> </label>
+                                </div> 
+                                <div class="radio">
+                                    <label for="rept06">
+                                        <input type="radio" name="rept" id="rept06" value="CI6">
+                                        <i></i><strong>동의 없이 내 매물을 사이트에서 내린 경우</strong> </label>
+                                </div> 
+                                <div class="radio">
+                                    <label for="rept07">
+                                        <input type="radio" name="rept" id="rept07" value="ETC">
+                                        <i></i><strong>기타</strong> </label>
+                                </div> 
                                 <textarea name="reptExplain" id="reptExplain" class="txtarea" placeholder="기타 선택 시 내용을 입력해주세요."></textarea>
                             </div>
                         </div>
@@ -183,7 +194,7 @@ $(".btn_type03").click(function(){
 		return false;
 	}
 
-	if(reptVal == '4') {
+	if(reptVal == 'ETC') {
 		if($('#reptExplain').val() == '') {
 			swal('기타사유를 입력하세요.');
 			$('#reptExplain').focus();

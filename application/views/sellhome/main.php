@@ -34,8 +34,8 @@
             <div class="sec_box">
                 <p class="sc_tit"><i class="f_red"><b>2.</b></i> 가장 빨리, 가장 좋은 가격으로 성사</p>
                 <p class="sc_dec">다윈중개는 매물이 등록됨과 동시에<br>
-                    인근 중개사들 모두에게 자동 노출됨으로써<br>
-                    중개사들간 경쟁을 통해 가장 경쟁력있는 가격으로<br>
+                    인근 중개사들 모두에게 노출시켜<br>
+                    중개사들간 경쟁을 통해 가장 좋은 가격으로<br>
                     가장 빨리 중개를 성사시킵니다.</p>
                 <p class="scdec_img"><img src="../../images/img_smain04.png" alt="가장 빨리, 가장 좋은 가격으로 성사"></p>
             </div>
@@ -49,12 +49,12 @@
             </div>
             <div class="sec_box">
                 <p class="sc_tit">다윈중개 거래 프로세스</p>
-                <p class="scdec_img"><img src="../../images/img_smain06.png" alt="다윈 중개거래 흐름도"></p>
+                <p class="scdec_img"><img src="../../images/img_smain06.png" alt="다윈중개 거래 프로세스"></p>
             </div>
         </div>
         <div class="btn_area bot_btn sellm"> 
             <!-- 스크롤 했음이 확인됐을 경우 on 클래스 추가-->
-            <button class="btn_type03 on">집 내놓기</button>
+            <button class="btn_type03 on">매물 등록하기</button>
         </div>
     </section>
 </div>
@@ -79,7 +79,7 @@ $(".btn_type03").click(function(){
 	}*/
 
 	<?php /* 비로그인 시 */ if($memType == '') { ?>
-	swal('로그인이 필요한 페이지 입니다.')
+	swal('로그인이 필요한 페이지입니다. 로그인해주세요.')
 	.then(function(){ 
 	   location.href='/member/login/sellhome_main';
 	});
