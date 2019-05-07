@@ -34,7 +34,7 @@ switch($saletypeData)
             </div>
             
             <!-- 검색결과 영역 -->
-            <div class="sch_result" id="search_result" style="z-index:101; display:none;">
+            <div class="sch_result" id="search_result" style="display:none;">
                 <ul>
                     <li><p class="sch_word issearchclass"></p></li>
                 </ul>
@@ -1333,23 +1333,6 @@ function fnComplexDetailSrch(idx, cate)
       		console.log(error);
     	}
     });
-}
-
-// 서브메뉴
-var submenuStateView = 'none';
-function rightMenu()
-{
-	if(submenuStateView == 'none') {
-		$('#submenuList').show(300);
-		$('.hamburgerMenuMask').show();
-		submenuStateView = 'block';
-	}
-	else {
-		$('#submenuList').hide(100);
-		$('.hamburgerMenuMask').hide();
-		submenuStateView = 'none';
-	}
-    $('.box_submenu').animate({width:'toggle'});
 }
 
 //다음 Map API Load

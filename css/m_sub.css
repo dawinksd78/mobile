@@ -465,7 +465,7 @@ header.maphd .btn_sch {left:0}
 .sub_filter_group.filter_cont .radio_box02>.rd01>input[type=radio] + label {height:34px;line-height:30px;padding:0 12px}
 .sub_filter_group.filter_cont .filter_cont .radio_box02>.rd01 {margin:0 5px}
 .sub_filter_group.filter_cont .radio_box02>.rd01>input[type=radio]:checked + label {border-color:#2a0077;background:#43247b}
-.maphd .sch_result {padding-left:40px;top:55px}
+.maphd .sch_result {padding-left:40px;top:55px;z-index:1000}
 .maphd .sch_result .sch_word {text-align:left}
 .btn_filter {position:absolute;right:40px;top:0}
 .btn_filter button {width:40px;height:55px;display:inline-block;position:relative}
