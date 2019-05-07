@@ -125,7 +125,7 @@ if($CATEGORY == 'APT' || $CATEGORY == 'OFT')
                         <!-- 오피스텔 및 원룸인 경우 추가 (E) -->
                                             
                         <div class="inpbox rdinp">
-                            <label for="itm_type02" class="lbl">매물유형</label>
+                            <label for="itm_type02" class="lbl">거래유형</label>
                             <div class="radio_box02">
                                 <div class="rd01 rd02">
                                     <input type="radio" id="TRADE_TYPE01" name="TRADE_TYPE" value="1" <?php echo (!isset($TRADE_TYPE) ||  $TRADE_TYPE == 1) ? 'checked=""':''; ?> onclick="tradeType('1')">
@@ -1045,6 +1045,7 @@ tradeType('<?php echo $TRADE_TYPE; ?>');
     $('#TOTAL_FLOOR_NEW').val('<?php echo $TOTAL_FLOOR; ?>');
 	$('#AREA2').val('<?php echo $AREA2; ?>');
 	$('#AREA_SELECTED').val('<?php echo $AREA_SELECTED; ?>');
+	datachanged = true;	// 경고창 생성
 <?php } else if($CATEGORY == 'ONE') { ?>
     $('#addr').val('<?php echo $LAW_ADDR1; ?>');
     $('#addrDetail').val('<?php echo $LAW_ADDR2; ?>');
@@ -1055,6 +1056,7 @@ tradeType('<?php echo $TRADE_TYPE; ?>');
     $('#LAWDONG').val('<?php echo $DONG_CODE; ?>');
     $('#addr_LAT').val('<?php echo $LAT; ?>');
     $('#addr_LNG').val('<?php echo $LNG; ?>');
+    datachanged = true;	// 경고창 생성
 <?php } ?>
 
 <?php if($TRADE_TYPE == '1') { ?>
