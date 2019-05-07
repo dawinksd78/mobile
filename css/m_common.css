@@ -2,7 +2,7 @@
 /* CSS Document */
 
 html {font-family:'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif', 'Noto Sans KR', 'NanumSquare','맑은 고딕','Malgun Gothic','Apple SD Gothic Neo','돋움',dotum,sans-serif;font-weight:500;color:#222;}
-/*html,body {position:fixed;overflow:hidden;height:100%}*/
+html,body {/*position:fixed;overflow:hidden;height:100%;*/}
 /* * {overflow-y:scroll;-webkit-overflow-scrolling:touch;}*/
 .nav-up {top:-50px}
 .nav-down {top:0}
@@ -41,7 +41,7 @@ button{border:0;background:transparent;cursor:pointer;}
 .btn_grad {background:#a42302;background:-webkit-linear-gradient(to right, #a42302, #7a1d05);background:linear-gradient(to right, #a42302, #7a1d05);color:#fff;}
 small.t_red {font-size:13px;margin-left:0}
 
-body {font-size:15px;font-family:'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif', 'Noto Sans KR', 'NanumSquare','맑은 고딕','Malgun Gothic','Apple SD Gothic Neo','돋움',dotum,sans-serif;font-weight:500;color:#222;}
+body {height:100%;font-size:15px;font-family:'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif', 'Noto Sans KR', 'NanumSquare','맑은 고딕','Malgun Gothic','Apple SD Gothic Neo','돋움',dotum,sans-serif;font-weight:500;color:#222;}
 #dawinWrap {position:relative;width:100vw;overflow-x:hidden;height:100vh;overflow-y:scroll;-webkit-overflow-scrolling:touch;}
 header {height:55px;position:fixed;top:0;left:0;width:100%;z-index:121;text-align:center;background:#fff;opacity:.9;}
 header.nobg {background:none;}
