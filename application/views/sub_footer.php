@@ -8,7 +8,7 @@
 <div class="apiMap" id="apiMap" style="display:none;"></div>
 
 <!-- 우측상단 햄버거 메뉴 백그라운드 -->
-<div class="hamburgerMenuMask" style="display:none;" onmousedown="rightMenu()"></div>
+<!-- div class="hamburgerMenuMask" style="display:none;" onmousedown="rightMenu()"></div -->
   
 <!-- Page Loading -->
 <div id="ajax_loader"></div>
@@ -20,12 +20,12 @@ function rightMenu()
 {
 	if(submenuStateView == 'none') {
 		$('#submenuList').show(300);
-		//$('.hamburgerMenuMask').show();
+		$('.hamburgerMenuMask').show();
 		submenuStateView = 'block';
 	}
 	else {
 		$('#submenuList').hide(100);
-		//$('.hamburgerMenuMask').hide();
+		$('.hamburgerMenuMask').hide();
 		submenuStateView = 'none';
 	}
     $('.box_submenu').animate({width:'toggle'});

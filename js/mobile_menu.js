@@ -91,6 +91,7 @@ function hamburgerMenuList(type)
 	menuList += '<li><a href="javascript:void(0);" onclick="goPage(\'/mypage/myinfo\')" class="">마이페이지</a></li>';
 	menuList += '</ul>';
 	menuList += '</div>';
+	menuList += '<div class="hamburgerMenuMask" style="display:none;" onmousedown="rightMenu()"></div>';
 	document.write(menuList);
 }
 
