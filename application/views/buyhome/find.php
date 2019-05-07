@@ -1,5 +1,6 @@
 <?php
-$saletypeData = $this->input->get('sale_type');
+//$saletypeData = $this->input->get('sale_type');
+$saletypeData = $saletype;
 switch($saletypeData)
 {
     case ('OFT') :
@@ -433,6 +434,11 @@ var getDevice = "<?php echo $DEVICE; ?>";
 
 var monthCostSave1 = null;//월세보증금
 var monthCostSave2 = null;//월세
+
+// 검색시 바로 머문 위치 체크
+$.cookie('cooksaletype', '<?php echo $saletype; ?>', { expires: 7 });
+$.cookie('cooklat', '<?php echo $lat; ?>', { expires: 7 });
+$.cookie('cooklng', '<?php echo $lng; ?>', { expires: 7 });
 
 function fnComplexmousedown(evt) {
   	isDragging = false;
@@ -1055,6 +1061,7 @@ function makeCluster(position)
       		zIndex: 1,
       		content: getCustomLayout(d)  // 마커생성
     	});
+    	
     	return customOverlay;
   	});
 
@@ -1434,6 +1441,14 @@ $("document").ready(function(){
 		}
 		searchStateResCnt = 0;
 		searchStateRes = false;
+
+		// 마지막 머문 위치 체크
+		var latlng = map.getCenter();
+    	$.cookie('cooklat', latlng.getLat(), { expires: 7 });
+    	$.cookie('cooklng', latlng.getLng(), { expires: 7 });
+
+    	// 이동시 기본 주소로 변경
+    	history.pushState(null, null, '/buyhome');
   	});
 
   	// 검색
@@ -1616,6 +1631,9 @@ $("document").ready(function(){
 			$('.sub_filter_inner').css("height", "80px");
 			$('.sub_filter_group').css("top", "137px");
 		}
+
+		// 마지막 머문 위치 체크
+		$.cookie('cooksaletype', this.value, { expires: 7 });
 
 		fnloadInfoCall();	// 맵로딩 
   	});

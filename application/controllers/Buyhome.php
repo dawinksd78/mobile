@@ -5,6 +5,9 @@ class Buyhome extends MY_Controller
 {
     function index()
     {
+        //쿠키
+        $this->load->helper('cookie');
+        
         $data = array();
         
         $data['BROKER_OFFICE_NAME'] = '';
@@ -15,10 +18,32 @@ class Buyhome extends MY_Controller
         $data['keyword'] = $this->input->get_post('keyword',true);
         $data['saletype'] = $this->input->get_post('sale_type',true);    // 아파트(APT), 오피스텔(OFT), 원룸(ONE)
         
+        if($data['keyword'] != '' && $data['saletype'] != '')
+        {
+            $defaultlat = "37.350086";
+            $defaultlng = "127.109134";
+        }
+        else
+        {
+            $cooksaletype = get_cookie('cooksaletype');
+            $cooklat = get_cookie('cooklat');
+            $cooklng = get_cookie('cooklng');
+            if($cooksaletype != '' && $cooklat != '' && $cooklng != '') {
+                $data['saletype'] = $cooksaletype;
+                $defaultlat = $cooklat;
+                $defaultlng = $cooklng;
+            }
+            else {
+                $data['saletype'] = $data['saletype'];
+                $defaultlat = "37.350086";
+                $defaultlng = "127.109134";
+            }
+        }
+        
         // 추가 검색 변수
         $data['complex_idx'] = $this->input->get_post('cpxidx',true);
-        $data['lat'] = $this->input->get_post('lat',true) == '' ? '37.350086' : $this->input->get_post('lat',true);
-        $data['lng'] = $this->input->get_post('lng',true) == '' ? '127.109134' : $this->input->get_post('lng',true);
+        $data['lat'] = $this->input->get_post('lat',true) == '' ? $defaultlat : $this->input->get_post('lat',true);
+        $data['lng'] = $this->input->get_post('lng',true) == '' ? $defaultlng : $this->input->get_post('lng',true);
         
         if( !in_array($data['saletype'], array('APT','OFT','ONE')) ) $data['saletype'] = 'APT';
         if( (int)$data['complex_idx'] < 1 ) $data['complex_idx'] = '-1';
@@ -30,7 +55,7 @@ class Buyhome extends MY_Controller
         $data["ROOM_TYPE"] = $this->sellhome_model->getCodeList('ROOM_TYPE');
         
         // 앱정보 저장
-        $this->load->helper('cookie');
+        //$this->load->helper('cookie');
         $PUSHKEY = get_cookie('PUSHKEY');
         $DEVICE = get_cookie('DEVICE');
         $data['getDevideCookie'] = "0";

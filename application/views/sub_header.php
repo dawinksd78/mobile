@@ -28,6 +28,7 @@ var openState = "<?php echo $this->config->item('openAlert'); ?>";
 
 <!-- jquery -->
 <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 
 <!-- swal alert -->
 <script src="/js/sweetalert.min.js"></script>
