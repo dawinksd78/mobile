@@ -69,11 +69,12 @@ var tooltip_nowmonth;
 <div id="dawinWrap" class="">
     <header id="header" class="maphd">
     	<span class="btn_back">
-        	<?php if($getDevideCookie == '1' && $DEVICE == 'AND') { ?>
-    		<button type="button" onclick="dawin_popclose();"><span class="">뒤로</span></button>
-    		<?php } else { ?>
-        	<button type="button" onclick="window.close();"><span class="">뒤로</span></button>
-        	<?php } ?>
+        	<?php //if($getDevideCookie == '1' && $DEVICE == 'AND') { ?>
+    		<!-- button type="button" onclick="dawin_popclose();"><span class="">뒤로</span></button -->
+    		<?php //} else { ?>
+        	<!-- button type="button" onclick="window.close();"><span class="">뒤로</span></button -->
+        	<?php //} ?>
+        	<button type="button" onclick="goPage('/buyhome/salelist/<?php echo $complexidx; ?>/<?php echo $complextype; ?>/<?php echo $transtype; ?>/<?php echo $ygtype; ?>');"><span class="">뒤로</span></button>
         </span>
         
         <h2 class="title dt_tit">

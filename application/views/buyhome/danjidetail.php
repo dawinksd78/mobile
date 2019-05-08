@@ -45,11 +45,12 @@ var tooltip_nowmonth;
 <div id="dawinWrap" class="">
     <header id="header" class="header maphd">
     	<span class="btn_back">
-    		<?php if($getDevideCookie == '1' && $DEVICE == 'AND') { ?>
-    		<button type="button" onclick="dawin_popclose();"><span class="">뒤로</span></button>
-    		<?php } else { ?>
-        	<button type="button" onclick="window.close();"><span class="">뒤로</span></button>
-        	<?php } ?>
+    		<?php //if($getDevideCookie == '1' && $DEVICE == 'AND') { ?>
+    		<!-- button type="button" onclick="dawin_popclose();"><span class="">뒤로</span></button -->
+    		<?php //} else { ?>
+        	<!-- button type="button" onclick="window.close();"><span class="">뒤로</span></button -->
+        	<?php //} ?>
+        	<button type="button" onclick="goPage('/buyhome');"><span class="">뒤로</span></button>
         </span>
         
         <h2 class="title itm_tit"><?php echo $COMPLEX_NAME ?><p class="info01"><?php echo $address; ?></p></h2>
@@ -238,7 +239,7 @@ var tooltip_nowmonth;
             <?php
             $goodsCnt = $sale_cnt + $charter_cnt + $monthly_cnt;
             if($goodsCnt > 0) {
-                $pageUrl = "goPage('/buyhome/salelist/". $COMPLEX_IDX . "/" . $COMPLEX_TYPE . "/" . $transtype ."')";
+                $pageUrl = "goPage('/buyhome/salelist/" . $COMPLEX_IDX . "/" . $COMPLEX_TYPE . "/" . $transtype . "/" . $ygtype . "')";
             }
             else {
                 $pageUrl = "swal('매물이 없습니다');";
@@ -339,7 +340,7 @@ function getTradeList()
 	    $.ajax({
 	      	url: "/tpl/view_detail_salelist_template.tpl?_="+ new Date().getTime(),
 	      	method: 'GET',
-	      	dataType: 'html', //** Must add
+	      	dataType: 'html',
 	      	async: false,
 	      	success: function(data) {
 	          	view_detail_salelist_template = _.template(data);
@@ -456,6 +457,6 @@ function spaceUnitChange(type)
 
 	$("#areaPrint").html(htmls);
 }
-//기본출력
+// 기본출력 (m2)
 spaceUnitChange('m');
 </script>

@@ -1219,13 +1219,14 @@ function fnComplexDetailSrch(idx, cate)
             	
             	views1 += '</div>';
 
-            	if(getSamrt == '1' && getDevice == 'AND') {
-            		views1 += '<a class="itm_info" href="javascript:void(0);" onclick="dawin_newpop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
-            	}
-            	else {
-            		views1 += '<a class="itm_info" href="javascript:void(0);" onclick="goPagePop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
-            	}
-            	
+            	//if(getSamrt == '1' && getDevice == 'AND') {
+            		//views1 += '<a class="itm_info" href="javascript:void(0);" onclick="dawin_newpop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
+            	//}
+            	//else {
+            		//views1 += '<a class="itm_info" href="javascript:void(0);" onclick="goPagePop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
+            	//}
+
+            	views1 += '<a class="itm_info" href="javascript:void(0);" onclick="goPage(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
             	views1 += '<div class="itm_exp">';
             	views1 += '<p class="info01 bolder">' + result.data.COMPLEX_NAME + '</p>';
             	
@@ -1272,13 +1273,14 @@ function fnComplexDetailSrch(idx, cate)
             	
             	views2 += '</div>';
             	
-            	if(getSamrt == '1' && getDevice == 'AND') {
-            		views2 += '<a class="itm_info" href="javascript:void(0);" onclick="dawin_newpop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
-            	}
-            	else {
-            		views2 += '<a class="itm_info" href="javascript:void(0);" onclick="goPagePop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
-            	}
-            	
+            	//if(getSamrt == '1' && getDevice == 'AND') {
+            		//views2 += '<a class="itm_info" href="javascript:void(0);" onclick="dawin_newpop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
+            	//}
+            	//else {
+            		//views2 += '<a class="itm_info" href="javascript:void(0);" onclick="goPagePop(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
+            	//}
+
+            	views2 += '<a class="itm_info" href="javascript:void(0);" onclick="goPage(\'/buyhome/danjidetail/' + idx + '/' + cate + '/' + transtypeVal + '/' + result.data.REAL_ESTATE_TYPE + '\')">';
             	views2 += '<div class="itm_exp">';
             	views2 += '<p class="info01 bolder">' + result.data.COMPLEX_NAME + '</p>';
             	

@@ -1,7 +1,8 @@
 <div id="dawinWrap" class="bgrey">
     <header id="header" class="header maphd">
     	<span class="btn_back">
-        	<button type="button" onclick="history.back();"><span class="">뒤로</span></button>
+        	<!-- button type="button" onclick="history.back();"><span class="">뒤로</span></button -->
+        	<button type="button" onclick="goPage('/buyhome/danjidetail/<?php echo $complex_idx; ?>/<?php echo $complex_type; ?>/<?php echo $transtype; ?>/<?php echo $ygtype; ?>');"><span class="">뒤로</span></button>
         </span>
         
         <h2 class="title"><?php echo $complex_name; ?> 매물 <span class="count"><?php echo count($result); ?></span></h2>
@@ -31,12 +32,13 @@
                                 <?php
                                 if($useridx > 0)
                                 {
-                                    if($getDevideCookie == '1' && $DEVICE == 'AND') {
+                                    /*if($getDevideCookie == '1' && $DEVICE == 'AND') {
                                         $jslink = "dawin_newpop('/buyhome/saledetail/".$item['GOODS_IDX']."')";
                                     }
                                     else {
                                         $jslink = "goPagePop('/buyhome/saledetail/".$item['GOODS_IDX']."')";
-                                    }
+                                    }*/
+                                    $jslink = "goPage('/buyhome/saledetail/".$item['GOODS_IDX']."/".$complex_idx."/".$complex_type."/".$transtype."/".$ygtype."')";
                                 }
                                 else {
                                     $jslink = "fnpoploginOpen()";
@@ -83,7 +85,7 @@
     
     <!-- 매물등록, 삭제요청 클릭시 팝업 -->
     <div class="mask" style="display:none"></div>
-    <div class="lyr lyrpop01" style="display:none">
+    <div class="lyr lyrpop01" style="display:none;">
     	<a href="javascript:fnpoploginClose();" class="close">닫기</a>
         <div class="lyr_inner">
             <p class="cont">로그인이 필요한 메뉴입니다.<br>기존 중개수수료의 50% 수준인<br>다윈의 매수(임차)인 중개수수료는<br>회원에게만 적용됩니다.<br></p>
@@ -105,4 +107,19 @@ function fnpoploginClose() {
   	$(".mask").hide();
   	$(".lyr").hide();
 }
+</script>
+
+<script type=text/javascript>
+var prevScroll = $.cookie('salelistPostion');
+
+$(document).ready(function(){
+	if(prevScroll > 0 && prevScroll != 'undefined') {
+		$("#dawinWrap").scrollTop(prevScroll);
+	}
+	
+	$("#dawinWrap").on('scroll', function(){
+	    var scrollValue = $(this).scrollTop();
+	    $.cookie('salelistPostion', scrollValue);
+	});
+});
 </script>

@@ -256,6 +256,8 @@ class Buyhome extends MY_Controller
             $data['DEVICE'] = $DEVICE;
         }
         
+        $data['ygtype'] = $ygtype;  // 입주예정 관련 체크
+        
         $this->load->view('sub_header');
         if($ygtype == 'ABYG' || $ygtype == 'OBYG') {    // 입주예정
             $this->load->view('buyhome/danjidetail_yg', $data);
@@ -269,13 +271,22 @@ class Buyhome extends MY_Controller
     // 매물 정보 목록 보기
     function salelist()
     {
-        $complex_idx = $this->uri->segment(3);
-        $complex_type = $this->uri->segment(4);
-        $transtype = $this->uri->segment(5);
-                
+        $data = array();
+        
+        // footer base var
+        $data['BROKER_OFFICE_NAME'] = '';
+        $data['LAT'] = '';
+        $data['LNG'] = '';
+        
+        // page load segments
+        $data['complex_idx'] = $this->uri->segment(3);
+        $data['complex_type'] = $this->uri->segment(4);
+        $data['transtype'] = $this->uri->segment(5);
+        $data['ygtype'] = $this->uri->segment(6);
+                        
         // 거래유형 (전체:all, 매매:sale, 전월세:previous, 전세:previous_2, 월세:previous_3)
-        if($transtype == '') $condition['transtype'] = 'all';
-        else $condition['transtype'] = $transtype;
+        if($data['transtype'] == '') $condition['transtype'] = 'all';
+        else $condition['transtype'] = $data['transtype'];
         
         // 면적
         $condition['area'] = 'all';
@@ -296,27 +307,22 @@ class Buyhome extends MY_Controller
         $condition['ROOM_TYPE'] = isset($_GET['ROOM_TYPE']) ? $_GET['ROOM_TYPE']:'';
         if(is_array($condition['ROOM_TYPE']) && count($condition['ROOM_TYPE'])==1 && $condition['ROOM_TYPE'][0]=='all') $condition['ROOM_TYPE'] ='';
         
-        $data = array();
         
-        // footer base var
-        $data['BROKER_OFFICE_NAME'] = '';
-        $data['LAT'] = '';
-        $data['LNG'] = '';
         
         // 회원번호
         $useridx = $this->is_login==true ? $this->userinfo['MBR_IDX'] : '-1';
         $data['useridx'] = $useridx;
         
         // 매물 기본정보
-        $sql = "SELECT COMPLEX_NAME, REAL_ESTATE_TYPE FROM TB_CB_COMPLEX WHERE COMPLEX_IDX='$complex_idx'";
+        $sql = "SELECT COMPLEX_NAME, REAL_ESTATE_TYPE FROM TB_CB_COMPLEX WHERE COMPLEX_IDX='".$data['complex_idx']."'";
         $result = $this->db->query($sql)->row_array();
         $data['complex_name'] = $result['COMPLEX_NAME'];
         $data['realEstateType'] = $result['REAL_ESTATE_TYPE'];
         
         // 매물 리스트
         $this->load->model('find_model');
-        $data['result'] = $this->find_model->saleComplexList($complex_idx, $complex_type, $condition, $useridx);
-        $data['URLRES'] = $complex_idx.'_'.$complex_type.'_'.$transtype;
+        $data['result'] = $this->find_model->saleComplexList($data['complex_idx'], $data['complex_type'], $condition, $useridx);
+        $data['URLRES'] = $data['complex_idx'].'_'.$data['complex_type'].'_'.$data['transtype'];
         
         // 앱정보 저장
         $this->load->helper('cookie');
@@ -328,7 +334,7 @@ class Buyhome extends MY_Controller
             $data['getDevideCookie'] = "1";
             $data['DEVICE'] = $DEVICE;
         }
-                       
+                               
         $this->load->view('sub_header');
         $this->load->view('buyhome/salelist', $data);
         $this->load->view('sub_footer');
@@ -342,7 +348,7 @@ class Buyhome extends MY_Controller
         if((int)$goods_idx < 1) {
             return;
         }
-
+        
         // model load
         $this->load->model('goods_model');
         $this->load->model('detail_model');
@@ -353,6 +359,12 @@ class Buyhome extends MY_Controller
         if(count($res) < 1) {
             exit;
         }
+        
+        // page load segments
+        $res['complexidx'] = $this->uri->segment(4);
+        $res['complextype'] = $this->uri->segment(5);
+        $res['transtype'] = $this->uri->segment(6);
+        $res['ygtype'] = $this->uri->segment(7);
         
         // footer base var
         $res['BROKER_OFFICE_NAME'] = '';

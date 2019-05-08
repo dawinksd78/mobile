@@ -34,11 +34,12 @@ if(!$transtype) $transtype = "all"; // 전체
 <div id="dawinWrap" class="">
     <header id="header" class="header maphd">
     	<span class="btn_back">
-        	<?php if($getDevideCookie == '1' && $DEVICE == 'AND') { ?>
-    		<button type="button" onclick="dawin_popclose();"><span class="">뒤로</span></button>
-    		<?php } else { ?>
-        	<button type="button" onclick="window.close();"><span class="">뒤로</span></button>
-        	<?php } ?>
+        	<?php //if($getDevideCookie == '1' && $DEVICE == 'AND') { ?>
+    		<!-- button type="button" onclick="dawin_popclose();"><span class="">뒤로</span></button -->
+    		<?php //} else { ?>
+        	<!-- button type="button" onclick="window.close();"><span class="">뒤로</span></button -->
+        	<?php //} ?>
+        	<button type="button" onclick="goPage('/buyhome');"><span class="">뒤로</span></button>
         </span>
         
         <h2 class="title itm_tit"><?php echo $COMPLEX_NAME ?><p class="info01"><?php echo $address; ?></p></h2>
@@ -165,7 +166,7 @@ if(!$transtype) $transtype = "all"; // 전체
             <?php
             $goodsCnt = $sale_cnt + $charter_cnt + $monthly_cnt;
             if($goodsCnt > 0) {
-                $pageUrl = "goPage('/buyhome/salelist/". $COMPLEX_IDX . "/" . $COMPLEX_TYPE . "/" . $transtype ."')";
+                $pageUrl = "goPage('/buyhome/salelist/" . $COMPLEX_IDX . "/" . $COMPLEX_TYPE . "/" . $transtype . "/" . $ygtype . "')";
             }
             else {
                 $pageUrl = "swal('매물이 없습니다');";

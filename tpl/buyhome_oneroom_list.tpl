@@ -5,34 +5,19 @@
 					<div class="itm_inner" style="padding:5px;">
                         <div class="itm_pic">
                             <div class="like_area"> <span class="like <%=(item.isfavo == 1)?'on':'' %>" data-saleno="<%=item.GOODS_IDX%>" onclick="complexFavorate(this)"></span> </div>
-                            <% if(getSamrt == '1') { %>
-                            	<% if(memSet > 0) { %>
-                            		<div class="itm_thumb" onclick="dawin_newpop('/buyhome/saledetail/<%=item.GOODS_IDX%>')"><img src="<%= (item.img =='') ? '/images/img_noimg02.png' : item.img %>" /></div>
-                            	<% } else { %>
-                            		<div class="itm_thumb" onclick="fnpoploginOpen()"><img src="<%= (item.img =='') ? '/images/img_noimg02.png' : item.img %>" /></div>
-                            	<% } %>
-                            <% } else { %>
-                            	<% if(memSet > 0) { %>
-                            		<div class="itm_thumb" onclick="goPagePop('/buyhome/saledetail/<%=item.GOODS_IDX%>')"><img src="<%= (item.img =='') ? '/images/img_noimg02.png' : item.img %>" /></div>
-                            	<% } else { %>
-                            		<div class="itm_thumb" onclick="fnpoploginOpen()"><img src="<%= (item.img =='') ? '/images/img_noimg02.png' : item.img %>" /></div>
-                            	<% } %>
-                            <% } %>
+                            
+                        	<% if(memSet > 0) { %>
+                        		<div class="itm_thumb" onclick="goPage('/buyhome/saledetail/<%=item.GOODS_IDX%>')"><img src="<%= (item.img =='') ? '/images/img_noimg02.png' : item.img %>" /></div>
+                        	<% } else { %>
+                        		<div class="itm_thumb" onclick="fnpoploginOpen()"><img src="<%= (item.img =='') ? '/images/img_noimg02.png' : item.img %>" /></div>
+                        	<% } %>
                         </div>
                         
-                        <% if(getSamrt == '1') { %>
-                        	<% if(memSet > 0) { %>
-                        		<a class="itm_info" onclick="dawin_newpop('/buyhome/saledetail/<%=item.GOODS_IDX%>')">
-                        	<% } else { %>
-                        		<a class="itm_info" onclick="fnpoploginOpen()">
-                        	<% } %>
-                        <% } else { %>
-                        	<% if(memSet > 0) { %>
-                        		<a class="itm_info" onclick="goPagePop('/buyhome/saledetail/<%=item.GOODS_IDX%>')">
-                        	<% } else { %>
-                        		<a class="itm_info" onclick="fnpoploginOpen()">
-                        	<% } %>
-                        <% } %>
+                    	<% if(memSet > 0) { %>
+                    		<a class="itm_info" onclick="goPage('/buyhome/saledetail/<%=item.GOODS_IDX%>')">
+                    	<% } else { %>
+                    		<a class="itm_info" onclick="fnpoploginOpen()">
+                    	<% } %>
                             <div class="itm_exp oitem">
                                 <p class="price bolder"><span class="s_type0<%=item.TRADE_TYPE%>"><b><%=(item.TRADE_TYPE==3)?'월세':( (item.TRADE_TYPE==2)?'전세':'매매')%></b>
 	                                <% if (item.TRADE_TYPE==3) { %>
