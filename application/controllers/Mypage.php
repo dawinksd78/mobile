@@ -46,7 +46,9 @@ class Mypage extends MY_Controller
     }
     
     public function index(){
-        // my page
+        $data['url'] = "/";
+        $this->load->view("alert", $data);
+        return;
     }
         
     //--------------------------------------------------------------//

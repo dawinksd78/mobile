@@ -70,12 +70,13 @@
                                     </div>
                                     
                                     <?php
-                                    if($getDevideCookie == '1' && $DEVICE == 'AND') {
+                                    /*if($getDevideCookie == '1' && $DEVICE == 'AND') {
                                         $pageLink = "javascript:dawin_newpop('/buyhome/saledetail/".$row['GOODS_IDX']."');";
                                     }
                                     else {
                                         $pageLink = "javascript:goPagePop('/buyhome/saledetail/".$row['GOODS_IDX']."');";
-                                    }
+                                    }*/
+                                    $pageLink = "javascript:goPage('/buyhome/saledetail/".$row['GOODS_IDX']."');";
                                     ?>
                                     
                                     <?php if ( $row['CATEGORY'] !='ONE' ) { ?>
@@ -118,4 +119,17 @@ function contractAppraise() {
 	var num = '';
 	location.href = "/mypage/mycontractsaleappraise?contNumber=" + num;
 }
+
+var prevScroll = $.cookie('mycontractsalePostion');
+
+$("document").ready(function(){
+	if(prevScroll > 0 && prevScroll != 'undefined') {
+		$(".cont_wrap").scrollTop(prevScroll);
+	}
+	
+	$(".cont_wrap").on('scroll', function(){
+	    var scrollValue = $(this).scrollTop();
+	    $.cookie('mycontractsalePostion', scrollValue);
+	});
+});
 </script>

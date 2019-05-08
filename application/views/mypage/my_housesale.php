@@ -98,12 +98,13 @@
                                             
                                             
                                             <?php
-                                            if($getDevideCookie == '1' && $DEVICE == 'AND') {
+                                            /*if($getDevideCookie == '1' && $DEVICE == 'AND') {
                                                 $pageLink = "javascript:dawin_newpop('/buyhome/saledetail/".$row['GOODS_IDX']."');";
                                             }
                                             else {
                                                 $pageLink = "javascript:goPagePop('/buyhome/saledetail/".$row['GOODS_IDX']."');";
-                                            }
+                                            }*/
+                                            $pageLink = "javascript:goPage('/buyhome/saledetail/".$row['GOODS_IDX']."');";
                                             ?>
                                             
                                             <?php if($row['CATEGORY'] != 'ONE') { ?>
@@ -197,7 +198,18 @@
 <input type="hidden" name="deleteDataNumber" id="deleteDataNumber">
 
 <script type="text/javascript">
-$("document").ready( function() {
+var prevScroll = $.cookie('myhousesalePostion');
+
+$("document").ready(function(){
+	if(prevScroll > 0 && prevScroll != 'undefined') {
+		$(".cont_wrap").scrollTop(prevScroll);
+	}
+	
+	$(".cont_wrap").on('scroll', function(){
+	    var scrollValue = $(this).scrollTop();
+	    $.cookie('myhousesalePostion', scrollValue);
+	});
+	
   	$(".changeaboutmoney").each( function() {
     	$(this).text( fnMoneyAboutText($(this).text() ) )
   	});

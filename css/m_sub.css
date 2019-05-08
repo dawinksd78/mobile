@@ -865,7 +865,7 @@ button:disabled {color:#ebebeb;border-color:#ebebeb;cursor:default}
 .rate .star_score {margin-top:8px !important}
 .rate .star_score span.st_off {display:inline-block;background-image: url(../images/point0_1.png);background-repeat:no-repeat;vertical-align:middle;position:relative;width:153px;height:26px;}
 .rate .star_score span.st_on {position:absolute;z-index:10;width:153px;height:26px;overflow:hidden;top:0;left:0;text-indent:-9999px;display:inline-block;background-image: url(../images/point5_1.png);background-repeat:no-repeat;}
-.like_area {position:absolute;top:7px;right:7px;z-index:105}
+.like_area {position:absolute;top:7px;right:7px;z-index:104}
 .like_area .like {display:block;background:url(../images/btn_like.png) no-repeat;width:22px;height:22px}
 .like_area .like.on {background:url(../images/btn_like_on.png) no-repeat;}
 /** 내가구한매물 **/

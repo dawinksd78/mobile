@@ -68,9 +68,10 @@ function nl2br (str, is_xhtml) {
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
 }
-function fnNewPopMobile(url){
-  if(var_getDevideCookie=='1' && var_device=='AND') dawin_newpop(url)
-  else goPagePop(url)
+function fnNewPopMobile(url) {
+  //if(var_getDevideCookie=='1' && var_device=='AND') dawin_newpop(url)
+  //else goPagePop(url)
+	goPage(url);
 }
 function createloading(cnt){
   var loading = '<div class="st_dot_loading">';
@@ -240,9 +241,6 @@ function createloading(cnt){
             <div class="cont_wrap public_cont02 mp mp_qna">
                 <div class="cont">
                     <div class="itmcard_wrap" id="qnadiv">
-
-
-
                         <br><br>
                     </div>
                 </div>
@@ -256,6 +254,19 @@ function createloading(cnt){
 </div>
 
 <script type="text/javascript">
+var prevScroll = $.cookie('myinquiryPostion');
+
+$("document").ready(function(){
+	if(prevScroll > 0 && prevScroll != 'undefined') {
+		$(".cont_wrap").scrollTop(prevScroll);
+	}
+	
+	$(".cont_wrap").on('scroll', function(){
+	    var scrollValue = $(this).scrollTop();
+	    $.cookie('myinquiryPostion', scrollValue);
+	});
+});
+
 // 답변보기
 function replyView(idx)
 {

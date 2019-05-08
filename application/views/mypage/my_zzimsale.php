@@ -75,12 +75,13 @@
                                     </div>
                                     
                                     <?php
-                                    if($getDevideCookie == '1' && $DEVICE == 'AND') {
+                                    /*if($getDevideCookie == '1' && $DEVICE == 'AND') {
                                         $pageLink = "javascript:dawin_newpop('/buyhome/saledetail/".$row['GOODS_IDX']."');";
                                     }
                                     else {
                                         $pageLink = "javascript:goPagePop('/buyhome/saledetail/".$row['GOODS_IDX']."');";
-                                    }
+                                    }*/
+                                    $pageLink = "javascript:goPage('/buyhome/saledetail/".$row['GOODS_IDX']."');";
                                     ?>
                                     
                                     <?php if($row['CATEGORY'] != 'ONE') { ?>
@@ -117,9 +118,20 @@
   </section>
 </div>
 
-<script type="text/javascript">
-$("document").ready( function() {
-  	$(".changeaboutmoney").each( function() {
+<script type=text/javascript>
+var prevScroll = $.cookie('myzzimsalePostion');
+
+$("document").ready(function(){
+	if(prevScroll > 0 && prevScroll != 'undefined') {
+		$(".cont_wrap").scrollTop(prevScroll);
+	}
+	
+	$(".cont_wrap").on('scroll', function(){
+	    var scrollValue = $(this).scrollTop();
+	    $.cookie('myzzimsalePostion', scrollValue);
+	});
+
+	$(".changeaboutmoney").each( function() {
     	$(this).text( fnMoneyAboutText($(this).text() ) )
   	});
 });

@@ -19,7 +19,9 @@ class Member extends CI_Controller {
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
     public function index(){
-        // member Info
+        $data['url'] = "/";
+        $this->load->view("alert", $data);
+        return;
     }
     
     //--------------------------------------------------------------//

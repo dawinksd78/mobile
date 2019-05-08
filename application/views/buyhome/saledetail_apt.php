@@ -74,7 +74,12 @@ var tooltip_nowmonth;
     		<?php //} else { ?>
         	<!-- button type="button" onclick="window.close();"><span class="">뒤로</span></button -->
         	<?php //} ?>
+        	
+        	<?php if($complexidx != '' && $complextype != '' && $transtype != '' && $ygtype != '') { ?>
         	<button type="button" onclick="goPage('/buyhome/salelist/<?php echo $complexidx; ?>/<?php echo $complextype; ?>/<?php echo $transtype; ?>/<?php echo $ygtype; ?>');"><span class="">뒤로</span></button>
+        	<?php } else { ?>
+        	<button type="button" onclick="history.back();"><span class="">뒤로</span></button>
+        	<?php } ?>
         </span>
         
         <h2 class="title dt_tit">

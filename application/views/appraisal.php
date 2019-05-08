@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/css/m_all.css">
 <link rel="stylesheet" type="text/css" href="/css/notosanskr.css">
 <link rel="stylesheet" type="text/css" href="/css/nanumsquare.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 </head>
 
 <body>
