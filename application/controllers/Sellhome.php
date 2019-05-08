@@ -44,8 +44,11 @@ class Sellhome extends MY_Controller
         $this->{$method}();
     }
     
-    public function index(){
-        // sellhome page
+    public function index()
+    {
+        $data['url'] = "/";
+        $this->load->view("alert", $data);
+        return;
     }
     
     // 동정보
@@ -82,6 +85,9 @@ class Sellhome extends MY_Controller
             return;
         }*/
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -137,39 +143,12 @@ class Sellhome extends MY_Controller
     // 매물 등록 대행 서비스
     function agencyservice()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
-        
-        /*
-        $module = 'CPClient';
-        $this->load->config("nice");
-        $niceCfg = $this->config->item('nice');
-        
-        $authtype = "M";
-        $popgubun = "N";
-        $customize = "";
-        $gender = "";
-        $reqseq = get_cprequest_no($niceCfg['site']);
-        $niceReturnHost =((!isset($_SERVER['HTTPS']) ||$_SERVER['HTTPS'] != "on") ? "http://" : "https://" ).$_SERVER['HTTP_HOST'];
-        
-        $returnurl = $niceReturnHost."/sellhome/agencyCertHP";	        // 성공시 이동될 URL
-        $errorurl = $niceReturnHost."/sellhome/agencyCertHPFail";		// 실패시 이동될 URL
-        
-        $plaindata = "7:REQ_SEQ" . strlen($reqseq) . ":" . $reqseq .
-        "8:SITECODE" . strlen($niceCfg['site']) . ":" . $niceCfg['site'] .
-        "9:AUTH_TYPE" . strlen($authtype) . ":". $authtype .
-        "7:RTN_URL" . strlen($returnurl) . ":" . $returnurl .
-        "7:ERR_URL" . strlen($errorurl) . ":" . $errorurl .
-        "11:POPUP_GUBUN" . strlen($popgubun) . ":" . $popgubun .
-        "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
-        "6:GENDER" . strlen($gender) . ":" . $gender ;
-        $data['enc_data'] = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
-        
-        //session_start();
-        //$sessiondata = array("REQ_SEQ"=>$reqseq);
-        //$this->session->set_userdata($sessiondata);
-        */
         
         $this->load->helper('cookie');
         $data['MOBILE_NO'] = get_cookie('MOBILE_NO');
@@ -326,6 +305,8 @@ class Sellhome extends MY_Controller
     // 집내놓기 1단계
     public function step1()
     {
+        $data = array();
+        
         if( !$this->is_login ) {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
             $data['url'] = "/member/login";
@@ -333,6 +314,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -639,6 +621,8 @@ class Sellhome extends MY_Controller
     // 집내놓기 2단계
     public function step2()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -647,6 +631,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -836,6 +821,8 @@ class Sellhome extends MY_Controller
     // 집내놓기 3단계
     function step3()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -844,6 +831,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -928,6 +916,8 @@ class Sellhome extends MY_Controller
     // 집내놓기 4단계
     function step4()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -936,6 +926,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1131,6 +1122,8 @@ class Sellhome extends MY_Controller
     // 집구하기 4단계 중개사 선택
     function step4_brokers()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -1139,6 +1132,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1252,6 +1246,8 @@ class Sellhome extends MY_Controller
     // 집구하기 4단계 중개사무소 선택
     function step4_brokers_list()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -1260,6 +1256,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1311,6 +1308,8 @@ class Sellhome extends MY_Controller
     // 집내놓기 4단계 중개사 정보보기
     function step4_agentinfo()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -1322,6 +1321,7 @@ class Sellhome extends MY_Controller
         $brokeridx = $this->uri->segment(3);
         $goods_idx = $this->uri->segment(4);
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1534,6 +1534,8 @@ class Sellhome extends MY_Controller
     // 완료 페이지
     function complete()
     {
+        $data = array();
+        
         if(!$this->is_login)
         {
             $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
@@ -1542,6 +1544,7 @@ class Sellhome extends MY_Controller
             return;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;

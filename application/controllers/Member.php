@@ -18,7 +18,8 @@ class Member extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index(){
+    public function index()
+    {
         $data['url'] = "/";
         $this->load->view("alert", $data);
         return;
@@ -29,6 +30,9 @@ class Member extends CI_Controller {
     // 아이디 찾기 1단계
     public function findid1()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -97,6 +101,9 @@ class Member extends CI_Controller {
     // 아이디 찾기 2단계
     public function findid2()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -125,6 +132,9 @@ class Member extends CI_Controller {
     // 아이디 찾기 3단계
     public function findid3()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -160,6 +170,9 @@ class Member extends CI_Controller {
     // 비밀번호 찾기 1단계
     public function findpass1()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -189,6 +202,9 @@ class Member extends CI_Controller {
     // 비밀번호 찾기 2단계 (완료)
     public function findpass2()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -203,6 +219,9 @@ class Member extends CI_Controller {
     // 회원가입 1단계
     public function join1()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -221,6 +240,9 @@ class Member extends CI_Controller {
     // 회원가입 2단계
     public function join2()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -286,6 +308,9 @@ class Member extends CI_Controller {
     // 회원가입 3단계
     public function join3()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -307,6 +332,9 @@ class Member extends CI_Controller {
     // 로그인 페이지
     public function login()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -358,6 +386,9 @@ class Member extends CI_Controller {
     // 인증해제시 재인증
     public function logincert()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -465,6 +496,9 @@ class Member extends CI_Controller {
     // 폰번호 재인증
     public function phonecert()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -638,6 +672,9 @@ class Member extends CI_Controller {
     // 비밀번호 재설정 페이지
     public function setpasswd1()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -704,6 +741,9 @@ class Member extends CI_Controller {
     // 비밀번호 재설정 완료 페이지
     public function setpasswd2()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';

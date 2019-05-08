@@ -45,7 +45,8 @@ class Mypage extends MY_Controller
         $this->{$method}();
     }
     
-    public function index(){
+    public function index()
+    {
         $data['url'] = "/";
         $this->load->view("alert", $data);
         return;
@@ -56,6 +57,9 @@ class Mypage extends MY_Controller
     // 휴면계정안내 페이지
     public function dormancy()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -85,6 +89,9 @@ class Mypage extends MY_Controller
     // 휴면계정 메일발송 페이지
     public function dormancyresult()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -99,6 +106,8 @@ class Mypage extends MY_Controller
     // 내정보 페이지
     function myinfo()
     {
+        $data = array();
+        
         // 일반회원이 아니면 메인으로
         if($this->userinfo['MBR_GUBUN'] != 'PU')
         {
@@ -109,6 +118,7 @@ class Mypage extends MY_Controller
             exit;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -283,6 +293,8 @@ class Mypage extends MY_Controller
     // 집구하기 -> 찜한매물 페이지
     function myzzimsale()
     {
+        $data = array();
+        
         // 일반회원이 아니면 메인으로
         if($this->userinfo['MBR_GUBUN'] != 'PU')
         {
@@ -293,6 +305,7 @@ class Mypage extends MY_Controller
             exit;
         }
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -319,6 +332,9 @@ class Mypage extends MY_Controller
     // 집구하기 -> 내계약매물 페이지
     function mycontractsale()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -345,6 +361,9 @@ class Mypage extends MY_Controller
     // 집구하기 -> 내계약매물 평가 페이지
     function mycontractsaleappraise()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -361,6 +380,7 @@ class Mypage extends MY_Controller
     {
         $data = array();
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -463,8 +483,11 @@ class Mypage extends MY_Controller
     // 집내놓기 삭제
     function myhousedelete()
     {
+        $data = array();
+        
         $data['idx'] = $this->uri->segment(3);
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -542,6 +565,9 @@ class Mypage extends MY_Controller
     // 집내놓기 중개사 평가 하기
     function evaluation()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -624,6 +650,9 @@ class Mypage extends MY_Controller
         
         $goods_info = $this->chkGoodsSTatus($goods_idx);
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -727,6 +756,9 @@ class Mypage extends MY_Controller
         
         $goods_info = $this->chkGoodsSTatus($goods_idx);
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -908,6 +940,9 @@ class Mypage extends MY_Controller
         
         $goods_info = $this->chkGoodsSTatus($goods_idx);
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -946,6 +981,9 @@ class Mypage extends MY_Controller
         $goods_idx = $this->uri->segment(3);        
         $goods_info = $this->chkGoodsSTatus($goods_idx);
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1104,6 +1142,9 @@ class Mypage extends MY_Controller
         $goods_idx = $this->uri->segment(3);        
         $goods_info = $this->chkGoodsSTatus($goods_idx);
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1168,6 +1209,9 @@ class Mypage extends MY_Controller
         $goods_idx = $this->uri->segment(3);        
         $goods_info = $this->chkGoodsSTatus($goods_idx);
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1250,6 +1294,9 @@ class Mypage extends MY_Controller
     {
         $memidx = $this->userinfo['MBR_IDX'];
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1336,6 +1383,9 @@ class Mypage extends MY_Controller
     // 비밀번호 재설정 페이지
     public function setpass()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1348,6 +1398,9 @@ class Mypage extends MY_Controller
     // 비밀번호 재설정 완료 페이지
     public function setpassresult()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
@@ -1364,6 +1417,9 @@ class Mypage extends MY_Controller
     {
         $USERINFO['memberidx'] = $this->userinfo['MBR_IDX'];
         
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = null;
         $data['LAT'] = null;
         $data['LNG'] = null;
