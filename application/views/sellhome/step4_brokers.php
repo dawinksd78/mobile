@@ -204,7 +204,6 @@ function changeclassposition(officeidx, cnt, lat, lng)
 	if(cnt < 2) closebrokerlist();
 
 	if($('#setPositionVal_'+setPosition).val() == '') {
-		//$('#iconview_'+setPosition).toggleClass('ico_position_selc');
 		$('#iconview_'+setPosition).removeClass('ico_position_selc');
 	}
 	else {
@@ -313,9 +312,7 @@ function ec_overlay_info_position(lat, lng)
 //중개사선택완료
 function brokerSelect()
 {
-	var selectOfficeNumbers1 = JSON.stringify(selectOfficeNumbers); 
-	var selectOfficeNumbers2 = encodeURIComponent(selectOfficeNumbers1);
-	var param = "&brk_check=" + selectOfficeNumbers2;
+	var param = "&brk_check=" + encodeURIComponent(JSON.stringify(selectOfficeNumbers));
 	$.ajax({
         url:"/sellhome/step4_brokercookie/j",
         type:"post",
