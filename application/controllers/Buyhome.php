@@ -24,8 +24,8 @@ class Buyhome extends MY_Controller
         // 검색시 기본 위치값 출력
         if($data['keyword'] != '' && $data['saletype'] != '')
         {
-            $defaultlat = "37.350086";
-            $defaultlng = "127.109134";
+            $defaultlat = "37.3140040000000";
+            $defaultlng = "127.0806477000000";
         }
         else
         {
@@ -40,8 +40,8 @@ class Buyhome extends MY_Controller
             }
             else {
                 $data['saletype'] = $data['saletype'];
-                $defaultlat = "37.350086";
-                $defaultlng = "127.109134";
+                $defaultlat = "37.3140040000000";
+                $defaultlng = "127.0806477000000";
             }
         }
         
