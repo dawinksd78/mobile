@@ -19,7 +19,9 @@ class Board extends MY_Controller
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
     public function index() {
-        // pageSetup
+        $data['url'] = "/board/faq";
+        $this->load->view("alert", $data);
+        return;
     }
     
     //--------------------------------------------------------------//

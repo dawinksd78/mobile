@@ -19,7 +19,9 @@ class Agent extends MY_Controller {
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
     public function index(){
-        // agent Info
+        $data['url'] = "/agent/joinAgent1";
+        $this->load->view("alert", $data);
+        return;
     }
     
     //--------------------------------------------------------------//
@@ -214,7 +216,6 @@ class Agent extends MY_Controller {
             imagegif($dst,$_FILES['files']['tmp_name']);
         }
         
-        
         imagedestroy($dst);
         
         //------------------
@@ -356,36 +357,6 @@ class Agent extends MY_Controller {
         }
         
         $joinData = $this->getJoinData($cook);
-        
-        /*
-        $module = 'CPClient';
-        $this->load->config("nice");
-        $niceCfg = $this->config->item('nice');
-        
-        $authtype = "M";
-        $popgubun 	= "N";
-        $customize 	= "";
-        $gender = "";
-        $reqseqagent = get_cprequest_no($niceCfg['site']);
-        $niceReturnHost =((!isset($_SERVER['HTTPS']) ||$_SERVER['HTTPS'] != "on") ? "http://" : "https://" ).$_SERVER['HTTP_HOST'];
-        
-        $returnagenturl = $niceReturnHost."/agent/nice";	// 성공시 이동될 URL
-        $erroragenturl = $niceReturnHost."/agent/fail";		// 실패시 이동될 URL
-        
-        $plaindata = "7:REQ_SEQ" . strlen($reqseqagent) . ":" . $reqseqagent .
-        "8:SITECODE" . strlen($niceCfg['site']) . ":" . $niceCfg['site'] .
-        "9:AUTH_TYPE" . strlen($authtype) . ":". $authtype .
-        "7:RTN_URL" . strlen($returnagenturl) . ":" . $returnagenturl .
-        "7:ERR_URL" . strlen($erroragenturl) . ":" . $erroragenturl .
-        "11:POPUP_GUBUN" . strlen($popgubun) . ":" . $popgubun .
-        "9:CUSTOMIZE" . strlen($customize) . ":" . $customize .
-        "6:GENDER" . strlen($gender) . ":" . $gender ;
-        $joinData['enc_data'] = get_encode_data($niceCfg['site'], $niceCfg['pw'], $plaindata);
-        
-        session_start();
-        $sessionagentdata = array("REQ_SEQ"=>$reqseqagent);
-        $this->session->set_userdata($sessionagentdata);
-        */
         
         $joinData['certState'] = "X";
         

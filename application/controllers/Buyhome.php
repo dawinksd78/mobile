@@ -1,8 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// 집구하기
 class Buyhome extends MY_Controller
 {
+    // find Map page
     function index()
     {
         //쿠키
@@ -10,6 +12,7 @@ class Buyhome extends MY_Controller
         
         $data = array();
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -18,6 +21,7 @@ class Buyhome extends MY_Controller
         $data['keyword'] = $this->input->get_post('keyword',true);
         $data['saletype'] = $this->input->get_post('sale_type',true);    // 아파트(APT), 오피스텔(OFT), 원룸(ONE)
         
+        // 검색시 기본 위치값 출력
         if($data['keyword'] != '' && $data['saletype'] != '')
         {
             $defaultlat = "37.350086";
@@ -25,6 +29,7 @@ class Buyhome extends MY_Controller
         }
         else
         {
+            // 마지막 위치값 체크
             $cooksaletype = get_cookie('cooksaletype');
             $cooklat = get_cookie('cooklat');
             $cooklng = get_cookie('cooklng');
@@ -45,8 +50,8 @@ class Buyhome extends MY_Controller
         $data['lat'] = $this->input->get_post('lat',true) == '' ? $defaultlat : $this->input->get_post('lat',true);
         $data['lng'] = $this->input->get_post('lng',true) == '' ? $defaultlng : $this->input->get_post('lng',true);
         
-        if( !in_array($data['saletype'], array('APT','OFT','ONE')) ) $data['saletype'] = 'APT';
-        if( (int)$data['complex_idx'] < 1 ) $data['complex_idx'] = '-1';
+        if(!in_array($data['saletype'], array('APT','OFT','ONE'))) $data['saletype'] = 'APT';
+        if((int)$data['complex_idx'] < 1) $data['complex_idx'] = '-1';
         
         // 매매, 전/월세
         $data['transtype'] = $this->input->get_post('transtype',true);
@@ -55,7 +60,6 @@ class Buyhome extends MY_Controller
         $data["ROOM_TYPE"] = $this->sellhome_model->getCodeList('ROOM_TYPE');
         
         // 앱정보 저장
-        //$this->load->helper('cookie');
         $PUSHKEY = get_cookie('PUSHKEY');
         $DEVICE = get_cookie('DEVICE');
         $data['getDevideCookie'] = "0";
@@ -65,7 +69,7 @@ class Buyhome extends MY_Controller
             $data['DEVICE'] = $DEVICE;
         }
         
-        if( (int)$this->userinfo['MBR_IDX'] < 1 ) {
+        if((int)$this->userinfo['MBR_IDX'] < 1) {
             $data['memidx'] = '-1';
         }
         else {
@@ -146,6 +150,7 @@ class Buyhome extends MY_Controller
         $usecache = false;
         $this->load->driver('cache', array('adapter'=>'memcached', 'backup'=>'file', 'key_prefix'=>'dtl_'));
         
+        // cache 적용
         if(
             !$usecache || !$this->cache->memcached->is_supported()
             || !$data = $this->cache->get($this->input->get('complex_idx', true).'_'.$this->input->get('complex_type', true).'_'.$this->input->get('transtype', true))
@@ -201,6 +206,9 @@ class Buyhome extends MY_Controller
     // 필터 출력
     function filter()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -215,7 +223,8 @@ class Buyhome extends MY_Controller
     
     // 매물 단지 정보 상세 보기
     function danjidetail()
-    {       
+    {
+        // get segments
         $complex_idx = $this->uri->segment(3);
         $complex_type = $this->uri->segment(4);
         $transtype = $this->uri->segment(5);
@@ -224,6 +233,7 @@ class Buyhome extends MY_Controller
         $this->load->model('detail_model');
         $data = $this->detail_model->getDetailInfoView($complex_idx, $complex_type, $transtype);
         
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -247,7 +257,7 @@ class Buyhome extends MY_Controller
         }
         
         $this->load->view('sub_header');
-        if($ygtype == 'ABYG' || $ygtype == 'OBYG') {
+        if($ygtype == 'ABYG' || $ygtype == 'OBYG') {    // 입주예정
             $this->load->view('buyhome/danjidetail_yg', $data);
         }
         else {
@@ -287,6 +297,8 @@ class Buyhome extends MY_Controller
         if(is_array($condition['ROOM_TYPE']) && count($condition['ROOM_TYPE'])==1 && $condition['ROOM_TYPE'][0]=='all') $condition['ROOM_TYPE'] ='';
         
         $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -330,7 +342,8 @@ class Buyhome extends MY_Controller
         if((int)$goods_idx < 1) {
             return;
         }
-                
+
+        // model load
         $this->load->model('goods_model');
         $this->load->model('detail_model');
         $this->load->model('sellhome_model');
@@ -341,6 +354,7 @@ class Buyhome extends MY_Controller
             exit;
         }
         
+        // footer base var
         $res['BROKER_OFFICE_NAME'] = '';
         $res['LAT'] = '';
         $res['LNG'] = '';
@@ -409,6 +423,7 @@ class Buyhome extends MY_Controller
         
         $this->load->view('sub_header');
         
+        // page load apt,oft/one
         if( $res['data']['CATEGORY']=='ONE') $this->load->view('buyhome/saledetail_one', $res);
         else $this->load->view('buyhome/saledetail_apt', $res);
         
@@ -425,15 +440,17 @@ class Buyhome extends MY_Controller
             return;
         }
         
-        $data['BROKER_OFFICE_NAME'] = '';
-        $data['LAT'] = '';
-        $data['LNG'] = '';
-        
         // 매물 기본정보
         $sql = "SELECT LAT, LNG FROM TB_CB_COMPLEX WHERE COMPLEX_IDX='$complex_idx'";
         $result = $this->db->query($sql)->row_array();
         
         $data = array();
+        
+        // footer base var
+        $data['BROKER_OFFICE_NAME'] = '';
+        $data['LAT'] = '';
+        $data['LNG'] = '';
+        
         $data['CATEGORY'] = $loadCategory;
         $data['lat'] = $result['LAT'];
         $data['lng'] = $result['LNG'];
@@ -455,17 +472,18 @@ class Buyhome extends MY_Controller
         if((int)$complex_idx < 1 || $loadCategory == '') {
             return;
         }
-        
-        $data['BROKER_OFFICE_NAME'] = '';
-        $data['LAT'] = '';
-        $data['LNG'] = '';
-        
+                
         // 매물 기본정보
         $sql = "SELECT LAT, LNG FROM TB_CB_COMPLEX WHERE COMPLEX_IDX='$complex_idx'";
         $result = $this->db->query($sql)->row_array();
         
-        
         $data = array();
+        
+        // footer base var
+        $data['BROKER_OFFICE_NAME'] = '';
+        $data['LAT'] = '';
+        $data['LNG'] = '';
+        
         $data['complex_idx'] = $complex_idx;
         $data['saletype'] = $loadCategory;
         $data['lat'] = $result['LAT'];
@@ -479,12 +497,14 @@ class Buyhome extends MY_Controller
     // 매물 문의하기
     function saleinquiry()
     {
-        $data = array();
-        
+        // load segments
         $complex_idx = $this->uri->segment(3);
         $loadCategory = $this->uri->segment(4);
         $goods_idx = $this->uri->segment(5);
         
+        $data = array();
+                
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -506,7 +526,6 @@ class Buyhome extends MY_Controller
         $data['lng'] = $result['LNG'];
         
         $this->load->model('goods_model');
-        //$data['realtor']['data'] = $this->goods_model->nearEstate($data['lat'], $data['lng']);
         $data['realtor']['data'] = $this->goods_model->goodsConnectBroker($goods_idx);
         if(count($data['realtor']['data']) < 1) {
             $data['realtor']['data'] = $this->goods_model->goodsNearEstate($goods_idx, $data['lat'], $data['lng']);
@@ -586,23 +605,6 @@ class Buyhome extends MY_Controller
     }
     
     // 실거래정보
-    /*function getTradeList()
-    {
-        $area_no = $this->input->get('area_no', true);
-        $tmp = explode('N', $area_no);
-        if( !isset($tmp[1]) && (int)$tmp[1] < 1 ) {
-            echo json_encode(array('code'=>'404', 'data'=>array()));
-            return;
-        }
-        else $area_no = (int)$tmp[1];
-        
-        $this->load->model('detail_model');
-        $page = (int)($this->input->get('page', true));
-        $per_page = 5;
-        
-        $ret = $this->detail_model->getTradeList($this->input->get('complex_idx', true), $this->input->get('complex_type', true), $area_no, $this->input->get('transtype', true), $page, $per_page);
-        echo json_encode(array('code'=>'200', 'data'=>$ret, 'nextpage'=>$page+1, "complex_idx"=>$this->input->get('complex_idx', true), "complex_type"=>$this->input->get('complex_type', true), "area_no"=>'N'.$area_no, "transtype"=>$this->input->get('transtype', true)), true, 43200);
-    }*/
     function getTradeList()
     {
         $area_no = $this->input->get('area_no', true);
@@ -618,7 +620,7 @@ class Buyhome extends MY_Controller
         $per_page = 5;
         
         $ret = $this->detail_model->getTradeList($this->input->get('complex_idx', true), $this->input->get('complex_type', true),$area_no ,$this->input->get('transtype', true), $page,$per_page);
-        foreach ($ret as &$row) {
+        foreach($ret as &$row) {
             $row['TRADE_YM'] = substr($row['TRADE_YM'], 0, 4) . '. ' . (int)substr($row['TRADE_YM'], -2 ).'월';
             $row['rangecode']='';
         }
@@ -650,8 +652,9 @@ class Buyhome extends MY_Controller
         $ret = array("POSITION"=>array(), "data"=>$res);
         $position = array();
         if( count($res) < 1 ) return $ret;
-        foreach($res as &$row) {
-            if( $row['GOODS_STATUS'] =='SB' ) {
+        foreach($res as &$row)
+        {
+            if($row['GOODS_STATUS'] == 'SB') {
                 $position[] = array('lat'=>$row['lat'], 'lng'=>$row['lng']);
             }
         }

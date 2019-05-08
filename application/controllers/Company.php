@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Company extends CI_Controller {
-    
+// 회사정보
+class Company extends CI_Controller
+{
     /**
      * Index Page for this controller.
      *
@@ -20,6 +21,9 @@ class Company extends CI_Controller {
      */
     public function index()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -32,6 +36,9 @@ class Company extends CI_Controller {
     // 회사소개
     public function companyintro()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -44,6 +51,9 @@ class Company extends CI_Controller {
     // 이용약관
     public function terms()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -56,6 +66,9 @@ class Company extends CI_Controller {
     // 개인정보처리방침
     public function privacy()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';
@@ -68,6 +81,9 @@ class Company extends CI_Controller {
     // 다윈중개 중개보수요율표
     public function bkpee()
     {
+        $data = array();
+        
+        // footer base var
         $data['BROKER_OFFICE_NAME'] = '';
         $data['LAT'] = '';
         $data['LNG'] = '';

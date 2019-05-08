@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// 로그인 처리 페이지
 class Login extends CI_Controller
 {
     function index()

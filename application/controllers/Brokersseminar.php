@@ -1,35 +1,38 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-  class  Brokersseminar extends MY_Controller {
+
+// 모바일 설명회
+class  Brokersseminar extends MY_Controller
+{
     function __construct() {
         parent::__construct();
     }
-    function index() {
-
-
+    
+    function index()
+    {
 		$param = $this->input->get('gubun');
 	
 		$data = array("gubun"=>$param);
 
 		session_start();
 		session_destroy();
-		
 
 		$this->load->view("/seminar/broker_seminar_header");
 		$this->load->view("/seminar/broker_seminar_intro", $data);
     }
 
-	function mobile() {
-
+	function mobile()
+	{
 		$param = $this->input->get('gubun');
 
 		$data = array("gubun"=>$param); 
 
 		$this->load->view("/seminar/broker_seminar_header");
 		$this->load->view("/seminar/broker_seminar_mobile", $data);
-		
 	}
-	function pc() {
+	
+	function pc()
+	{
 		$this->load->helper('url');
 
 		$gubun = $this->input->get('gubun');
@@ -37,14 +40,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		redirect('http://www.dawin.xyz/brokersseminar/pc?gubun='.$gubun, 'refresh'); 
 	}
 
-	function saveresult_mobile() {
-	
+	function saveresult_mobile()
+	{
 		$name = $this->input->post('bname');
 		$phone= $this->input->post('phone');
 		$gubun= $this->input->post('gubun');
 
 		$data = array("name"=>$name,"phone"=>$phone, "gubun"=>$gubun);
-
 
 		session_start();
 
@@ -67,40 +69,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		if(isset($_SESSION['phone'])) {
 			$userphone = $_SESSION['phone'];
 		}
+		
 		if(isset($_SESSION['name'])) {
 			$username = $_SESSION['name'];
 		}
 
-		if($phone == null){
-
+		if($phone == null)
+		{
 			$data = array("name"=>$username,"phone"=>$userphone, "gubun"=>$usergubun);
-
-		}else{
-
-//print("name : " . $name);
-//print("phone : " . $phone);
-//print("userip : " . $userip);
-//print("remoteaddr : " . $remoteaddr);
-//print("userphone : " . $userphone);
-//exit;
-		
-			//동일아이피 + 동일 핸드폰은 가입 및  sms 문자를 발송하지 않도록 함. 
-			if($userip != $remoteaddr || $userphone != $phone){
-
-				//결과저장		
+		}
+		else
+		{
+			// 동일아이피 + 동일 핸드폰은 가입 및  sms 문자를 발송하지 않도록 함. 
+			if($userip != $remoteaddr || $userphone != $phone)
+			{
+				// 결과저장		
 				$this->load->model("brokersseminar_model");
 				$this->brokersseminar_model->saveseminar($name,$phone,$gubun,$device);
 
-	 
-				//sms 발송 
+				// sms 발송 
 				$this->sendSms($phone);		
 				
-				//세션저장
+				// 세션저장
 				$_SESSION["userip"] = $_SERVER['REMOTE_ADDR'];
 				$_SESSION["phone"] = $phone;
 				$_SESSION["usergubun"] = $gubun;
 				$_SESSION["name"] = $name;
-
 			}
 		}
 
@@ -108,10 +102,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$this->load->view("/seminar/broker_seminar_mobile_result",$data);
 	}
 
-
 	protected $CI;
-	function sendSms($phone){
-	
+	function sendSms($phone)
+	{
 		$messagetype = "PV"; //개인별발송
 		$title = "다윈중개 참석 예약 확정 안내";
 		$message = 
@@ -133,7 +126,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				  ,"message"=>$message
 				  ,"token"=>''
 				);
-
  
 		$this->CI =& get_instance();
 
@@ -150,15 +142,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		curl_setopt($curl, CURLOPT_TIMEOUT,5);
 		$result = curl_exec($curl);
 		curl_close($curl);
-		if($result===false){
-		  return array("result"=>false, "msg"=>"sending error");
+		if($result === false) {
+            return array("result"=>false, "msg"=>"sending error");
 		}
 		$res = json_decode($result, true);
-		if($res['code'] !='100'){
-		  return array("result"=>false, "msg"=>"result error", "data"=>$res);
-		}else return array("result"=>true);
-
+		if($res['code'] != '100') {
+            return array("result"=>false, "msg"=>"result error", "data"=>$res);
+		}
+		else return array("result"=>true);
 	}
-
-
 }

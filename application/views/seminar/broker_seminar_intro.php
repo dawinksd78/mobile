@@ -1,28 +1,17 @@
-<!--
-프리젠테이션.. 렌딩페이지.
-
-경로 구분 : <?=$gubun?><p>
-
-
-설명회 페이지내용..(모바일)
-
-<button id="gomain" name="gomain" onclick="javascript:gomain();">접수하러가기</button>
--->
-
 <!DOCTYPE Html>
 <html lang="Ko">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>dawin</title>
+<title>다윈중개 모바일</title>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 <meta name="format-detection" content="telephone=no, address=no, email=no" />
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="../../css/m_seminar.css" type="text/css"/>
-<link rel="stylesheet" href="../../css/m_all.css" type="text/css"/>
+<link rel="stylesheet" href="/css/m_seminar.css" type="text/css"/>
+<link rel="stylesheet" href="/css/m_all.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
 <link rel="stylesheet" href="//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 </head>
 
 <body>
@@ -80,33 +69,19 @@
 </body>
 </html>
 
-
 <script type="text/javascript">
-	
-	function gomain(){
-	
-		var filter = "win16|win32|win64|mac|macintel";
+function gomain()
+{
+	var filter = "win16|win32|win64|mac|macintel";
 
-		if(navigator.platform){
-
-			if(0 > filter.indexOf(navigator.platform.toLowerCase())){
-
-			//console.log ("gubun data : " , "<?=$gubun?>");
-
-				//alert("Mobile");
-				window.location.href ='brokersseminar/mobile?gubun=<?=$gubun?>';
-
-			}else{
-
-			//console.log ("gubun data : " , "<?=$gubun?>");
-
-				//alert("PC");
-				window.location.href ='brokersseminar/pc?gubun=<?=$gubun?>';
-
-			}
+	if(navigator.platform)
+	{
+		if(0 > filter.indexOf(navigator.platform.toLowerCase())) {
+			window.location.href ='brokersseminar/mobile?gubun=<?=$gubun?>';
+		}
+		else {
+			window.location.href ='brokersseminar/pc?gubun=<?=$gubun?>';
 		}
 	}
-
-</script>
-
- 
+}
+</script> 
