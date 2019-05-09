@@ -226,7 +226,7 @@ class Goods_model extends CI_Model
                 JOIN TB_AB_BROKER_ACCOUNT bo_ac ON gb.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE()
                 JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU' AND mbr.MBR_STATUS='NM'
                 LEFT JOIN TB_UA_QNA qna ON qna.MBR_IDX = ? AND qna.GOODS_IDX = ? AND  qna.BROKER_OFFICE_IDX= gb.BROKER_OFFICE_IDX 
-                WHERE gb.GOODS_IDX = ? AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1'";
+                WHERE gb.GOODS_IDX = ? AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')";
         $qry = $this->db->query($sql, array($mbr_idx ,$goods_idx, $goods_idx));
         if($qry->num_rows() > 0) return $qry->result_array();
         return array();
