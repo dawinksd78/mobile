@@ -1026,7 +1026,7 @@ class Mypage extends MY_Controller
         else
         {
             $sql = "SELECT gb.*, bo.*, bm.MBR_IDX, bm.MBR_NAME, bm.MBR_IMAGE_FULL_PATH FROM TB_UA_GOODS_BROKER as gb, TB_AB_BROKER_OFFICE as bo, TB_UB_MEMBER as bm
-                WHERE gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX=bm.MBR_IDX AND gb.GOODS_IDX='".$goods_info['GOODS_IDX']."'";
+                WHERE gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX=bm.MBR_IDX AND bm.MBR_STATUS='NM' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') AND gb.GOODS_IDX='".$goods_info['GOODS_IDX']."'";
             $qry = $this->db->query($sql);
             $data['brokerInfoCnt'] = $qry->num_rows();
             if($data['brokerInfoCnt'] > 0 && get_cookie('brokerSelListMdfStart', true) != $goods_idx)
@@ -1227,7 +1227,7 @@ class Mypage extends MY_Controller
         $data['realtor']['data'] = $this->goods_model->nearEstate($goods_info['LAT'], $goods_info['LNG']);
         
         $sql = "SELECT gb.*, bo.*, bm.MBR_IDX, bm.MBR_NAME, bm.MBR_IMAGE_FULL_PATH FROM TB_UA_GOODS_BROKER as gb, TB_AB_BROKER_OFFICE as bo, TB_UB_MEMBER as bm 
-                WHERE gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX=bm.MBR_IDX AND gb.GOODS_IDX='".$goods_info['GOODS_IDX']."'";
+                WHERE gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX=bm.MBR_IDX AND bm.MBR_STATUS='NM' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') AND gb.GOODS_IDX='".$goods_info['GOODS_IDX']."'";
         $qry = $this->db->query($sql);
         if($qry->num_rows() > 0) {
             $data['relatorChecked'] = $qry->result_array();

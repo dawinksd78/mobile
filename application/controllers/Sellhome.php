@@ -1232,8 +1232,8 @@ class Sellhome extends MY_Controller
     {
         $brk_idx = $this->input->post('brk_idx');
         
-        $sql = "SELECT LAT, LNG FROM TB_AB_BROKER_OFFICE WHERE BROKER_OFFICE_IDX = '$brk_idx' LIMIT 1";
-        $qry = $this->db->query( $sql );
+        $sql = "SELECT bo.LAT, bo.LNG FROM TB_AB_BROKER_OFFICE as bo, TB_UB_MEMBER as mb WHERE bo.BROKER_OFFICE_IDX=mb.MBR_IDX AND bo.BROKER_OFFICE_IDX = '$brk_idx' AND mb.MBR_STATUS='NM' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') LIMIT 1";
+        $qry = $this->db->query($sql);
         if($qry->num_rows() > 0) {
             $list = $qry->row_array();
         }

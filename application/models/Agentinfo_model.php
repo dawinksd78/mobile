@@ -25,7 +25,7 @@ class Agentinfo_model extends CI_Model
             FROM TB_AB_BROKER_OFFICE bo
             JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX
             left JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX = bo_ac.MBR_IDX AND bo_ac.DEL_YN ='Y'
-            WHERE bo.BROKER_OFFICE_IDX = ?
+            WHERE bo.BROKER_OFFICE_IDX = ? AND mem.MBR_STATUS='NM' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')
         ";
         $qry = $this->db->query($sql, array($broker_office_idx));
         if($qry->num_rows() > 0) return $qry->row_array();

@@ -127,7 +127,7 @@ class Board_model extends CI_Model
     // 선택한 브로커 출력
     function selectbroker($brokernumber)
     {
-        $sql = "SELECT bo.*, mb.MBR_NAME FROM TB_AB_BROKER_OFFICE AS bo, TB_UB_MEMBER AS mb WHERE bo.BROKER_OFFICE_IDX='$brokernumber' AND mb.MBR_IDX=bo.BROKER_OFFICE_IDX";
+        $sql = "SELECT bo.*, mb.MBR_NAME FROM TB_AB_BROKER_OFFICE AS bo, TB_UB_MEMBER AS mb WHERE bo.BROKER_OFFICE_IDX='$brokernumber' AND mb.MBR_IDX=bo.BROKER_OFFICE_IDX AND mb.MBR_STATUS='NM' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')";
         $qry = $this->db->query($sql);
         if( $qry->num_rows() > 0 ) {
             return $qry->row_array();
@@ -144,8 +144,8 @@ class Board_model extends CI_Model
             SELECT 
                 bo.*, mb.MBR_NAME 
             FROM TB_UA_GOODS_BROKER AS gb 
-            JOIN TB_UB_MEMBER AS mb ON mb.MBR_IDX=gb.BROKER_OFFICE_IDX
-            LEFT JOIN TB_AB_BROKER_OFFICE AS bo ON gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX 
+            JOIN TB_UB_MEMBER AS mb ON mb.MBR_IDX=gb.BROKER_OFFICE_IDX AND mb.MBR_STATUS='NM' 
+            LEFT JOIN TB_AB_BROKER_OFFICE AS bo ON gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') 
             LEFT JOIN TB_UM_GOODS AS ug ON gb.GOODS_IDX=ug.GOODS_IDX 
             WHERE bo.OFFICE_STATUS='1' AND ug.REG_MBR_IDX='$memberidx' 
             GROUP BY gb.BROKER_OFFICE_IDX
@@ -195,10 +195,12 @@ class Board_model extends CI_Model
         $subSql = "SELECT
                         bo.*, mb.MBR_NAME
                    FROM TB_UA_GOODS_BROKER AS gb 
-                   JOIN TB_UB_MEMBER AS mb ON mb.MBR_IDX=gb.BROKER_OFFICE_IDX
-                   LEFT JOIN TB_AB_BROKER_OFFICE AS bo ON gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX
+                   JOIN TB_UB_MEMBER AS mb ON mb.MBR_IDX=gb.BROKER_OFFICE_IDX AND mb.MBR_STATUS='NM' 
+                   LEFT JOIN TB_AB_BROKER_OFFICE AS bo ON gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') 
                    LEFT JOIN TB_UM_GOODS AS ug ON gb.GOODS_IDX=ug.GOODS_IDX
-                   WHERE bo.OFFICE_STATUS='1' AND ug.REG_MBR_IDX='".$SENDDATA['memberidx']."' AND bo.LAW_DONG_CODE='".$SENDDATA['dong']."00' AND bo.OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'";
+                   WHERE bo.OFFICE_STATUS='1' AND ug.REG_MBR_IDX='".$SENDDATA['memberidx']."'
+                         AND bo.LAW_DONG_CODE='".$SENDDATA['dong']."00' AND bo.OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'
+                ";
         $subQry = $this->db->query($subSql);
         if( $subQry->num_rows() > 0 ) {
             return $subQry->result_array();
@@ -238,7 +240,7 @@ class Board_model extends CI_Model
         }
         */
         $LAW_DONG_CODE = $SENDDATA['dong'].'00';
-        $subSql = "SELECT * FROM TB_AB_BROKER_OFFICE_INFO WHERE LAW_CODE='".$LAW_DONG_CODE."' AND BROKER_OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'";
+        $subSql = "SELECT boi.* FROM TB_AB_BROKER_OFFICE_INFO as boi, TB_AB_BROKER_OFFICE as bo WHERE boi.BROKER_OFFICE_CODE=bo.BROKER_OFFICE_CODE AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') AND boi.LAW_CODE='".$LAW_DONG_CODE."' AND boi.BROKER_OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'";
         $subQry = $this->db->query($subSql);
         if( $subQry->num_rows() > 0 ) {
             return $subQry->result_array();
@@ -251,7 +253,7 @@ class Board_model extends CI_Model
     // 저장된 브로커 가입시 검색 출력
     function brokerofficesavesearchresult($brokeridx)
     {
-        $subSql = "SELECT * FROM TB_AB_BROKER_OFFICE_INFO WHERE BROKER_OFFICE_INFO_IDX='$brokeridx'";
+        $subSql = "SELECT boi.* FROM TB_AB_BROKER_OFFICE_INFO as boi, TB_AB_BROKER_OFFICE as bo WHERE boi.BROKER_OFFICE_INFO_IDX='$brokeridx' AND boi.BROKER_OFFICE_CODE=bo.BROKER_OFFICE_CODE AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')";
         $subQry = $this->db->query($subSql);
         if( $subQry->num_rows() > 0 ) {
             return $subQry->result_array();

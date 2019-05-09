@@ -240,9 +240,9 @@ class Sellhome_model extends CI_Model
             SELECT
             	bo.*, mem.*
             FROM TB_AB_BROKER_OFFICE bo
-            JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX
+            JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX AND mem.MBR_STATUS='NM'
             left JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX = bo_ac.MBR_IDX AND bo_ac.DEL_YN ='Y'
-            WHERE bo.BROKER_OFFICE_IDX IN ($memidx)
+            WHERE bo.BROKER_OFFICE_IDX IN ($memidx) AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')
         ";
         //$qry = $this->db->query($sql, array($memidx));
         $qry = $this->db->query($sql);
@@ -261,9 +261,9 @@ class Sellhome_model extends CI_Model
             SELECT
             	bo.*, mem.*
             FROM TB_AB_BROKER_OFFICE bo
-            JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX
+            JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX AND mem.MBR_STATUS='NM'
             left JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX = bo_ac.MBR_IDX AND bo_ac.DEL_YN ='Y'
-            WHERE bo.LAT=? AND bo.LNG=?
+            WHERE bo.LAT=? AND bo.LNG=? AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')
         ";
         $qry = $this->db->query($sql, array($lat, $lng));
         if( $qry->num_rows() > 0 ) {
@@ -359,7 +359,7 @@ class Sellhome_model extends CI_Model
     // 중개사 정보
     public function brokerOfficeInfo($brokeridx)
     {
-        $sql = "SELECT a.*, b.* FROM TB_AB_BROKER_OFFICE as a, TB_UB_MEMBER as b WHERE a.BROKER_OFFICE_IDX = '$brokeridx' AND a.BROKER_OFFICE_IDX=b.MBR_IDX";
+        $sql = "SELECT bo.*, mb.* FROM TB_AB_BROKER_OFFICE as bo, TB_UB_MEMBER as mb WHERE bo.BROKER_OFFICE_IDX = '$brokeridx' AND bo.BROKER_OFFICE_IDX=mb.MBR_IDX AND mb.MBR_STATUS='NM' AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')";
         $qry = $this->db->query($sql);
         if($qry->num_rows() > 0) {
             return $qry->row_array();
@@ -389,9 +389,9 @@ class Sellhome_model extends CI_Model
             SELECT
             	bo.*, mem.MBR_NAME, mem.MBR_IMAGE_FULL_PATH , if( bo_ac.ACC_END_DATE > CURDATE() , 'Y', 'N') AS ended
             FROM TB_AB_BROKER_OFFICE bo
-            JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX
+            JOIN TB_UB_MEMBER mem ON bo.BROKER_OFFICE_IDX = mem.MBR_IDX AND mem.MBR_STATUS='NM'
             left JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX = bo_ac.MBR_IDX AND bo_ac.DEL_YN ='Y'
-            WHERE bo.BROKER_OFFICE_IDX = ?
+            WHERE bo.BROKER_OFFICE_IDX = ? AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')
         ";
         $qry = $this->db->query($sql, array($brokeridx));
         if ($qry->num_rows() > 0) return $qry->row_array();

@@ -158,15 +158,15 @@ class Goods_model extends CI_Model
     {
         $mbr_idx = ( isset($this->userinfo['MBR_IDX']) && $this->userinfo['MBR_IDX'] > 0 ) ? $this->userinfo['MBR_IDX'] : '-1';
         list( $lat0, $lat1, $lng0, $lng1) = $this->box($lat, $lng, 5);
-        $sql = "SELECT
-                bo.BROKER_OFFICE_IDX, bo.OFFICE_NAME, bo.OFFICE_TITLE, bo.ADDR1, bo.ADDR2, bo.PHONE, bo.LAT, bo.LNG, bo.BROKER_POINT, bo.BROKER_POINT_CNT, bo.PHONE,
-                ( 6371 * acos( cos( radians(?) ) * cos( radians( bo.`LAT` ) ) * cos( radians( bo.`LNG` ) - radians(?) ) + sin( radians(?) ) * sin( radians( bo.`LAT` ) ) ) ) AS distancekm,
-                mbr.MBR_IDX, mbr.MBR_NAME, mbr.MBR_IMAGE_FULL_PATH
-                FROM TB_AB_BROKER_OFFICE bo
-                JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE()
-                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU'
-                WHERE bo.LAT >= ? AND bo.LAT <= ? AND bo.LNG >= ? AND bo.LNG <= ?
-                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO'
+        $sql = "SELECT 
+                bo.BROKER_OFFICE_IDX, bo.OFFICE_NAME, bo.OFFICE_TITLE, bo.ADDR1, bo.ADDR2, bo.PHONE, bo.LAT, bo.LNG, bo.BROKER_POINT, bo.BROKER_POINT_CNT, bo.PHONE, 
+                ( 6371 * acos( cos( radians(?) ) * cos( radians( bo.`LAT` ) ) * cos( radians( bo.`LNG` ) - radians(?) ) + sin( radians(?) ) * sin( radians( bo.`LAT` ) ) ) ) AS distancekm, 
+                mbr.MBR_IDX, mbr.MBR_NAME, mbr.MBR_IMAGE_FULL_PATH 
+                FROM TB_AB_BROKER_OFFICE bo 
+                JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE() 
+                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU' AND mbr.MBR_STATUS='NM' 
+                WHERE bo.LAT >= ? AND bo.LAT <= ? AND bo.LNG >= ? AND bo.LNG <= ? 
+                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1' 
                 HAVING distancekm <= 10
                 ORDER BY distancekm ASC";
         $qry = $this->db->query($sql, array($lat, $lng, $lat ,$lat0, $lat1, $lng0, $lng1) );
@@ -183,9 +183,9 @@ class Goods_model extends CI_Model
                     ( 6371 * acos( cos( radians(?) ) * cos( radians( bo.`LAT` ) ) * cos( radians( bo.`LNG` ) - radians(?) ) + sin( radians(?) ) * sin( radians( bo.`LAT` ) ) ) ) AS distancekm
                 FROM TB_AB_BROKER_OFFICE bo
                 JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE()
-                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU'
+                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU' AND mbr.MBR_STATUS='NM' 
                 WHERE bo.LAT >= ? AND bo.LAT <= ? AND bo.LNG >= ? AND bo.LNG <= ?
-                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO'
+                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1'
                 GROUP BY bo.LAT, bo.LNG
                 HAVING distancekm <= 10
                 ORDER BY distancekm ASC";
@@ -204,11 +204,11 @@ class Goods_model extends CI_Model
                     bo.*, mbr.MBR_IDX, mbr.MBR_NAME, mbr.MBR_IMAGE_FULL_PATH, qna.QNA_IDX, qna.ANSWER_YN
                 FROM TB_AB_BROKER_OFFICE bo
                 JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE()
-                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU'
+                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU' AND mbr.MBR_STATUS='NM' 
                 LEFT JOIN TB_UA_QNA qna ON qna.MBR_IDX = ? AND qna.GOODS_IDX = ? AND  qna.BROKER_OFFICE_IDX= bo.BROKER_OFFICE_IDX
                 WHERE bo.LAT >= ? AND bo.LAT <= ? AND bo.LNG >= ? AND bo.LNG <= ?
-                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO'
-                HAVING distancekm <= 10
+                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1' 
+                HAVING distancekm <= 10 
                 ORDER BY distancekm ASC";
         $qry = $this->db->query($sql, array($lat, $lng, $lat , $mbr_idx ,$goods_idx ,$lat0, $lat1, $lng0, $lng1));
         if($qry->num_rows() > 0) return $qry->result_array();
@@ -224,9 +224,9 @@ class Goods_model extends CI_Model
                 FROM TB_UA_GOODS_BROKER gb
                 JOIN TB_AB_BROKER_OFFICE bo ON gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX
                 JOIN TB_AB_BROKER_ACCOUNT bo_ac ON gb.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE()
-                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU'
+                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU' AND mbr.MBR_STATUS='NM'
                 LEFT JOIN TB_UA_QNA qna ON qna.MBR_IDX = ? AND qna.GOODS_IDX = ? AND  qna.BROKER_OFFICE_IDX= gb.BROKER_OFFICE_IDX 
-                WHERE gb.GOODS_IDX = ? AND bo.WORKING_STATUS = 'WO'";
+                WHERE gb.GOODS_IDX = ? AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1'";
         $qry = $this->db->query($sql, array($mbr_idx ,$goods_idx, $goods_idx));
         if($qry->num_rows() > 0) return $qry->result_array();
         return array();
@@ -242,10 +242,10 @@ class Goods_model extends CI_Model
                 FROM  TB_UA_GOODS_BROKER gb
             	JOIN TB_AB_BROKER_OFFICE bo ON gb.BROKER_OFFICE_IDX = bo.BROKER_OFFICE_IDX
                 JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo_ac.ACC_START_DATE <= CURDATE() AND bo_ac.ACC_END_DATE >= CURDATE()
-                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU'
+                JOIN TB_UB_MEMBER mbr ON bo_ac.MBR_IDX = mbr.MBR_IDX AND mbr.MBR_GUBUN ='BU' AND mbr.MBR_STATUS='NM' 
                 LEFT JOIN TB_UA_QNA qna ON qna.MBR_IDX = ? AND qna.GOODS_IDX = ? AND  qna.BROKER_OFFICE_IDX= bo.BROKER_OFFICE_IDX
                 WHERE gb.GOODS_IDX = ?
-                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO'
+                AND ( bo.APPROVAL_STATUS in('PS3', 'CA','CN','CR') ) AND bo.WORKING_STATUS = 'WO' AND bo.OFFICE_STATUS='1'
                 ORDER BY distancekm ASC
                 ";
         $qry = $this->db->query($sql, array($lat, $lng, $lat, $mbr_idx, $goods_idx, $goods_idx));
