@@ -107,7 +107,7 @@ if($CATEGORY == 'APT' || $CATEGORY == 'OFT')
                                 <label for="CATEGORY03">원룸/투룸</label>
                             </div>
                         </div>
-                        <p class="add_text">* 다세대, 다가구의 경우 '원룸/투룸'을 선택해주세요.</p>
+                        <p class="add_text">* 다세대, 다가구의 경우 '원룸/투룸'을 선택해주세요.<br>* 등록가능지역 : 분당, 판교, 수지, 광교</p>
                     </div>
                     
                     <div id="insertInfoArea2">
