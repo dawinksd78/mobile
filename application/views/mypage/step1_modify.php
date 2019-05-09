@@ -412,8 +412,8 @@ function sidoListPrint(point)
 // 구군 리스트 가져오기
 function gugunListPrint(sido)
 {
-	$('#SIGUNGU_CODE').children().remove().end().append('<option value="">구/군선택</option>') ;
-	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동선택</option>') ;
+	$('#SIGUNGU_CODE').children().remove().end().append('<option value="">시/구/군 선택</option>') ;
+	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동 선택</option>') ;
 	$('#COMPLEX_IDX').children().remove().end().append('<option value="">단지선택</option>') ;
 	$('#DONG_PREV').children().remove().end().append('<option value="">동선택</option>') ;
 	$('#FLOOR_PREV').children().remove().end().append('<option value="">층선택</option>') ;
@@ -450,7 +450,7 @@ function gugunListPrint(sido)
 // 읍면동 리스트 가져오기
 function dongListPrint(gugun)
 {
-	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동선택</option>') ;
+	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동 선택</option>') ;
 	$('#COMPLEX_IDX').children().remove().end().append('<option value="">단지선택</option>') ;
 	$('#DONG_PREV').children().remove().end().append('<option value="">동선택</option>') ;
 	$('#FLOOR_PREV').children().remove().end().append('<option value="">층선택</option>') ;
