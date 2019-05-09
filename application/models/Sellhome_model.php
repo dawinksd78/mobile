@@ -93,19 +93,6 @@ class Sellhome_model extends CI_Model
     // 단지내 동검색 및 면적 출력
     function getComplexDonginfo($complex_idx, $complex_type)
     {
-        /*
-        $sql = "SELECT DONGNM FROM TB_CB_COMPLEX_DH_AREA WHERE COMPLEX_IDX = ? AND COMPLEX_TYPE = ? GROUP BY DONGNM ORDER BY floor(DONGNM)";
-        $qry = $this->db->query($sql, array($complex_idx, $complex_type) );
-        //$sql = "SELECT dongNo as DONGNM FROM nv_complex_dong WHERE complexNo = ? ORDER BY sortNo";
-        //$qry = $this->db->query($sql, array($complex_idx) );
-        if( $qry->num_rows() > 0 ) {
-            return $qry->result_array();
-        }
-        else {
-            return false;
-        }
-        */
-        
         // 단지내 동 출력
         $sql = "(SELECT dongNo as complexDongNo, bildName as complexDongName FROM TB_CB_COMPLEX_DONG a JOIN nv_dong_unmatch b ON a.complexNo = b.complexNo AND b.dongOrHo = 'HO' WHERE a.complexNo = ? ORDER BY sortNo)
                 UNION (SELECT dongNo as complexDongNo, bildName as complexDongName FROM TB_CB_COMPLEX_DONG2 a WHERE a.complexNo = ? ORDER BY sortNo)";
@@ -135,7 +122,6 @@ class Sellhome_model extends CI_Model
         $qry = $this->db->query($sql, array($complex_idx, $complex_type, $complex_dong) );
         if( $qry->num_rows() > 0 )
         {
-            //return $qry->result_array();
             $data = $qry->result_array();
             foreach($data as $info)
             {
@@ -244,7 +230,6 @@ class Sellhome_model extends CI_Model
             left JOIN TB_AB_BROKER_ACCOUNT bo_ac ON bo.BROKER_OFFICE_IDX = bo_ac.BROKER_OFFICE_IDX AND bo.BROKER_OFFICE_IDX = bo_ac.MBR_IDX AND bo_ac.DEL_YN ='Y'
             WHERE bo.BROKER_OFFICE_IDX IN ($memidx) AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR')
         ";
-        //$qry = $this->db->query($sql, array($memidx));
         $qry = $this->db->query($sql);
         if( $qry->num_rows() > 0 ) {
             return $qry->result_array();
@@ -329,21 +314,6 @@ class Sellhome_model extends CI_Model
         }
         
         return "SUCCESS";
-                
-        /*if($ins !== false)
-        {
-            // 파일업로드
-            if( $step < 'step_3') {
-                $this->load->model("S3_model");
-                $this->S3_model->delSalepicture($this->userinfo['MBR_IDX'], $INPUTDATA['CATEGORY'] );
-            }
-            
-            if($this->db->affected_rows()>0 || $ins == true) return "SUCCESS";
-            else return "FAIL";
-        }
-        else {
-            return "FAIL";
-        }*/
     }
     
     // 집내놓기 임시 저장값

@@ -78,13 +78,6 @@ class Sellhome extends MY_Controller
     // 집내놓기 메인
     public function main()
     {
-        /*if( !$this->is_login ) {
-            $data['msg'] = "로그인이 필요한 페이지입니다. 로그인해주세요.";
-            $data['url'] = "/member/login";
-            $this->load->view("alert", $data);
-            return;
-        }*/
-        
         $data = array();
         
         // footer base var
@@ -391,17 +384,6 @@ class Sellhome extends MY_Controller
     {
         $comidx = $this->input->get_post('comidx');
         $category = $this->input->get_post('category');
-        
-        // 단지내 동 출력
-        /*$sql = "(SELECT dongNo, bildName FROM TB_CB_COMPLEX_DONG a JOIN nv_dong_unmatch b ON a.complexNo = b.complexNo AND b.dongOrHo = 'HO' WHERE a.complexNo = ? ORDER BY a.sortNo)
-                UNION (SELECT dongNo, bildName FROM TB_CB_COMPLEX_DONG2 a WHERE a.complexNo = ? ORDER BY a.sortNo)";
-        $qry = $this->db->query($sql, array($comidx, $comidx));
-        if( $qry->num_rows() > 0 ) $result = $qry->result_array();
-        else {
-            $qry = $this->db->select('dongNo, bildName')->where('complexNo', $comidx)->order_by('sortNo')->get('TB_CB_COMPLEX_DONG');
-            if( $qry->num_rows() > 0 ) $result = $qry->result_array();
-            else $result = array();
-        }*/
         
         // 단지내 동 출력
         $sql = "SELECT dongNo, bildName FROM TB_CB_COMPLEX_DONG a JOIN nv_dong_unmatch b ON a.complexNo = b.complexNo AND b.dongOrHo = 'HO' WHERE a.complexNo = ? ORDER BY a.sortNo";
@@ -728,7 +710,6 @@ class Sellhome extends MY_Controller
         if(empty($data['CATEGORY'])) { echo json_encode(array( "code"=>"405", "msg"=>"정보값이 없습니다. #1" )); return; }
         
         //PARKING_FLAG, HEAT_TYPE, ELEVATOR_FLAG
-        
         if( $this->input->post('ENTER_TYPE') !='' && !in_array($this->input->post('ENTER_TYPE'), array("1","2","3") ) ) { echo json_encode(array( "code"=>"405", "msg"=>"입주희망일을 선택해주세요" )); return; }
         else $data['ENTER_TYPE'] = $this->input->post('ENTER_TYPE');
         

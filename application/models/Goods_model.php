@@ -170,7 +170,7 @@ class Goods_model extends CI_Model
                 HAVING distancekm <= 10
                 ORDER BY distancekm ASC";
         $qry = $this->db->query($sql, array($lat, $lng, $lat ,$lat0, $lat1, $lng0, $lng1) );
-        if( $qry->num_rows() > 0 ) return $qry->result_array();
+        if($qry->num_rows() > 0) return $qry->result_array();
         return array();
     }
     //반경 5km 중계사 정보 중복제거
@@ -253,7 +253,7 @@ class Goods_model extends CI_Model
         return array();
     }
     
-    // 아파트매물상세
+    // 아파트 매물상세
     public function goodsViewinfoAPT($goods_idx, $MBR_IDX=false)
     {
         $sql = "SELECT ifnull(count(CONTRACT_IDX),0) isbuyer FROM TB_AB_CONTRACT WHERE GOODS_IDX = ? AND BUYER_MBR_IDX = ?";

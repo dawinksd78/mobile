@@ -993,7 +993,7 @@ class Mypage extends MY_Controller
         $this->load->model('goods_model');
         $this->load->model('sellhome_model');
         
-        //$data['realtor']['data'] = $this->goods_model->nearEstate($goods_info['LAT'], $goods_info['LNG']);
+        //$data['realtor']['data'] = $this->goods_model->nearEstate($goods_info['LAT'], $goods_info['LNG']);    // 제외
         
         // 선택된 특정 중개사
         $this->load->helper('cookie');

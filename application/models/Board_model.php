@@ -162,36 +162,6 @@ class Board_model extends CI_Model
     // 브로커 검색 출력
     function brokersearchlist($SENDDATA)
     {
-        /*$sql = "SELECT * FROM TB_CB_ADDR WHERE SIDO_CODE='".$SENDDATA['sido']."' AND SIGUNGU_CODE='".$SENDDATA['gugun']."' ";
-        if( !empty($SENDDATA['dong']) ) {
-            $sql .= " AND DONG_CODE='".$SENDDATA['dong']."' ";
-        }
-        $sql .= " LIMIT 1";
-        $qry = $this->db->query($sql);
-        if ($qry->num_rows() > 0)
-        {
-            $info = $qry->row();
-            
-            $addr = $info->SIDO . ' ' . $info->SIGUNGU . ' ' . $info->DONG;
-            //$subSql = "SELECT BROKER_OFFICE_IDX, OFFICE_NAME, PHONE, ADDR1 FROM TB_AB_BROKER_OFFICE WHERE OFFICE_STATUS='1' AND ADDR1 LIKE '%".$addr."%' AND (OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%' OR PHONE LIKE '%".$SENDDATA['broker_search']."%')";
-            $subSql = "SELECT
-                        bo.* 
-                   FROM (TB_UA_GOODS_BROKER AS gb LEFT JOIN TB_AB_BROKER_OFFICE AS bo ON gb.BROKER_OFFICE_IDX=bo.BROKER_OFFICE_IDX) 
-                   LEFT JOIN TB_UM_GOODS AS ug ON gb.GOODS_IDX=ug.GOODS_IDX 
-                   WHERE bo.OFFICE_STATUS='1' AND ug.REG_MBR_IDX='".$SENDDATA['memberidx']."' AND bo.ADDR1 LIKE '%".$addr."%' AND bo.OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'";
-            $subQry = $this->db->query($subSql);
-            if( $subQry->num_rows() > 0 ) {
-                return $subQry->result_array();
-            }
-            else {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }*/
-        
         $subSql = "SELECT
                         bo.*, mb.MBR_NAME
                    FROM TB_UA_GOODS_BROKER AS gb 
@@ -213,32 +183,6 @@ class Board_model extends CI_Model
     // 브로커 가입시 검색 출력
     function brokerofficejoinsearchresult($SENDDATA)
     {
-        /*
-        $sql = "SELECT * FROM TB_CB_ADDR WHERE SIDO_CODE='".$SENDDATA['sido']."' AND SIGUNGU_CODE='".$SENDDATA['gugun']."' ";
-        if( !empty($SENDDATA['dong']) ) {
-            $sql .= " AND DONG_CODE='".$SENDDATA['dong']."' ";
-        }
-        $sql .= " LIMIT 1";
-        $qry = $this->db->query($sql);
-        if ($qry->num_rows() > 0)
-        {
-            $info = $qry->row();
-            
-            $addr = $info->SIDO . ' ' . $info->SIGUNGU . ' ' . $info->DONG;
-            $subSql = "SELECT * FROM TB_AB_BROKER_OFFICE_INFO WHERE FULL_ADDR LIKE '%".$addr."%' AND BROKER_OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'";
-            $subQry = $this->db->query($subSql);
-            if( $subQry->num_rows() > 0 ) {
-                return $subQry->result_array();
-            }
-            else {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-        */
         $LAW_DONG_CODE = $SENDDATA['dong'].'00';
         $subSql = "SELECT boi.* FROM TB_AB_BROKER_OFFICE_INFO as boi, TB_AB_BROKER_OFFICE as bo WHERE boi.BROKER_OFFICE_CODE=bo.BROKER_OFFICE_CODE AND bo.OFFICE_STATUS='1' AND bo.APPROVAL_STATUS IN ('PS3', 'CA', 'CN', 'CR') AND boi.LAW_CODE='".$LAW_DONG_CODE."' AND boi.BROKER_OFFICE_NAME LIKE '%".$SENDDATA['broker_search']."%'";
         $subQry = $this->db->query($subSql);

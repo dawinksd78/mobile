@@ -3,8 +3,7 @@ class Agentinfo_model extends CI_Model
 {
     public $info, $spaceunit, $condition, $condition_str;
     
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
     
@@ -44,7 +43,7 @@ class Agentinfo_model extends CI_Model
     {
         $sql = "SELECT *, DATE_FORMAT(RATE_DATE, '%Y.%m.%d') AS datedotformat FROM TB_UA_BROKER_EVALUATION a WHERE a.BROKER_OFFICE_IDX = ? ORDER BY a.RATE_DATE DESC LIMIT ?, ?";
         $qry = $this->db->query($sql, array($broker_office_idx, $page*$perpage, $perpage ));
-        if ($qry->num_rows() > 0) return $qry->result_array();
+        if($qry->num_rows() > 0) return $qry->result_array();
         else return array();
     }
     
