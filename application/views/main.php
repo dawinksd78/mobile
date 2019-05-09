@@ -57,7 +57,7 @@
       <p class="scdec_img"><img src="images/img_dec02.png" alt="중개수수료설명"></p>
   </div>
   <div class="sec_box">
-      <p class="sc_tit">허위 매물 제로!</p>
+      <p class="sc_tit">허위매물 제로!</p>
       <p class="sc_dec">다윈중개의 모든 매물은 집주인 본인이 직접 등록합니다.<br>
                       따라서 중개사들의 낚시성 허위매물이 없습니다.</p>
       <p class="scdec_img"><img src="images/img_dec03.png" alt="중개수수료설명"></p>

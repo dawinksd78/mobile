@@ -10,7 +10,7 @@
     <form id="join_form">
         <div class="sub_container">
             <div class="cont_wrap join_wrap">
-                <h2 class="subj_tit"><span class="m_tit">개인정보입력</span></h2>
+                <h2 class="subj_tit"><span class="m_tit">개인정보 입력</span></h2>
                 <div class="proc"><a href="" class="bul_proc prev"></a><a href="" class="bul_proc on"></a></div>
                 <div class="cont">
                     <div class="inpbox">

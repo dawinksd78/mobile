@@ -30,7 +30,7 @@
                         </div>
                         <p class="add_text">* 호수는 사이트에 공개되지 않습니다.</p>
                     </div>
-                    <div class="inpbox">
+                    <div class="inpbox sch_inpbox">
                         <label for="sizeinfo" class="lbl">전용면적</label>
                         <div class="inptxt">
                             <input type="number" id="AREA2" name="AREA2" onkeydown="return dotnumber_only(event)" onkeyup="changePyeong(this)" placeholder="전용면적평형입력" title="전용면적평형입력" class="inp" autocomplete="off">

@@ -20,7 +20,7 @@
                                 <div class="radio">
                                     <label for="relat01">
                                         <input type="radio" name="agree" id="relat01" value="Y">
-                                        <i></i><strong>중개사선택</strong>
+                                        <i></i><strong>선택한 중개사 중 선택</strong>
                                     </label>
                                 </div>
                                 <div class="radio">
@@ -387,4 +387,9 @@ function selectBrokerOfficeDel() {
 	$('.btn_del02').css('display', 'none');
 	$('.sle_bk').children().remove().end();
 }
+
+// 문자 제거
+$("#reptExplain").click(function(){
+	$(this).attr("placeholder", "");
+});
 </script>

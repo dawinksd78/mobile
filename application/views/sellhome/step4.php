@@ -13,7 +13,7 @@
     <form id="realtorform" onsubmit="return false">
         <div class="sub_container">
             <div class="cont_wrap public_wrap sell_selbk">
-                <h2 class="subj_tit"><span class="m_tit">중개사선택</span></h2>
+                <h2 class="subj_tit"><span class="m_tit">중개사 선택</span></h2>
                 <div class="proc"> <a href="" class="bul_proc prev"></a><a href="" class="bul_proc prev"></a><a href="" class="bul_proc prev"></a><a href="" class="bul_proc on"></a></div>
                 <div class="cont">
                 

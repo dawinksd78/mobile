@@ -112,7 +112,7 @@ if($seletedCategory != '')
                                 <label for="CATEGORY03">원룸/투룸</label>
                             </div>
                         </div>
-                        <p class="add_text">* 다세대, 다가구의 경우 '원룸/투룸'을 선택해주세요.</p>
+                        <p class="add_text">* 다세대, 다가구의 경우 '원룸/투룸'을 선택해주세요.<br>등록가능지역 : 분당, 판교, 수지, 광교</p>
                     </div>
                     
                     <div id="insertInfoArea2">
@@ -419,8 +419,8 @@ function sidoListPrint(point)
 // 구군 리스트 가져오기
 function gugunListPrint(sido)
 {
-	$('#SIGUNGU_CODE').children().remove().end().append('<option value="">구/군선택</option>') ;
-	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동선택</option>') ;
+	$('#SIGUNGU_CODE').children().remove().end().append('<option value="">시/구/군 선택</option>') ;
+	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동 선택</option>') ;
 	$('#COMPLEX_IDX').children().remove().end().append('<option value="">단지선택</option>') ;
 	$('#DONG_PREV').children().remove().end().append('<option value="">동선택</option>') ;
 	$('#FLOOR_PREV').children().remove().end().append('<option value="">층선택</option>') ;
@@ -459,7 +459,7 @@ function gugunListPrint(sido)
 // 읍면동 리스트 가져오기
 function dongListPrint(gugun)
 {
-	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동선택</option>') ;
+	$('#DONG_CODE').children().remove().end().append('<option value="">읍/면/동 선택</option>') ;
 	$('#COMPLEX_IDX').children().remove().end().append('<option value="">단지선택</option>') ;
 	$('#DONG_PREV').children().remove().end().append('<option value="">동선택</option>') ;
 	$('#FLOOR_PREV').children().remove().end().append('<option value="">층선택</option>') ;
@@ -1176,7 +1176,7 @@ function sellstep1Proc()
 
 		var SIGUNGU_CODE = $("select[name=SIGUNGU_CODE]").val();
 		if(!SIGUNGU_CODE) {
-			swal('구/군을 선택해 주세요.');
+			swal('시/구/군을 선택해 주세요.');
 			return false;
 		}
 

@@ -81,7 +81,7 @@ var tooltip_nowmonth;
                             
                             <div class="itm_summ itm_exp">
                                 <p class="ex_info"><?php echo $min_supply_area_m2; ?>m²(<?php echo $MIN_SUPPLY_AREA_PYEONG; ?>평) ~ <?php echo $max_supply_area_m2; ?>m²(<?php echo $MAX_SUPPLY_AREA_PYEONG; ?>평)</p>
-                                <p class="ex_info"><?php echo $TOTAL_DONG_COUNT ?>동, <?php echo $HIGH_FLOOR; ?>층, <?php echo $TOTAL_HOUSE_HOLD_COUNT; ?>세대, <?php echo $CONSTRUCT_YEAR; ?>준공</p>
+                                <p class="ex_info"><?php echo $TOTAL_DONG_COUNT ?>개동, <?php echo $HIGH_FLOOR; ?>층, <?php echo $TOTAL_HOUSE_HOLD_COUNT; ?>세대, <?php echo $CONSTRUCT_YEAR; ?>준공 (여기는 단지정보입니다)</p>
                                 <p class="mark">1년내 실거래가기준</p>
                                 <p class="price"> <span class="s_type01"><b>매매</b> <script>document.write(fnrangeStr(<?php echo $CURR_SELL_MIN_PRICE * 10000; ?>, <?php echo $CURR_SELL_MAX_PRICE * 10000; ?>));</script></span> <span class="s_type02"><b>전세</b> <script>document.write(fnrangeStr(<?php echo $CURR_CHARTERED_MIN_PRICE * 10000; ?>, <?php echo $CURR_CHARTERED_MAX_PRICE * 10000; ?>));</script></span> </p>
                             </div>

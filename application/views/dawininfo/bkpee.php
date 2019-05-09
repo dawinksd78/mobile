@@ -23,7 +23,7 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th>거래금액</th>
+                                    <th>거래금액(매매/교환)</th>
                                     <th>상한요율</th>
                                     <th>다윈요율</th>
                                     <th>중개보수금액</th>
@@ -62,11 +62,11 @@
                               </tr>
                           </tbody>
                         </table>
-                    </div>
+                    <!-- /div>
                 </div>
                 <div class="box">
                     <p>2. 주택 (전세/월세)</p>
-                    <div class="tblwrap">
+                    <div class="tblwrap" -->
                         <table class="tbl_type01">
                             <colgroup>
                             <col width="30%">
@@ -76,7 +76,7 @@
                             </colgroup>
                             <thead>
                               <tr>
-                                <th>거래금액</th>
+                                <th>거래금액(전세/월세)</th>
                                 <th>상한요율</th>
                                 <th>다윈요율</th>
                                 <th>중개보수금액</th>
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <div class="box">
-                    <p>3. 주거용 오피스텔 (매매): 전용면적 85㎡(32평) 이하</p>
+                    <p>2. 주거용 오피스텔 (매매): 전용면적 85㎡(32평) 이하</p>
                     <div class="tblwrap">
                         <table class="tbl_type01">
                           <colgroup>
@@ -129,7 +129,7 @@
                           </colgroup>
                           <thead>
                             <tr>
-                              <th>거래금액</th>
+                              <th>거래금액(매매)</th>
                               <th>상한요율</th>
                               <th>다윈요율</th>
                               <th>중개보수금액</th>
@@ -150,11 +150,11 @@
                             </tr>
                           </tbody>                          
                         </table>
-                    </div>
+                    <!-- /div>
                 </div>
                 <div class="box">
                     <p>4. 주거용 오피스텔 : 전용면적 85㎡(32평) 이하</p>
-                    <div class="tblwrap">
+                    <div class="tblwrap" -->
                         <table class="tbl_type01">
                             <colgroup>
                             <col width="30%">
@@ -164,7 +164,7 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th>거래금액</th>
+                                    <th>거래금액(임대차)</th>
                                     <th>상한요율</th>
                                     <th>다윈요율</th>
                                     <th>중개보수금액</th>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class="box">
-                    <p>5. 주거용 오피스텔 : 전용면적 85㎡(32평) 초과</p>
+                    <p>3. 주거용 오피스텔 : 전용면적 85㎡(32평) 초과</p>
                     <div class="tblwrap">
                         <table class="tbl_type01">
                             <colgroup>
@@ -199,7 +199,7 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th>거래금액</th>
+                                    <th>거래금액(매매/임대차)</th>
                                     <th>상한요율</th>
                                     <th>다윈요율</th>
                                     <th>중개보수금액</th>

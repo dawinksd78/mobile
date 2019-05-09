@@ -492,4 +492,9 @@ $(document).ready(function(e){
 		datachanged = true;
 	});
 });
+
+//문자 제거
+$("#career").click(function(){
+	$(this).attr("placeholder", "");
+});
 </script>

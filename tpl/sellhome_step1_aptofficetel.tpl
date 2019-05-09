@@ -2,16 +2,16 @@
                     <div class="inpbox sch_inpbox">
                       	<div class="sch_area">
                         	<label for="itm_addr" class="lbl"><span id="addrTitle">아파트</span></label>
-                            <select name="SIDO_CODE" id="SIDO_CODE" title="시/도선택" class="selec" onchange="gugunListPrint(this.value)">
-                                <option value="">시/도선택</option>
+                            <select name="SIDO_CODE" id="SIDO_CODE" title="시/도 선택" class="selec" onchange="gugunListPrint(this.value)">
+                                <option value="">시/도 선택</option>
                             </select>
                             
                             <div class="flt">
-                                <select name="SIGUNGU_CODE" id="SIGUNGU_CODE" title="시/도/구선택" class="selec" onchange="dongListPrint(this.value)">
-                                    <option value="">구/군선택</option>
+                                <select name="SIGUNGU_CODE" id="SIGUNGU_CODE" title="시/구/군 선택" class="selec" onchange="dongListPrint(this.value)">
+                                    <option value="">시/구/군 선택</option>
                                 </select>
-                                <select name="DONG_CODE" id="DONG_CODE" title="읍/면/동선택" class="selec" onchange="dangiListPrint(this.value)">
-                                    <option value="">읍/면/동선택</option>
+                                <select name="DONG_CODE" id="DONG_CODE" title="읍/면/동 선택" class="selec" onchange="dangiListPrint(this.value)">
+                                    <option value="">읍/면/동 선택</option>
                                 </select>
                             </div>
                             

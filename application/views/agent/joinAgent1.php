@@ -65,7 +65,7 @@
                     </li>
                     <li class="s_jabg sjabg07 swiper-slide">
                         <div class="jatit_wrap">
-                            <p class="ja_tit01">하루종이 사무실에서<br>뻗치기 No!</p>
+                            <p class="ja_tit01">하루종일 사무실에서<br>뻗치기 No!</p>
                             <p class="ja_tit02">더 이상 하루 종일 사무실에서<br>대기할 필요가 없습니다.<br><b>모든 일은 언제, 어디서든 컴퓨터와 휴대폰으로.</b><br>이젠 근무시간과 근무장소를<br>자유롭게 활용하세요.
                         </div>
                     </li>
@@ -83,7 +83,7 @@
         
         <div class="btn_area bot_btn"> 
             <!-- 7개의 슬라이드를 모두 확인했을 경우 on 클래스 추가-->
-            <button type="button" class="btn_type03 on">중개사 회원 가입하기</button>
+            <button type="button" class="btn_type03 on">중개사회원 가입하기</button>
         </div>
     </section>
 </div>
